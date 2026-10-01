@@ -8,11 +8,12 @@
 pip install -r requirements.txt
 ```
 
-`.env`에 PMC API용 이메일을 추가합니다. NCBI는 API 사용자에게 연락처 표기를 요구합니다.
+`.env`에 PMC API용 이메일과 질병관리청 API 키를 추가합니다. NCBI는 API 사용자에게 연락처 표기를 요구합니다.
 
 ```
 OPENAI_API_KEY=...
 NCBI_EMAIL=본인이메일@example.com
+KDCA_API_KEY=질병관리청_발급_키
 ```
 
 ## 1. 수동 파일 등록
@@ -25,8 +26,11 @@ robots.txt가 자동 수집을 금지한 곳(보건복지부 게시판)의 문�
 - 미국 신체활동 지침 2판 (선택)
 
 ```bash
-python collect.py --import-dir manual_files --license "공공누리 확인 필요"
+python collect.py --import-dir manual_files/mohw --source-id mohw --source-name "보건복지부 (수동)" --license "공공누리 확인 필요"
+python collect.py --import-dir manual_files/rules --source-id rules --source-name "규칙 문서 (수동)" --license "공공누리 확인 필요" --note "규칙 문서"
 ```
+
+같은 문서를 한국건강증진개발원 자료실에서 코드로 받을 수 있으면 코드 수집본을 남기고 수동본은 '완전 중복' 또는 '내용 중복'으로 제외됩니다. 2026-09-30 기준 지침서·2025 비만·2026 비만이 이렇게 대체되었고, 2024 신체활동·비만과 2026 신체활동은 자료실에 PDF가 없어(HWP만 있거나 첨부 없음) 수동본을 씁니다.
 
 데이터코드 표에 수집방식 "수동"으로 기록됩니다. 리포트에는 "robots.txt 금지로 수동 수집"이라고 사유를 적습니다.
 
@@ -36,7 +40,20 @@ python collect.py --import-dir manual_files --license "공공누리 확인 필�
 python collect.py --dry-run        # 받을 대상만 확인
 python collect.py                  # 전체 수집
 python collect.py --only pmc-dm    # 특정 출처만
+python collect.py --judge-only     # 받지 않고 판정·표만 다시 만들기 (판정 기준을 바꿨을 때)
 ```
+
+### sources.csv 종류별 작성법
+
+| 종류 | URL | 그 밖의 칸 |
+| --- | --- | --- |
+| pdf | PDF 주소 (`{page}` 사용 가능) | |
+| page | 논문 소개 페이지·DOI 주소 | `citation_pdf_url` 메타태그를 먼저 쓰고, 없으면 파일링크패턴으로 찾음 |
+| html | 웹페이지 주소 | 본문선택자 (비우면 자동 추정) |
+| board | 게시판 목록 주소 | 상세링크패턴, 목록필터 |
+| pmc | 비움 | 검색어: PubMed 검색식 또는 PMCID 목록(`PMC123;PMC456`). 목록이 재현성이 좋음 |
+| khepi | 목록 주소 (`board_field_idx`로 분류, `pageNum={page}`) | 목록필터: 게시글 제목 정규식, 파일링크패턴: 첨부 파일명 정규식 |
+| kdca | 비움 | 검색어: 콘텐츠 번호 목록(`5305;3390;...`). 키는 `.env`의 `KDCA_API_KEY` |
 
 ## 3. 결과 확인
 
@@ -53,7 +70,7 @@ python collect.py --only pmc-dm    # 특정 출처만
 
 | 판정 | 기준 |
 | --- | --- |
-| 제외 | 전체 쪽의 90% 이상 텍스트 없음(텍스트 층 없는 PDF), 완전 중복, 다운로드 실패, 웹페이지 본문 200자 미만, PMC 본문 없음(초록만) |
+| 제외 | 전체 쪽의 90% 이상 텍스트 없음(텍스트 층 없는 PDF), 완전 중복(SHA256 같음), 내용 중복(10글자 조각 98% 이상 겹침), 다운로드 실패(웹페이지·이미지가 옴), 웹페이지 본문 200자 미만, PMC 본문 없음(초록만) |
 | 보류 | HWP 파일, 형식 불명 |
 | 사용 + 표시 | 텍스트 없는 쪽이 일부 있음(OCR 검토), 같은 언어 문서와 10글자 조각 기준 60% 이상 겹침(유사 문서) |
 
@@ -61,15 +78,16 @@ python collect.py --only pmc-dm    # 특정 출처만
 
 | 출처 | 방식 | 근거 |
 | --- | --- | --- |
-| 대한당뇨병학회 일반인 페이지 | html | robots.txt 확인 후 수집 |
-| J Korean Diabetes, 대한의사협회지 (KoreaMed Synapse) | pdf, page | robots.txt 확인 후 수집 |
-| 대한비만학회 진료지침, ADA 성명서 | page (DOI) | robots.txt 확인 후 수집 |
+| 대한당뇨병학회 일반인 페이지 | 수집 불가 | robots.txt와 본문 모두 403 응답 (2026-09-30). 필요하면 브라우저로 저장해 수동 등록 |
+| J Korean Diabetes, 대한의사협회지 (KoreaMed Synapse) | pdf | robots.txt 확인 후 수집. e-jkd.org는 외부 요청을 경고 이미지로 돌려보내서 Synapse 사본 사용 |
+| 대한비만학회 2020 진료지침, ADA 2016 성명서 | pmc | 출판사 사이트가 연결을 끊거나 403 응답 → PMC 사본. ADA는 PMC에 초록만 있어 제외 |
 | PubMed Central | pmc (E-utilities API) | 공식 API. robots.txt 대신 NCBI 이용 규칙(초당 3회 이하, tool·email 표기)을 따름 |
+| 한국건강증진개발원 자료실 | khepi | robots.txt 허용. 게시글·첨부가 자바스크립트 폼이라 목록 HTML의 숨은 입력값으로 첨부를 받음 |
 | 보건복지부 게시판 | 수동 | robots.txt가 발간자료 게시판 자동 수집 금지 |
-| 질병관리청 국가건강정보포털 | 보류 | 자동 접근 금지 응답 → 포털 Open API 신청 후 연결 |
+| 질병관리청 국가건강정보포털 | kdca (Open API) | 웹페이지는 자동 접근 금지 → Open API 승인(2026-09-30). 서버가 구형 TLS 재협상을 써서 이 서버에만 호환 옵션을 켬. 키는 주소에 들어가므로 manifest에는 키를 뺀 주소를 기록 |
 
 ## 남은 작업
 
-- 질병관리청 국가건강정보포털 Open API 신청 (포털 → 건강정보 활용방법 → Open API 신청). 승인 후 API 정보로 `#kdca` 줄을 연결합니다.
-- 한국건강증진개발원 자료실 목록 주소를 `#khepi` 줄에 넣고 `#`을 지웁니다.
-- PMC 문서는 영어입니다. 한국어 질문으로 영어 문서를 찾으려면 다국어 임베딩이 필요하며, 한국어 문서만 쓸 때와 비교하는 것을 개선 실험 후보로 둡니다.
+- 질병관리청 API가 본문 없이 제목만 주는 콘텐츠 3개(6781 대사증후군, 6785 고위험 임산부, 6758 노인 운동)는 수집 목록에서 뺐습니다. 포털에서 본문이 제공되면 다시 추가합니다.
+- PMC 문서는 영어입니다. 한국어 질문으로는 영어 논문이 잘 검색되지 않아, 검색 단계에서 질문을 영어로 번역해 함께 검색합니다(README의 '목표 재정리 후 검색 개선' 참고).
+- 2026-10-01 추가한 운동 생리 리뷰(`pmc-htn-ex`, `pmc-dm-ex`, `pmc-ob-ex`)는 질환×대상 빈칸을 기준으로 골랐습니다. 새 빈칸이 생기면 같은 방식으로 PMCID를 추가합니다.

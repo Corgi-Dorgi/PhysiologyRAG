@@ -14,7 +14,10 @@ PhysiologyRAG 문서 수집기 (2단계: 데이터 구축)
   page   논문 소개 페이지·게시글에서 첨부 PDF 링크를 찾아 받기 (DOI 주소도 가능)
   board  게시판 목록 → 게시글 → 첨부파일
   html   웹페이지 본문 텍스트 (URL에 {page} 사용 가능)
-  pmc    PubMed Central 공식 API(E-utilities)로 오픈액세스 논문 검색·수집
+  pmc    PubMed Central 공식 API(E-utilities)로 오픈액세스 논문 수집
+         검색어 칸에 검색식을 쓰거나, PMCID 목록(PMC123;PMC456)을 직접 적는다
+  khepi  한국건강증진개발원 자료실 (게시글·첨부가 자바스크립트 폼이라 전용 처리)
+  kdca   질병관리청 국가건강정보포털 Open API (검색어 칸에 cntntsSn 목록, 키는 .env의 KDCA_API_KEY)
 
 사용법은 docs/collect_guide.md 참고.
 """
@@ -25,13 +28,14 @@ import json
 import os
 import re
 import shutil
+import ssl
 import sys
 import time
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
 from urllib import robotparser
-from urllib.parse import unquote, urljoin, urlparse
+from urllib.parse import unquote, urlencode, urljoin, urlparse
 
 import pymupdf
 import requests
@@ -58,9 +62,11 @@ DEFAULT_DELAY = 3.0
 EMPTY_PAGE_CHARS = 20
 SCAN_RATIO = 0.9
 NEAR_DUP = 0.6
+SAME_TEXT = 0.98              # 10글자 조각이 이만큼 겹치면 같은 문서로 본다
 MIN_ARTICLE_CHARS = 1500      # pmc 본문이 이보다 짧으면 '초록만'으로 판정
 DEFAULT_FILE_PATTERN = r"\.pdf|\.hwpx?|download|filedown|atchfile|attach|article-pdf"
 EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+KDCA_API = "https://api.kdca.go.kr/api/provide/healthInfo"
 
 MANIFEST_FIELDS = [
     "문서ID", "출처ID", "출처명", "수집방식", "게시글제목", "URL", "원본파일명",
@@ -75,10 +81,21 @@ class Blocked(Exception):
     """robots.txt가 금지한 주소"""
 
 
+class LegacyTLSAdapter(requests.adapters.HTTPAdapter):
+    def init_poolmanager(self, *args, **kwargs):
+        ctx = ssl.create_default_context()
+        ctx.options |= getattr(ssl, "OP_LEGACY_SERVER_CONNECT", 0x4)
+        kwargs["ssl_context"] = ctx
+        return super().init_poolmanager(*args, **kwargs)
+
+
 class Fetcher:
     def __init__(self, delay):
         self.session = requests.Session()
         self.session.headers["User-Agent"] = USER_AGENT
+        # 질병관리청 API 서버는 오래된 TLS 재협상 방식을 써서 최신 OpenSSL이 연결을 거부한다.
+        # 이 서버에만 호환 옵션을 켠다 (다른 사이트의 보안 설정은 그대로).
+        self.session.mount("https://api.kdca.go.kr/", LegacyTLSAdapter())
         self.delay = delay
         self.robots = {}
         self.last_hit = {}
@@ -216,6 +233,8 @@ def detect_type(data, name):
     head = data[:8]
     if head.startswith(b"%PDF"):
         return "pdf"
+    if head.startswith((b"\xff\xd8\xff", b"\x89PNG", b"GIF8")):
+        return "image"
     if head.startswith(b"\xd0\xcf\x11\xe0"):
         return "hwp"
     if head.startswith(b"PK") and name.lower().endswith(".hwpx"):
@@ -271,7 +290,7 @@ def register(rows, *, url, data, name, src, method, title, forced_type=None):
     doc_id = old["문서ID"] if old else next_id(rows, src["출처ID"])
     ftype = forced_type or detect_type(data, name)
     ext = {"pdf": ".pdf", "hwp": ".hwp", "hwpx": ".hwpx", "html": ".html",
-           "pmc": ".xml", "web": ".html"}.get(ftype, ".bin")
+           "pmc": ".xml", "kdca": ".xml", "web": ".html", "image": ".img"}.get(ftype, ".bin")
     path = RAW / f"{doc_id}{ext}"
     note = (old or {}).get("비고", "")
     if old and path.exists():
@@ -327,8 +346,10 @@ def parse_pmc_article(xml_bytes):
     lic = art.find(".//permissions/license")
     license_txt = ""
     if lic is not None:
+        # 라이선스 주소는 ali:license_ref 또는 xlink:href에 있다. 둘 다 없으면 설명문 앞부분
+        ref = lic.find("{http://www.niso.org/schemas/ali/1.0/}license_ref")
         href = lic.get("{http://www.w3.org/1999/xlink}href", "")
-        license_txt = href or jats_text(lic)[:120]
+        license_txt = (jats_text(ref) if ref is not None else "") or href or jats_text(lic)[:120]
     lines = [f"# {title}", f"{journal} {year}", ""]
     abstract = meta.find("./abstract") if meta is not None else None
     if abstract is not None:
@@ -371,13 +392,19 @@ def collect_pmc(src, fetcher, rows, dry_run, log):
     if os.getenv("NCBI_API_KEY"):
         base["api_key"] = os.getenv("NCBI_API_KEY")
     term = src.get("검색어", "").strip()
-    retmax = int(src.get("최대개수") or 10)
-    r = fetcher.get(f"{EUTILS}/esearch.fcgi", check_robots=False, min_gap=0.4,
-                    params={**base, "db": "pmc", "term": term, "retmax": retmax,
-                            "retmode": "json", "sort": "relevance"})
-    res = r.json().get("esearchresult", {})
-    ids = res.get("idlist", [])
-    log(f"  검색 결과 {res.get('count', '?')}건 중 {len(ids)}건 수집")
+    listed = re.findall(r"PMC(\d+)", term)
+    if listed and not re.sub(r"PMC\d+|[\s;,]", "", term):
+        # PMCID를 직접 적은 경우: 검색 결과 순서에 좌우되지 않고 항상 같은 문서를 받는다
+        ids = listed
+        log(f"  지정 문서 {len(ids)}건 수집")
+    else:
+        retmax = int(src.get("최대개수") or 10)
+        r = fetcher.get(f"{EUTILS}/esearch.fcgi", check_robots=False, min_gap=0.4,
+                        params={**base, "db": "pmc", "term": term, "retmax": retmax,
+                                "retmode": "json", "sort": "relevance"})
+        res = r.json().get("esearchresult", {})
+        ids = res.get("idlist", [])
+        log(f"  검색 결과 {res.get('count', '?')}건 중 {len(ids)}건 수집")
     for pmcid in ids:
         url = f"https://pmc.ncbi.nlm.nih.gov/articles/PMC{pmcid}/"
         if dry_run:
@@ -405,6 +432,104 @@ def collect_pmc(src, fetcher, rows, dry_run, log):
         if not info["has_body"]:
             row["비고"] = (row.get("비고", "") + " | 출판사가 본문 XML 미제공").strip(" |")
         log(f"  {doc_id} {status}: {info['title'][:50]}")
+
+
+# ── 질병관리청 국가건강정보포털 Open API ─────────────
+def parse_kdca(xml_bytes):
+    """건강정보 XML → 제목과 '## 섹션' 텍스트 (PMC 텍스트와 같은 모양이라 chunk.py가 그대로 읽는다).
+    같은 이름의 섹션이 이어지면 합치고, 이미지 다운로드 주소만 있는 칸과 참고문헌은 뺀다."""
+    root = ET.fromstring(xml_bytes)
+    code = root.findtext("./HEAD/CODE", "").strip()
+    if code != "S001":
+        return {"error": f"{code} {root.findtext('./HEAD/MESSAGE', '').strip()}"}
+    svc = root.find("./svc")
+    title = (svc.findtext("CNTNTSSJ") or "").strip()
+    sections = []
+    for cl in svc.iter("cntntsCl"):
+        name = (cl.findtext("CNTNTS_CL_NM") or "").strip()
+        body = (cl.findtext("CNTNTS_CL_CN") or "").strip()
+        if not body or re.fullmatch(r"https?://\S+", body) or name == "참고문헌":
+            continue
+        body = BeautifulSoup(body, "html.parser").get_text("\n") if re.search(r"<[a-zA-Z/]", body) else body
+        body = re.sub(r"\n{3,}", "\n\n", body.replace("\r", ""))
+        if sections and sections[-1][0] == name:
+            sections[-1][1].append(body)
+        else:
+            sections.append((name, [body]))
+    lines = [f"# {title}", "질병관리청 국가건강정보포털", ""]
+    for name, bodies in sections:
+        lines += [f"## {name}", *bodies, ""]
+    return {"title": title, "text": "\n".join(lines)}
+
+
+def collect_kdca(src, fetcher, rows, dry_run, log):
+    """cntntsSn(콘텐츠 번호)마다 건강정보 XML을 받는다.
+    API 키는 주소에 들어가므로 .env에서 읽고, manifest에는 키를 뺀 주소를 기록한다."""
+    key = os.getenv("KDCA_API_KEY", "")
+    if not key:
+        log("  .env에 KDCA_API_KEY 없음 → 건너뜀")
+        return
+    sns = re.findall(r"\d+", src.get("검색어", ""))
+    log(f"  지정 문서 {len(sns)}건")
+    for sn in sns:
+        url = f"{KDCA_API}?cntntsSn={sn}"                 # manifest용 (키 없음)
+        try:
+            r = fetcher.get(url, params={"TOKEN": key}, check_robots=False, min_gap=1.0)
+            info = parse_kdca(r.content)
+        except (requests.RequestException, ET.ParseError) as e:
+            log(f"  {sn} 실패: {str(e).replace(key, '***')}")
+            continue
+        if "error" in info:
+            log(f"  {sn} API 오류: {info['error']}")
+            continue
+        if dry_run:
+            log(f"  [미리보기] {sn} {info['title']} ({count_chars(info['text']):,}자)")
+            continue
+        doc_id, status = register(rows, url=url, data=r.content, name=f"kdca-{sn}.xml",
+                                  src=src, method="코드(API)", title=info["title"],
+                                  forced_type="kdca")
+        txt = TEXT / f"{doc_id}.txt"
+        txt.write_text(info["text"], encoding="utf-8")
+        rows[url]["저장경로"] = str(txt.relative_to(ROOT))
+        log(f"  {doc_id} {status}: {info['title']}")
+
+
+# ── 한국건강증진개발원 자료실 ─────────────────────────
+KHEPI_FILE_RE = re.compile(
+    r'userFileName\d+" value="([^"]+)"\s*/>\s*'
+    r'<input type="hidden" id="systemFileName\d+" value="([^"]+)"\s*/>\s*'
+    r'<input type="hidden" id="titleId\d+" value="(\d+)"\s*/>\s*'
+    r'<input type="hidden" id="fileId\d+" value="(\d+)"')
+KHEPI_POST_RE = re.compile(r"fnGoPublish\('(\d+)'\)\">(.*?)</a>", re.S)
+
+
+def collect_khepi(src, fetcher, rows, dry_run, log):
+    """게시글 링크·첨부 버튼이 모두 자바스크립트라서 목록 HTML의 숨은 입력값을 읽는다.
+    URL: 목록 주소(분류 필터 포함, {page} 자리에 쪽 번호), 목록필터: 게시글 제목 정규식.
+    첨부는 목록 화면의 다운로드 폼(/kps/publish/fileDownload)과 같은 값으로 받는다."""
+    for pg in expand_pages(src.get("쪽범위")):
+        list_url = src["URL"].replace("{page}", str(pg or 1))
+        r = fetcher.get(list_url)
+        titles = {i: BeautifulSoup(t, "html.parser").get_text(" ", strip=True)
+                  for i, t in KHEPI_POST_RE.findall(r.text)}
+        files = KHEPI_FILE_RE.findall(r.text)
+        log(f"  목록 {pg or 1}쪽: 게시글 {len(titles)}개, 첨부 {len(files)}개")
+        for user_name, sys_name, title_id, file_id in files:
+            title = titles.get(title_id, "")
+            if src.get("목록필터") and not re.search(src["목록필터"], title):
+                continue
+            if not re.search(src.get("파일링크패턴") or r"\.pdf$", user_name, re.I):
+                continue
+            url = urljoin(r.url, "/kps/publish/fileDownload?" + urlencode({
+                "fileGubun": "site", "menuId": "publishMgr", "userFileName": user_name,
+                "systemFileName": sys_name, "titleId": title_id, "fileId": file_id}))
+            if dry_run:
+                log(f"  [미리보기] {title[:40]} → {user_name}")
+                continue
+            f = fetcher.get(url, referer=list_url)
+            doc_id, status = register(rows, url=url, data=f.content, name=user_name,
+                                      src=src, method="코드", title=title)
+            log(f"  {doc_id} {status}: {user_name}")
 
 
 # ── 출처 종류별 수집 ─────────────────────────────────
@@ -437,7 +562,13 @@ def collect_source(src, fetcher, rows, dry_run, log):
             return
         r = fetcher.get(page_url)
         title = page_title(r.text)
-        files = find_links(r.text, r.url, file_pat)
+        # 학술지 페이지는 대부분 citation_pdf_url 메타태그로 본문 PDF를 알려준다.
+        # 링크 패턴으로 찾으면 '관련 논문' PDF를 잘못 받을 수 있어서 메타태그를 먼저 쓴다.
+        meta = BeautifulSoup(r.text, "html.parser").find("meta", attrs={"name": "citation_pdf_url"})
+        if meta and meta.get("content"):
+            files = [(urljoin(r.url, meta["content"]), "citation_pdf_url")]
+        else:
+            files = find_links(r.text, r.url, file_pat)
         if not files:
             log(f"  첨부 링크 없음: {page_url} (파일링크패턴 확인)")
         for furl, _ in files[:3]:   # 같은 PDF가 여러 링크로 걸린 경우가 많아 앞쪽 3개까지만
@@ -488,6 +619,10 @@ def collect_source(src, fetcher, rows, dry_run, log):
                     safe(grab_page_files, purl)
     elif kind == "pmc":
         safe(collect_pmc, src, fetcher, rows, dry_run, log)
+    elif kind == "kdca":
+        safe(collect_kdca, src, fetcher, rows, dry_run, log)
+    elif kind == "khepi":
+        safe(collect_khepi, src, fetcher, rows, dry_run, log)
     else:
         log(f"  알 수 없는 종류 '{kind}'")
 
@@ -539,12 +674,14 @@ def chunk_set(text, n=10):
 
 def judge_all(rows):
     by_sha = {}
-    for row in sorted(rows.values(), key=lambda r: r["문서ID"]):
+    # 완전 중복이면 먼저 본 문서를 남긴다: 재현 가능한 코드 수집본을 수동 등록본보다 앞에 둔다
+    order = sorted(rows.values(), key=lambda r: (r["수집방식"] == "수동", r["문서ID"]))
+    for row in order:
         doc_id, ftype = row["문서ID"], row["형식"]
         info = {}
         if ftype == "pdf":
             info = inspect_pdf(ROOT / row["저장경로"], doc_id)
-        elif ftype in ("web", "pmc"):
+        elif ftype in ("web", "pmc", "kdca"):
             t = doc_text(row)
             info = {"pages": 1, "chars": count_chars(t), "text": t, "empty": []}
         empty = info.get("empty", [])
@@ -561,12 +698,16 @@ def judge_all(rows):
             verdict, reason = "보류", "HWP 파일: PDF 변환 또는 HWP 파서 필요"
         elif ftype == "html":
             verdict, reason = "제외", "파일 대신 웹페이지가 옴(다운로드 실패 가능성)"
+        elif ftype == "image":
+            verdict, reason = "제외", "파일 대신 이미지가 옴(외부 링크 차단 가능성)"
         elif ftype == "unknown":
             verdict, reason = "보류", "형식 알 수 없음"
         elif "error" in info:
             verdict, reason = "제외", info["error"]
         elif ftype == "web" and info["chars"] < 200:
             verdict, reason = "제외", "본문이 거의 없음(본문선택자 확인)"
+        elif ftype == "kdca" and info["chars"] < 200:
+            verdict, reason = "제외", "API가 본문 없이 제목만 제공"
         elif ftype == "pmc" and info["chars"] < MIN_ARTICLE_CHARS:
             verdict, reason = "제외", "본문 없음(초록만 제공)"
         elif ftype == "pdf" and info.get("pages"):
@@ -578,16 +719,24 @@ def judge_all(rows):
         by_sha.setdefault(row["SHA256"], doc_id)
         row["판정_자동"], row["판정사유"] = verdict, reason
 
-    live = {r["문서ID"]: r for r in rows.values() if r["판정_자동"] != "제외"}
+    # 파일은 달라도(메타데이터만 다른 재배포본) 본문이 같으면 내용 중복으로 제외
+    live = {r["문서ID"]: r for r in order
+            if r["판정_자동"] != "제외" and r.get("판정_수동") != "제외"}
+    ids = list(live)
     sets = {i: chunk_set(doc_text(r)) for i, r in live.items()}
-    for a in live:
-        for b in live:
-            if a >= b or not sets[a] or not sets[b] or live[a]["언어"] != live[b]["언어"]:
+    for n, a in enumerate(ids):
+        for b in ids[n + 1:]:
+            if not sets[a] or not sets[b] or live[a]["언어"] != live[b]["언어"]:
                 continue
             inter, union = len(sets[a] & sets[b]), len(sets[a] | sets[b])
-            if union and inter / union >= NEAR_DUP:
-                pct = f"{100 * inter / union:.0f}%"
-                for x, y in ((a, b), (b, a)):
+            if not union or inter / union < NEAR_DUP:
+                continue
+            if inter / union >= SAME_TEXT and live[a]["판정_자동"] == "사용":
+                live[b]["판정_자동"], live[b]["판정사유"] = "제외", f"내용 중복: {a}"
+                continue
+            pct = f"{100 * inter / union:.0f}%"
+            for x, y in ((a, b), (b, a)):
+                if live[x]["판정_자동"] == "사용":
                     live[x]["판정사유"] = (live[x]["판정사유"] + f" | 유사: {y} {pct}").strip(" |")
 
 
@@ -625,8 +774,8 @@ def write_summary(rows):
                           for r in sorted(rows.values(), key=lambda r: r["문서ID"])]
                          ).to_excel(xw, sheet_name="문서목록", index=False)
             pd.DataFrame(table + [total]).to_excel(xw, sheet_name="출처별요약", index=False)
-    except ImportError:
-        pass
+    except ImportError as e:
+        print(f"엑셀 표를 만들지 못함 ({e}) → pip install pandas openpyxl")
     return total
 
 
@@ -642,6 +791,7 @@ def main():
     ap.add_argument("--source-name", default="수동 수집", help="--import-dir 파일의 출처명")
     ap.add_argument("--note", default="", help="--import-dir 파일의 비고 (예: 규칙 문서)")
     ap.add_argument("--delay", type=float, default=DEFAULT_DELAY)
+    ap.add_argument("--judge-only", action="store_true", help="받지 않고 판정·표만 다시 만들기")
     args = ap.parse_args()
 
     RAW.mkdir(parents=True, exist_ok=True)
@@ -649,7 +799,9 @@ def main():
     rows = load_manifest()
     log = print
 
-    if args.import_dir:
+    if args.judge_only:
+        pass
+    elif args.import_dir:
         log(f"[수동 등록] {args.import_dir}")
         import_local(args.import_dir, rows, args.license, log,
                      args.source_id, args.source_name, args.note)

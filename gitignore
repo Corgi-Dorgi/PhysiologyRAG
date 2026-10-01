@@ -1,6 +1,0 @@
-.env
-chroma_db/
-**/data/raw/
-**/data/text/
-manual_files/
-__pycache__/

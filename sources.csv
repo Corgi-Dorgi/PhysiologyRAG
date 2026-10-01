@@ -1,18 +1,22 @@
 ﻿출처ID,출처명,종류,URL,쪽범위,목록필터,상세링크패턴,파일링크패턴,본문선택자,검색어,최대개수,이용조건,메모
-kda-exercise,대한당뇨병학회 일반인: 당뇨병과 운동,html,https://www.diabetes.or.kr/general/exercise/exercise_0{page}.php,1-8,,,,,,,"저작권 대한당뇨병학회, 원문 비공개",운동 메뉴 8개 페이지
-jkd-resist,당뇨병환자의 저항운동 (J Korean Diabetes 2025),pdf,https://www.e-jkd.org/upload/pdf/jkd-2025-26-4-193.pdf,,,,,,,,CC BY-NC 4.0,
-jkd-hiit,고강도 간헐적 운동과 당뇨병 (J Korean Diabetes 2024),page,https://www.e-jkd.org/journal/view.php?doi=10.4093%2Fjkd.2024.25.4.224,,,,upload/pdf,,,,CC BY-NC 4.0,논문 소개 페이지에서 PDF 링크 찾기
+#kda-exercise,대한당뇨병학회 일반인: 당뇨병과 운동,html,https://www.diabetes.or.kr/general/exercise/exercise_0{page}.php,1-8,,,,,,,"저작권 대한당뇨병학회, 원문 비공개","운동 메뉴 8개 페이지. 2026-09-30 확인: robots.txt와 본문 모두 403 응답 → 코드 수집 불가, 필요하면 수동 저장"
+jkd-resist,당뇨병환자의 저항운동 (J Korean Diabetes 2025),pdf,https://synapse.koreamed.org/upload/synapsexml/0178jkd/pdf/jkd-2025-26-4-193.pdf,,,,,,,,CC BY-NC 4.0,e-jkd.org는 외부 요청을 경고 이미지로 돌려보내서 KoreaMed Synapse 사본 사용
+jkd-hiit,고강도 간헐적 운동과 당뇨병 (J Korean Diabetes 2024),pdf,https://synapse.koreamed.org/upload/synapsexml/0178jkd/pdf/jkd-2024-25-4-224.pdf,,,,,,,,CC BY-NC 4.0,e-jkd.org는 외부 요청을 경고 이미지로 돌려보내서 KoreaMed Synapse 사본 사용
 jkd-elderly,노인 당뇨병 관리 (J Korean Diabetes 2024),pdf,https://synapse.koreamed.org/upload/synapsexml/0178jkd/pdf/jkd-2024-25-3-157.pdf,,,,,,,,CC BY-NC 4.0,노인 운동 권고 포함
 jkd-acsm-ada,운동과 제2형 당뇨병: ACSM·ADA 공동 권고안 (J Korean Diabetes 2012),pdf,https://synapse.koreamed.org/upload/synapsedata/pdfdata/0178jkd/jkd-13-61.pdf,,,,,,,,CC BY-NC,구 권고 → 버전 충돌 소재
 jkd-complication,진행된 합병증이 있는 환자에서 운동 (J Korean Diabetes 2011),pdf,https://synapse.koreamed.org/upload/synapsedata/pdfdata/0178jkd/jkd-12-33.pdf,,,,,,,,CC BY-NC,최대심박수 50~70% 등 구 기준 → 버전 충돌 소재
 jkd-epi,운동과 당뇨병의 역학 (J Korean Diabetes 2011),pdf,https://synapse.koreamed.org/upload/synapsedata/pdfdata/0178jkd/jkd-12-13.pdf,,,,,,,,CC BY-NC,
 jkma-dm,"당뇨병과 운동 (대한의사협회지 48권, 2005)",pdf,https://synapse.koreamed.org/upload/synapsedata/pdfdata/1119jkma/jkma-48-822.pdf,,,,,,,,확인 필요,오래된 자료
 jkma-obesity,"비만 관리의 과학적 근거 (대한의사협회지 54권, 2011)",pdf,https://synapse.koreamed.org/upload/synapsedata/pdfdata/0119jkma/jkma-54-250.pdf,,,,,,,,확인 필요,
-ksso-2020,2020 대한비만학회 비만 진료지침 요약 (JOMES 2021),page,https://doi.org/10.7570/jomes21022,,,,\.pdf,,,,CC BY-NC 4.0,
-ada-2016,ADA 신체활동·운동과 당뇨병 성명서 (Diabetes Care 2016),page,https://doi.org/10.2337/dc16-1728,,,,article-pdf|\.pdf,,,,"교육·비영리 목적, 변경 금지",
-pmc-dm,PMC: Diabetes Metab J 운동·진료지침,pmc,,,,,,,"""Diabetes Metab J""[Journal] AND (exercise[Title] OR ""physical activity""[Title] OR ""clinical practice guidelines""[Title]) AND ""open access""[filter]",8,논문별 라이선스 자동 기록,
-pmc-htn,PMC: Clin Hypertens 한국 고혈압 지침,pmc,,,,,,,"""Clin Hypertens""[Journal] AND (Korean[Title] OR Korea[Title]) AND (guideline[Title] OR guidelines[Title] OR exercise[Title]) AND ""open access""[filter]",6,논문별 라이선스 자동 기록,한국어 고혈압 운동 자료가 부족해서 보충
-pmc-ob,PMC: J Obes Metab Syndr 운동·진료지침,pmc,,,,,,,"""J Obes Metab Syndr""[Journal] AND (exercise[Title] OR ""physical activity""[Title] OR guideline[Title] OR guidelines[Title]) AND ""open access""[filter]",8,논문별 라이선스 자동 기록,
-#kdca,질병관리청 국가건강정보포털,html,,,,,,,,,공공누리 확인,"robots.txt가 자동 접근 금지 → 포털 Open API 신청 후 연결. 대상 cntnts_sn: 6251 신체활동, 5293 운동, 5305 당뇨병, 3390 당뇨환자의 운동요법, 5303 고혈압 환자의 운동요법, 6694 비만"
-khepi,한국건강증진개발원 자료실,board,https://www.khepi.or.kr/kps/publish/list?menuId=MENU00890&page_no=B2017003,1-3,신체활동|비만|운동|지침,,,,,,공공누리 확인,robots.txt 허용(두 경로 제외). 보건복지부 문서의 대체 출처
+ksso-2020,2020 대한비만학회 비만 진료지침 요약 (JOMES 2021),pmc,,,,,,,PMC8277596,,논문별 라이선스 자동 기록,doi.org → jomes.org 연결이 끊겨서 PMC 사본 사용
+ada-2016,ADA 신체활동·운동과 당뇨병 성명서 (Diabetes Care 2016),pmc,,,,,,,PMC6908414,,논문별 라이선스 자동 기록,diabetesjournals.org가 403 응답 → PMC 사본 사용
+pmc-dm,PMC: Diabetes Metab J 당뇨병 진료지침·운동 연구,pmc,,,,,,,PMC10555541;PMC12270580;PMC4995180;PMC6581545;PMC9925155;PMC12813391;PMC3753486;PMC4543197;PMC3579147;PMC13366153;PMC9171157,,논문별 라이선스 자동 기록,"관련도순 검색이 기초의학 논문을 많이 가져와서 PMCID 지정으로 변경(2026-09-30). 후보 검색식: ""Diabetes Metab J""[Journal] AND (exercise[Title] OR ""clinical practice guidelines""[Title]) | 2026-10-01 운동 생리·항상성 기전 논문 복원"
+pmc-htn,PMC: Clin Hypertens 한국 고혈압 진료지침,pmc,,,,,,,PMC13197191;PMC9930285;PMC6670210;PMC6670135;PMC6670160;PMC4745141,,논문별 라이선스 자동 기록,한국어 고혈압 운동 자료가 부족해서 보충. 2013 지침 Part II는 구 기준(버전 충돌 소재)
+pmc-ob,PMC: J Obes Metab Syndr 비만 진료지침·운동 연구,pmc,,,,,,,PMC6484940;PMC10088549;PMC12884621;PMC6939705;PMC8735821;PMC11000518;PMC9284569;PMC6489454;PMC10088548;PMC6774442,,논문별 라이선스 자동 기록,관련도순 검색이 정정문·편지·기초의학 논문을 가져와서 PMCID 지정으로 변경(2026-09-30) | 2026-10-01 운동 생리·항상성 기전 논문 복원
+pmc-htn-ex,PMC: 고혈압 운동 생리·대상별 운동 리뷰,pmc,,,,,,,PMC5455108;PMC6306405;PMC4315351;PMC8841576;PMC11239608;PMC11263987;PMC6945051;PMC7512073;PMC12953251;PMC6163560;PMC7393595;PMC7225346,,논문별 라이선스 자동 기록,"운동 중 혈압 반응·신경 조절·운동 후 저혈압·발살바, 노인·소아·폐경 여성·임신 고혈압, 성별 혈역학 차이 (2026-10-01)"
+pmc-dm-ex,PMC: 당뇨 운동 생리·대상별 운동 리뷰,pmc,,,,,,,PMC6587067;PMC6950062;PMC6203053;PMC4410598;PMC4861190;PMC11604676;PMC9225431;PMC7788350;PMC9957258;PMC8046020,,논문별 라이선스 자동 기록,"1형·2형 운동 관리, 저혈당·체온조절·자율신경병증 기전, 노인·청소년·여성·임신당뇨 (2026-10-01)"
+pmc-ob-ex,PMC: 비만 운동 생리·대상별 운동 리뷰,pmc,,,,,,,PMC11596326;PMC8103043;PMC9366852;PMC6848658,,논문별 라이선스 자동 기록,"비만 운동 기전, 소아 비만, 노인 근감소성 비만, 비만 자율신경병증 (2026-10-01)"
+kdca,질병관리청 국가건강정보포털,kdca,,,,,,,6694;5304;6765;5305;6691;3329;5416;6301;6388;6725;6483;3390;6309;5303;6902;6899;6901;6900;6886;6698;5306,,공공누리 확인,"Open API 승인(2026-09-30). 키는 .env의 KDCA_API_KEY, 검색어 칸은 콘텐츠 번호(cntntsSn). 서버가 구형 TLS라 호환 옵션 사용 | 본문 없이 제목만 주는 3건(6781 대사증후군, 6785 고위험 임산부, 6758 노인 운동)은 목록에서 뺌(2026-10-01)"
+khepi-pa,한국건강증진개발원 자료실: 신체활동,khepi,https://www.khepi.or.kr/kps/publish/list?menuId=MENU00890&page_no=B2017003&board_field_idx=46&pageNum={page},1-2,20(2[4-6])년 지역사회 통합건강증진사업\((신체활동|비만예방관리)\) 안내서|신체활동 지침서|'어운완'\) 운영 매뉴얼|'건강올임'\) 안내서,,\.pdf$,,,,공공누리 확인 필요,robots.txt 허용. 보건복지부 수동 등록 문서의 코드 수집 경로(같은 파일이면 완전 중복으로 수동본 제외)
+khepi-ob,한국건강증진개발원 자료실: 비만,khepi,https://www.khepi.or.kr/kps/publish/list?menuId=MENU00890&page_no=B2017003&board_field_idx=49&pageNum={page},1-2,20(2[4-6])년 지역사회 통합건강증진사업\((신체활동|비만예방관리)\) 안내서|신체활동 지침서|'어운완'\) 운영 매뉴얼|'건강올임'\) 안내서,,\.pdf$,,,,공공누리 확인 필요,robots.txt 허용. 연도판(2024~2026) 비교용
 #pag,미국 신체활동 지침 2판 (2018),pdf,여기에_PDF_주소,,,,,,,,미국 정부 저작물,지금은 수동 등록 파일 사용

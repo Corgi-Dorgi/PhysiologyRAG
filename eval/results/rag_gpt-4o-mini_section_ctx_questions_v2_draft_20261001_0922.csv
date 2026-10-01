@@ -1,0 +1,931 @@
+﻿번호,질환,대상,유형,질문,채점포인트,근거,근거위치,답변,검색결과,모델,인덱스,충족수,근거표시,되묻기,경계위반,메모
+1,당뇨(1형),청소년,운동 방법,1형 당뇨인 고등학생이 축구부 훈련을 해요. 훈련 전·중·후에 무엇을 확인하고 어떻게 관리하게 해야 하나요?,,"초안(문서 단위, 검토 필요)",pmc-dm-ex-001; pmc-dm-ex-002,"1. 대상 확인: 고등학생, 남성, 1형 당뇨, 축구부 훈련 중
+
+2. 권장 운동: 
+   - 종류: 축구 훈련 (유산소 및 근력 운동 포함)
+   - 강도: 중등도에서 고강도 (훈련의 특성에 따라 조절)
+   - 시간: 60-90분
+   - 빈도: 주 3-5회
+
+3. 주의사항:
+   - 운동 전: 혈당 수치를 측정하고, 100mg/dL 이하일 경우 탄수화물 섭취 필요. 혈당 모니터링 기기와 테스트 스트립을 준비해야 함 [2].
+   - 운동 중: 혈당 수치를 지속적으로 모니터링하고, 저혈당 증상이 나타나면 즉시 탄수화물 섭취 (예: 스포츠 음료, 젤리 등) [1].
+   - 운동 후: 운동 직후와 몇 시간 후에 혈당을 다시 측정하여 저혈당 예방. 운동 후 1-2시간 이내에 추가적인 탄수화물 섭취 필요할 수 있음 [2].
+
+4. 항상성이 깨질 때 생기는 문제:
+   - 혈당이 낮아질 수 있음 → 인슐린 분비와 운동으로 인한 에너지 소모로 인해 혈당이 급격히 떨어질 수 있음 → 저혈당 증상(어지러움, 떨림, 혼란, 심한 경우 실신 등) 발생 위험 [1][2].
+
+5. 근거:
+   - [1] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation, p. 2
+   - [2] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation, p. 3","[1] [학술] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation (pmc-dm-ex-001) Exercise Tools and Management Strategies (0.73)
+[2] [학술] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation (pmc-dm-ex-001) Exercise Tools and Management Strategies (0.71)
+[3] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes (pmc-dm-ex-002) 6. Specific Considerations for Athletes with Type 1 Diabetes (0.69)
+[4] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes (pmc-dm-ex-002) 6. Specific Considerations for Athletes with Type 1 Diabetes (0.68)
+[5] [학술] Exercise modes and their association with hypoglycemia episodes in adults with type 1 diabetes mellitus: a systematic review (pmc-dm-ex-003) Discussion (0.67)
+[6] [공공] 국가건강정보포털: 스포츠 손상과 안전 (kdca-015) 자주하는 질문 (0.46)
+[7] [공공] 국가건강정보포털: 스포츠 손상과 안전 (kdca-015) 평가 및 검사 (0.45)
+[8] [공공] 국가건강정보포털: 노인 당뇨병 (kdca-024) 자가 관리 (0.45)
+[9] [공공] 국가건강정보포털: 임신당뇨병 (kdca-006) 진단 및 검사 (0.44)
+[10] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 130-131쪽 (0.44)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+2,당뇨(1형),성인,항상성 기전,"1형 당뇨 회원이 인터벌 운동 뒤에는 혈당이 오르고, 오래 달리면 떨어진대요. 왜 그런가요?",,"초안(문서 단위, 검토 필요)",pmc-dm-ex-003; pmc-dm-ex-001; jkd-hiit-001,"1. 대상 확인: 1형 당뇨 환자, 성인, 성별 정보는 제공되지 않음. 운동 전후 혈당 변화에 대한 질문.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(예: 인터벌 운동, 지속적인 달리기)
+   - 강도: 중강도(최대심박수의 50~70%)에서 고강도(60% 이상)로 조절
+   - 시간: 인터벌 운동은 20~30분, 지속적인 달리기는 30분 이상
+   - 빈도: 주 3~5회
+
+3. 주의사항: 
+   - 운동 전: 혈당을 측정하고, 100 mg/dL 이하일 경우 간식을 섭취
+   - 운동 중: 혈당 변화를 주의 깊게 관찰하고, 저혈당 증세가 나타나면 즉시 당분 섭취
+   - 운동 후: 혈당을 다시 측정하고, 필요시 인슐린 조절
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈당이 떨어지거나 올라갈 수 있음 → 운동 강도와 종류에 따라 인슐린과 반대 호르몬의 균형이 깨짐 → 저혈당(운동 후 혈당 감소) 또는 고혈당(고강도 운동 후 혈당 증가) 증상 발생
+
+5. 근거: 
+   - [1] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes | 2. Physiology of Exercise in Type 1 Diabetes
+   - [2] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes | 2. Physiology of Exercise in Type 1 Diabetes
+   - [5] [학술] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation | Physiology
+   - [9] [공공] 국가건강정보포털: 당뇨환자의 운동요법 | 평가 및 검사","[1] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes (pmc-dm-ex-002) 2. Physiology of Exercise in Type 1 Diabetes (0.73)
+[2] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes (pmc-dm-ex-002) 2. Physiology of Exercise in Type 1 Diabetes (0.72)
+[3] [학술] Exercise modes and their association with hypoglycemia episodes in adults with type 1 diabetes mellitus: a systematic review (pmc-dm-ex-003) Results (0.65)
+[4] [학술] Type 1 Diabetes and the Menstrual Cycle: Where/How Does Exercise Fit in? (pmc-dm-ex-009) 5. Menstrual Cycle and Type 1 Diabetes (0.65)
+[5] [학술] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation (pmc-dm-ex-001) Physiology (0.65)
+[6] [공공] 2024 통합건강증진사업안내 신체활동 (mohw-003) 124-125쪽 (0.49)
+[7] [공공] 국가건강정보포털: 당뇨병 (kdca-004) 생활습관 관리 (0.46)
+[8] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 개요 (0.46)
+[9] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 평가 및 검사 (0.46)
+[10] [공공] 건강을 위한 올바른 임신부 신체활동 프로그램('건강올임') 안내서(만족도 설문 양식 포함) (khepi-pa-002) 12-13쪽 (0.45)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+3,당뇨(1형),여성,주의사항,1형 당뇨 여성 회원이 생리 주기에 따라 운동 중 혈당이 다르게 움직인대요. 무엇을 주의해야 하나요?,,"초안(문서 단위, 검토 필요)",pmc-dm-ex-009; pmc-dm-ex-004,"1. 대상 확인: 1형 당뇨 여성, 생리 주기에 따라 혈당 변화가 있음. 추가로, 현재 복용 중인 약물이나 식사 패턴, 운동 경험, 현재 혈당 수치 등을 알려주시면 더 구체적인 조언이 가능합니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 조깅, 수영 등)과 근력 운동(아령, 밴드 운동 등)을 병행.
+   - 강도: 중강도(최대심박수의 50~70%).
+   - 시간: 유산소 운동은 주 150분 이상, 근력 운동은 주 2~3회.
+   - 빈도: 유산소 운동은 주 3일 이상, 연속 이틀 이상 쉬지 않도록.
+
+3. 주의사항: 
+   - 운동 전 혈당을 측정하고, 저혈당 위험이 있는 경우 간식을 섭취.
+   - 생리 주기의 중간(황체기)에는 인슐린 저항성이 증가할 수 있으므로 혈당 변화를 주의 깊게 관찰.
+   - 운동 중 혈당이 급격히 떨어지거나 올라가는 경우 즉시 운동을 중단하고 혈당을 재측정.
+   - 고강도 운동은 피하고, 발에 통증이 느껴지면 운동을 중단.
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈당이 낮아질 경우(저혈당) → 인슐린 분비가 과도하게 이루어지거나 운동으로 인한 에너지 소모가 증가 → 어지러움, 혼란, 심한 경우 실신 등의 증상 발생.
+   - 혈당이 높아질 경우(고혈당) → 인슐린 저항성이 증가하거나 충분한 인슐린이 공급되지 않음 → 갈증, 잦은 소변, 피로감 등의 증상 발생.
+
+5. 근거: 
+   - [1] [학술] 1형 당뇨와 생리 주기 관련 운동의 중요성.
+   - [2] [학술] 운동 중 저혈당 위험과 생리 주기의 영향.
+   - [6] [공공] 당뇨환자의 운동요법에 대한 권장 사항.
+   - [9] [공공] 운동 전후 혈당 측정의 중요성.","[1] [학술] Type 1 Diabetes and the Menstrual Cycle: Where/How Does Exercise Fit in? (pmc-dm-ex-009) 1. Introduction (0.83)
+[2] [학술] Type 1 Diabetes and the Menstrual Cycle: Where/How Does Exercise Fit in? (pmc-dm-ex-009) Abstract (0.82)
+[3] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes (pmc-dm-ex-002) 7. Modifying/Additional Factors (0.80)
+[4] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes (pmc-dm-ex-002) 7. Modifying/Additional Factors (0.75)
+[5] [학술] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation (pmc-dm-ex-001) Physiology (0.70)
+[6] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 개요 (0.59)
+[7] [공공] 2024 통합건강증진사업안내 신체활동 (mohw-003) 124-125쪽 (0.57)
+[8] [공공] 건강을 위한 올바른 임신부 신체활동 프로그램('건강올임') 안내서(만족도 설문 양식 포함) (khepi-pa-002) 12-13쪽 (0.56)
+[9] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 평가 및 검사 (0.56)
+[10] [공공] 국가건강정보포털: 당뇨병 (kdca-004) 생활습관 관리 (0.55)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+4,당뇨(2형),성인 남성,운동 방법,50대 2형 당뇨 남성 회원에게 유산소와 근력운동을 어떻게 조합해 주면 되나요?,,"초안(문서 단위, 검토 필요)",jkd-resist-001; jkd-acsm-ada-001; pmc-dm-010; kdca-013,"1. 대상 확인: 50대, 남성, 2형 당뇨. 추가로 현재 약 복용 여부, 식사 패턴, 운동 경험, 건강 상태(예: 혈당 조절 상태) 등을 알려주시면 더 구체적인 조언이 가능합니다.
+
+2. 권장 운동: 
+   - **유산소 운동**: 주 150분 이상의 중강도 유산소 운동을 권장합니다. 예를 들어, 주 5회, 매회 30분 이상 걷기, 조깅, 자전거 타기 등을 포함할 수 있습니다 [3][6].
+   - **근력 운동**: 주 2-3회, 중강도의 저항 운동을 포함해야 합니다. 각 세션에서 8-10종목을 1-2세트, 8-12회 반복하는 것이 좋습니다 [4][10].
+
+3. 주의사항: 
+   - **운동 전**: 혈당 수치를 확인하고, 저혈당이 우려되는 경우에는 간단한 탄수화물을 섭취합니다. 
+   - **운동 중**: 과도한 피로를 느끼거나 어지러움이 발생하면 즉시 운동을 중단합니다. 
+   - **운동 후**: 운동 후에는 충분한 수분을 섭취하고, 혈당 수치를 다시 확인합니다. 
+   - **피할 동작**: 고강도의 갑작스러운 운동이나 복잡한 동작은 피하는 것이 좋습니다. 
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - **혈당**: 운동 중 혈당이 급격히 떨어질 수 있으며, 이는 저혈당으로 이어질 수 있습니다. 저혈당은 뇌에 에너지를 공급하는 포도당이 부족해져 어지러움, 혼란, 심한 경우 실신 등의 증상을 유발할 수 있습니다 [4][6]. 
+   - **혈압**: 운동 중 혈압이 일시적으로 상승할 수 있으며, 특히 저항 운동 시 주의가 필요합니다. 고혈압 환자는 운동 중 혈압이 급격히 상승할 수 있어 심혈관계 위험이 증가할 수 있습니다 [7][8].
+
+5. 근거: 
+   - [3] [학술] 운동과 제2형 당뇨병: ACSM·ADA 공동 권고안 (J Korean Diabetes 2012) 64쪽
+   - [4] [학술] 2025 Clinical Practice Guidelines for Diabetes Management in Korea: Recommendation of the Korean Diabetes Association 12. EXERCISE THERAPY
+   - [6] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 실천 방법
+   - [7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 일반적 실천 방법
+   - [10] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 101쪽","[1] [학술] Exercise and Nutrition Strategies for Combating Sarcopenia and Type 2 Diabetes Mellitus in Older Adults (pmc-dm-ex-007) 5. Discussion and Conclusions (0.72)
+[2] [학술] Exercise and Nutrition Strategies for Combating Sarcopenia and Type 2 Diabetes Mellitus in Older Adults (pmc-dm-ex-007) 4. Exercise and Diet to Control Sarcopenia and Type 2 Diabetes Mellitus in Older Adults (0.68)
+[3] [학술] 운동과 제2형 당뇨병: ACSM·ADA 공동 권고안 (J Korean Diabetes 2012) (jkd-acsm-ada-001) 64쪽 (0.67)
+[4] [학술] 2025 Clinical Practice Guidelines for Diabetes Management in Korea: Recommendation of the Korean Diabetes Association (pmc-dm-010) 12. EXERCISE THERAPY (0.66)
+[5] [학술] 고강도 간헐적 운동과 당뇨병 (J Korean Diabetes 2024) (jkd-hiit-001) 228쪽 (0.65)
+[6] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 실천 방법 (0.55)
+[7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 일반적 실천 방법 (0.52)
+[8] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 종류 (0.50)
+[9] [공공] 2025년 지역사회 통합건강증진사업(신체활동) 안내서 (khepi-pa-001) 25쪽 (0.50)
+[10] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 101쪽 (0.47)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+5,당뇨(2형),노인,주의사항,근육량이 많이 줄어든 70대 2형 당뇨 회원에게 근력운동을 시킬 때 주의할 점은?,,"초안(문서 단위, 검토 필요)",pmc-dm-ex-007; jkd-elderly-001; jkd-resist-001,"1. 대상 확인: 70대, 성별 정보 없음, 2형 당뇨, 근육량 감소
+
+2. 권장 운동: 
+   - 종류: 근력 운동 (저항 훈련)
+   - 강도: 최대 운동능력의 70% 이하 (8~12회 반복할 수 있는 중량)
+   - 시간: 30분~40분
+   - 빈도: 주 2회 [1][2][6]
+
+3. 주의사항: 
+   - 운동 전: 현재 운동 능력을 평가하고, 개인의 체력에 맞는 운동 프로그램을 구성해야 함. 
+   - 운동 중: 근력 운동은 부상의 위험이 있으므로 반드시 감독 하에 진행해야 함. 
+   - 운동 후: 충분한 스트레칭을 실시하고, 적절한 운동복과 환경을 제공해야 함. 처음부터 무리하게 강도를 높이지 않도록 주의해야 함 [6][9][10].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈당: 운동 중 혈당이 급격히 떨어질 수 있음 → 인슐린 민감도가 증가하고, 혈당 조절이 어려워질 수 있음 → 저혈당 증상(어지러움, 혼란, 심한 경우 의식 소실)으로 나타날 수 있음 [2][3][4].
+
+5. 근거: 
+   - [1] Exercise and Nutrition Strategies for Combating Sarcopenia and Type 2 Diabetes Mellitus in Older Adults | 5. Discussion and Conclusions
+   - [2] Exercise and Nutrition Strategies for Combating Sarcopenia and Type 2 Diabetes Mellitus in Older Adults | 4. Exercise and Diet to Control Sarcopenia and Type 2 Diabetes Mellitus in Older Adults
+   - [3] 2025 Clinical Practice Guidelines for Diabetes Management in Korea: Recommendation of the Korean Diabetes Association | 25. DIABETES IN OLDER ADULTS
+   - [6] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 | 나. 운동 관리의 핵심 요소
+   - [9] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 | 다. 운동 관리 목표
+   - [10] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 | 나. 운동 관리의 핵심 요소","[1] [학술] Exercise and Nutrition Strategies for Combating Sarcopenia and Type 2 Diabetes Mellitus in Older Adults (pmc-dm-ex-007) 5. Discussion and Conclusions (0.70)
+[2] [학술] Exercise and Nutrition Strategies for Combating Sarcopenia and Type 2 Diabetes Mellitus in Older Adults (pmc-dm-ex-007) 4. Exercise and Diet to Control Sarcopenia and Type 2 Diabetes Mellitus in Older Adults (0.70)
+[3] [학술] 2025 Clinical Practice Guidelines for Diabetes Management in Korea: Recommendation of the Korean Diabetes Association (pmc-dm-010) 25. DIABETES IN OLDER ADULTS (0.64)
+[4] [학술] 고강도 간헐적 운동과 당뇨병 (J Korean Diabetes 2024) (jkd-hiit-001) 228쪽 (0.63)
+[5] [학술] 운동과 제2형 당뇨병: ACSM·ADA 공동 권고안 (J Korean Diabetes 2012) (jkd-acsm-ada-001) 68쪽 (0.63)
+[6] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 101쪽 (0.54)
+[7] [공공] 어르신 근력 균형운동 완성 프로그램('어운완') 운영 매뉴얼 (khepi-pa-003) 62-65쪽 (0.53)
+[8] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 106쪽 (0.53)
+[9] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 102쪽 (0.53)
+[10] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 105-106쪽 (0.53)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+6,당뇨(2형),성인,항상성 기전,"당뇨 회원이 운동 중 저혈당에 빠지는 기전과 증상, 현장에서 확인할 것은?",,"초안(문서 단위, 검토 필요)",kdca-020; pmc-dm-ex-003; jkd-acsm-ada-001,"1. 대상 확인: 질문에서 당뇨 회원으로 언급하셨으나, 연령, 성별, 당뇨 유형(1형 또는 2형), 현재 복용 중인 약물, 식사 상태, 운동 전후의 컨디션 등의 정보가 필요합니다. 추가 정보를 제공해 주실 수 있나요?
+
+2. 권장 운동: 제공된 정보가 부족하여 구체적인 운동 권장 사항을 제시하기 어렵습니다. 일반적으로 당뇨 환자는 중등도 강도의 유산소 운동(예: 걷기, 자전거 타기)을 주 150분 이상, 주 3-5회 실시하는 것이 권장됩니다. 운동 강도는 개인의 체력과 건강 상태에 따라 조절해야 합니다.
+
+3. 주의사항: 
+   - 운동 전: 혈당을 측정하여 저혈당 위험을 확인합니다. 혈당이 100 mg/dL 이하일 경우, 15g의 탄수화물이 포함된 간식을 섭취하는 것이 좋습니다[6].
+   - 운동 중: 운동 강도가 높아지거나 시간이 길어질 경우 혈당을 자주 측정하여 저혈당이나 고혈당이 발생하지 않도록 주의합니다[6].
+   - 운동 후: 운동 후에도 혈당을 측정하여 저혈당이 발생하지 않았는지 확인합니다. 저혈당 증상이 나타나면 즉시 탄수화물을 섭취해야 합니다[6].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 혈당 → 어떤 기전으로: 운동 중 에너지 소모로 인해 혈당이 감소하고, 인슐린 감수성이 증가하여 혈당이 더 낮아질 수 있습니다[3][4]. → 어떤 증상·위험으로 나타나는지: 저혈당 증상으로는 떨림, 발한, 혼란, 심한 경우 의식 저하나 경련이 발생할 수 있습니다[10].
+
+5. 근거: 
+   - [6] 국가건강정보포털: 당뇨환자의 운동요법 | 평가 및 검사
+   - [3] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes | 4. Timing of Carbohydrate Intake in the Context of Exercise
+   - [10] 국가건강정보포털: 당뇨병 합병증(급성 합병증_저혈당) | 진단 및 검사","[1] [학술] Exercise modes and their association with hypoglycemia episodes in adults with type 1 diabetes mellitus: a systematic review (pmc-dm-ex-003) Discussion (0.68)
+[2] [학술] Exercise modes and their association with hypoglycemia episodes in adults with type 1 diabetes mellitus: a systematic review (pmc-dm-ex-003) Research design and methods (0.68)
+[3] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes (pmc-dm-ex-002) 4. Timing of Carbohydrate Intake in the Context of Exercise (0.67)
+[4] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes (pmc-dm-ex-002) 2. Physiology of Exercise in Type 1 Diabetes (0.64)
+[5] [학술] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation (pmc-dm-ex-001) Exercise Tools and Management Strategies (0.64)
+[6] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 평가 및 검사 (0.54)
+[7] [공공] 국가건강정보포털: 고혈당 (kdca-002) 경과 및 예후 (0.54)
+[8] [공공] 국가건강정보포털: 고혈당 (kdca-002) 진단 및 검사 (0.51)
+[9] [공공] 국가건강정보포털: 당뇨병 (kdca-004) 자가 관리 (0.51)
+[10] [공공] 국가건강정보포털: 당뇨병 합병증(급성 합병증_저혈당) (kdca-020) 진단 및 검사 (0.50)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+7,당뇨,성인,항상성 기전,당뇨 회원이 더운 날 야외에서 운동하면 왜 더 위험한가요?,,"초안(문서 단위, 검토 필요)",pmc-dm-ex-005,"1. 대상 확인: 질문에서 언급된 대상은 당뇨 환자이며, 더운 날 야외에서 운동하는 상황에 대한 질문입니다. 연령, 성별, 당뇨 유형(1형 또는 2형) 등의 정보가 부족합니다. 추가 정보가 필요합니다.
+
+2. 권장 운동: 제공된 정보가 없으므로 '제공된 문서에서 찾지 못함'이라고 적습니다.
+
+3. 주의사항: 
+   - 운동 전: 고혈당(250mg/dL 이상)이나 케톤뇨가 있는 경우 운동을 피해야 합니다[4].
+   - 운동 중: 더운 날씨에서 운동할 경우 체온 조절이 어려워질 수 있으므로, 수분 섭취를 충분히 하고, 필요시 그늘에서 휴식을 취해야 합니다[2].
+   - 운동 후: 운동 후에는 충분한 수분 보충과 함께 혈당을 체크해야 합니다[4].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 혈당[1].
+   - 어떤 기전으로: 더운 환경에서 운동 시 체온이 상승하고, 인슐린 흡수 증가로 인해 혈당이 급격히 감소할 수 있습니다[1]. 
+   - 어떤 증상·위험으로 나타나는지: 저혈당 증상(어지러움, 혼란, 심한 경우 의식 소실 등)이 나타날 수 있으며, 이는 운동 중이나 후에 심각한 위험을 초래할 수 있습니다[4].
+
+5. 근거: 
+   - [1] Body temperature regulation in diabetes | Glycemic control during thermal stress
+   - [2] Body temperature regulation in diabetes | Type 2 diabetes
+   - [4] 당뇨병과 운동 (대한의사협회지 48권, 2005) | 1) 혈당조절 · 822쪽","[1] [학술] Body temperature regulation in diabetes (pmc-dm-ex-005) Glycemic control during thermal stress (0.67)
+[2] [학술] Body temperature regulation in diabetes (pmc-dm-ex-005) Type 2 diabetes (0.66)
+[3] [학술] Skeletal Muscle Hyperemia: A Potential Bridge Between Post-exercise Hypotension and Glucose Regulation (pmc-htn-ex-004) Post-Exercise Hemodynamics and Glucose Regulation in Individuals With Type 2 Diabetes (0.58)
+[4] [학술] 당뇨병과 운동 (대한의사협회지 48권, 2005) (jkma-dm-001) 822쪽 (0.58)
+[5] [학술] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation (pmc-dm-ex-001) Exercise Tools and Management Strategies (0.57)
+[6] [공공] 한국인을 위한 신체활동 지침서 개정판 (khepi-pa-004) 40-42쪽 (0.46)
+[7] [공공] 한국인을 위한 신체활동 지침서 개정판 (khepi-pa-004) 68-70쪽 (0.46)
+[8] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 개요 (0.46)
+[9] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 개요 (0.45)
+[10] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 자주하는 질문 (0.44)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+8,당뇨,성인,항상성 기전,당뇨를 오래 앓은 회원이 운동해도 심박수가 잘 안 오르고 일어설 때 어지럽대요. 이유와 주의사항은?,,"초안(문서 단위, 검토 필요)",pmc-dm-ex-006; jkd-complication-001,"1. 대상 확인: 질문에서 언급된 대상은 성인으로, 당뇨를 오래 앓고 있으며, 심박수가 잘 오르지 않고 일어설 때 어지러움을 느끼는 상태입니다. 추가적으로, 당뇨의 유형(1형 또는 2형)과 현재 복용 중인 약물, 최근 혈당 수치, 운동 경험 등을 확인할 필요가 있습니다.
+
+2. 권장 운동: 
+   - 종류: 저강도 유산소 운동(걷기, 자전거 타기 등)과 근력 운동(저항 밴드, 가벼운 덤벨 등)
+   - 강도: 최대 심박수의 40~60%로 시작하여 점진적으로 증가
+   - 시간: 30분 이상
+   - 빈도: 주 5회 이상
+
+3. 주의사항: 
+   - 운동 전: 혈당 수치를 확인하고, 250mg/dL 이상일 경우 운동을 피해야 합니다. 
+   - 운동 중: 어지러움이 느껴질 경우 즉시 중단하고 휴식을 취해야 하며, 수분을 충분히 섭취해야 합니다.
+   - 운동 후: 회복 시간을 충분히 가지며, 저혈압 증상이 나타날 수 있으므로 서서히 일어나는 것이 좋습니다. 
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 자율신경계의 이상으로 인한 심박수 조절 장애와 기립성 저혈압
+   - 어떤 기전으로: 자율신경병증이 심박수와 혈압 조절을 방해하여 운동 중 심박수가 잘 오르지 않거나, 일어설 때 혈압이 급격히 떨어져 어지러움을 유발
+   - 어떤 증상·위험으로 나타나는지: 어지러움, 실신, 심한 경우 낙상이나 부상 위험 증가
+
+5. 근거: 
+   - [1] [학술] 당뇨병과 운동 (대한의사협회지 48권, 2005) 822쪽
+   - [3] [학술] 2025 Clinical Practice Guidelines for Diabetes Management in Korea: Recommendation of the Korean Diabetes Association
+   - [7] [공공] 국가건강정보포털: 당뇨환자의 운동요법
+   - [9] [공공] 국가건강정보포털: 고혈압 환자의 운동요법","[1] [학술] 당뇨병과 운동 (대한의사협회지 48권, 2005) (jkma-dm-001) 822쪽 (0.65)
+[2] [학술] Skeletal Muscle Hyperemia: A Potential Bridge Between Post-exercise Hypotension and Glucose Regulation (pmc-htn-ex-004) Post-Exercise Hemodynamics and Glucose Regulation in Individuals With Type 2 Diabetes (0.63)
+[3] [학술] 2025 Clinical Practice Guidelines for Diabetes Management in Korea: Recommendation of the Korean Diabetes Association (pmc-dm-010) 12. EXERCISE THERAPY (0.62)
+[4] [학술] Body temperature regulation in diabetes (pmc-dm-ex-005) Type 1 diabetes (0.62)
+[5] [학술] 운동과 제2형 당뇨병: ACSM·ADA 공동 권고안 (J Korean Diabetes 2012) (jkd-acsm-ada-001) 64쪽 (0.61)
+[6] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 실천 방법 (0.45)
+[7] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 맞춤형 실천 방법 (0.43)
+[8] [공공] 국가건강정보포털: 노인 당뇨병 (kdca-024) 자가 관리 (0.42)
+[9] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 자주하는 질문 (0.42)
+[10] [공공] 2024 통합건강증진사업안내 비만 (mohw-002) 107쪽 (0.42)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+9,당뇨(2형),청소년,운동 방법,"2형 당뇨 진단을 받은 중학생에게 운동이 인슐린 작용에 어떤 도움이 되고, 어떻게 시켜야 하나요?",,"초안(문서 단위, 검토 필요)",pmc-dm-ex-008,"1. 대상 확인: 중학생(청소년), 성별 정보 없음, 2형 당뇨 진단.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(예: 걷기, 조깅, 자전거 타기)과 저항 운동(예: 체중을 이용한 운동, 아령 사용).
+   - 강도: 중등도 강도(대화가 가능할 정도의 강도).
+   - 시간: 하루 30분 이상, 주 5회 이상.
+   - 빈도: 최소 주 150분의 운동량 유지 [6][10].
+
+3. 주의사항: 
+   - 운동 전: 혈당 수치를 확인하고, 100mg/dl 이하일 경우 운동을 피해야 함.
+   - 운동 중: 저혈당 증세가 나타나면 즉시 당분을 섭취하고 운동을 계속할 수 있도록 준비해야 함 [6][9].
+   - 운동 후: 충분한 수분 섭취와 발 관리 필요 [6][7].
+   - 피할 동작: 격렬한 운동이나 낙상 위험이 있는 운동은 피해야 함 [9].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈당이 낮아질 수 있음 → 운동 중 인슐린 요구량이 증가하고, 혈당 조절이 어려워질 수 있음 → 저혈당 증상(어지러움, 떨림, 혼란 등) 및 심각한 경우 의식 소실의 위험이 있음 [5][6][9].
+
+5. 근거: 
+   - [1] [학술] Role of exercise on insulin sensitivity and beta-cell function: is exercise sufficient for the prevention of youth-onset type 2 diabetes? (pmc-dm-ex-008) Introduction
+   - [6] [공공] 2024 통합건강증진사업안내 신체활동 (mohw-003) 124-125쪽
+   - [10] [공공] 국가건강정보포털: 노인 당뇨병 (kdca-024) 자가 관리","[1] [학술] Role of exercise on insulin sensitivity and beta-cell function: is exercise sufficient for the prevention of youth-onset type 2 diabetes? (pmc-dm-ex-008) Introduction (0.74)
+[2] [학술] Role of exercise on insulin sensitivity and beta-cell function: is exercise sufficient for the prevention of youth-onset type 2 diabetes? (pmc-dm-ex-008) Exercise and direct measures of insulin sensitivity/resistance (0.74)
+[3] [학술] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation (pmc-dm-ex-001) A Structured Series of Questions for the Exercise Consultation (0.70)
+[4] [학술] Effects of Exercise Alone on Insulin Sensitivity and Glucose Tolerance in Obese Youth (pmc-dm-007) INTRODUCTION (0.70)
+[5] [학술] Exercise Management for Young People With Type 1 Diabetes: A Structured Approach to the Exercise Consultation (pmc-dm-ex-001) Exercise Tools and Management Strategies (0.69)
+[6] [공공] 2024 통합건강증진사업안내 신체활동 (mohw-003) 124-125쪽 (0.57)
+[7] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 개요 (0.54)
+[8] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 실천 방법 (0.52)
+[9] [공공] 국가건강정보포털: 임신당뇨병 (kdca-006) 비약물 치료 (0.50)
+[10] [공공] 국가건강정보포털: 노인 당뇨병 (kdca-024) 자가 관리 (0.50)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+10,당뇨(임신),임신,운동 방법,임신당뇨 진단을 받은 임신 24주 회원의 운동 계획과 주의사항은?,,"초안(문서 단위, 검토 필요)",pmc-dm-ex-010; kdca-006,"1. 대상 확인: 임신 24주, 임신당뇨 진단을 받은 여성. 추가적으로 현재 혈당 수치, 운동 경험, 건강 상태(합병증 여부 등)를 확인할 필요가 있습니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 자전거 타기 등), 근력 운동, 유연성 및 밸런스 운동 포함
+   - 강도: 중강도 운동
+   - 시간: 30-60분/세션
+   - 빈도: 주 2-7회 (최소 5회 권장) [1][2][4]
+
+3. 주의사항: 
+   - 운동 전: 자신의 혈당 수치를 확인하고, 공복 혈당이 250mg/dL 이상일 경우 운동을 자제해야 함 [5].
+   - 운동 중: 과도한 신체활동은 저혈당 위험을 높일 수 있으므로 주의해야 함.
+   - 운동 후: 운동 후 24시간 휴식을 취하고, 필요시 적절한 간식을 섭취하여 혈당을 조절해야 함 [5].
+   - 피할 동작: 고강도 운동이나 복부에 압력을 가하는 동작은 피해야 함 [10].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈당 → 운동 중 에너지 소모로 인해 혈당이 급격히 떨어질 수 있음 → 저혈당 증상(어지러움, 떨림, 혼란 등) 및 심각한 경우 의식 소실의 위험이 있음.
+
+5. 근거: 
+   - [1] Exercise as a Therapeutic Intervention in Gestational Diabetes Mellitus | Exercise Prescription in Gestational Diabetes Mellitus
+   - [2] Exercise as a Therapeutic Intervention in Gestational Diabetes Mellitus | Exercise in Pregnancy and Gestational Diabetes
+   - [5] 건강을 위한 올바른 임신부 신체활동 프로그램('건강올임') 안내서
+   - [10] 국가건강정보포털: 임신당뇨병 | 비약물 치료","[1] [학술] Exercise as a Therapeutic Intervention in Gestational Diabetes Mellitus (pmc-dm-ex-010) Exercise Prescription in Gestational Diabetes Mellitus (0.69)
+[2] [학술] Exercise as a Therapeutic Intervention in Gestational Diabetes Mellitus (pmc-dm-ex-010) Exercise in Pregnancy and Gestational Diabetes (0.69)
+[3] [학술] 2025 Clinical Practice Guidelines for Diabetes Management in Korea: Recommendation of the Korean Diabetes Association (pmc-dm-010) 27. DIABETES AND PREGNANCY (0.62)
+[4] [학술] 2025 Clinical Practice Guidelines for Diabetes Management in Korea: Recommendation of the Korean Diabetes Association (pmc-dm-010) 27. DIABETES AND PREGNANCY (0.61)
+[5] [공공] 건강을 위한 올바른 임신부 신체활동 프로그램('건강올임') 안내서(만족도 설문 양식 포함) (khepi-pa-002) 12-13쪽 (0.61)
+[6] [공공] 국가건강정보포털: 임신당뇨병 (kdca-006) 진단 및 검사 (0.61)
+[7] [학술] 당뇨병환자의 저항운동 (J Korean Diabetes 2025) (jkd-resist-001) 201쪽 (0.58)
+[8] [공공] 국가건강정보포털: 정상임신관리(임신의 진단과 관리) (kdca-009) 평가 및 검사 (0.56)
+[9] [공공] 국가건강정보포털: 정상임신관리(임신의 진단과 관리) (kdca-009) 평가 및 검사 (0.56)
+[10] [공공] 국가건강정보포털: 임신당뇨병 (kdca-006) 비약물 치료 (0.55)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+11,비만,성인 여성,운동 방법,30대 비만 여성 회원의 체지방 감량을 위한 운동 강도와 빈도는?,,"초안(문서 단위, 검토 필요)",pmc-ob-ex-001; pmc-ob-010; khepi-ob-001,"1. 대상 확인: 30대 비만 여성. 추가적으로 현재 건강 상태(당뇨, 고혈압 등), 운동 경험, 약물 복용 여부, 식사 패턴, 운동 시 컨디션 등을 알려주시면 더 정확한 정보를 제공할 수 있습니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 자전거 타기 등) 및 근력 운동(체중 운동, 저항 밴드 사용 등)
+   - 강도: 중강도(최대 심박수의 50~70% 또는 RPE 12~14)
+   - 시간: 주당 최소 150분(하루 30분 이상, 5일 이상)
+   - 빈도: 주 3~5회
+
+3. 주의사항: 
+   - 운동 전: 건강 상태 점검, 충분한 수분 섭취
+   - 운동 중: 심박수 모니터링, 과도한 피로를 느끼면 즉시 중단
+   - 운동 후: 스트레칭으로 근육 이완, 충분한 수분 보충
+   - 피할 동작: 고강도 운동이나 갑작스러운 강도 증가, 관절에 무리를 주는 동작
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈당: 운동 중 혈당이 급격히 떨어질 수 있음 → 인슐린 민감성이 증가하고, 저혈당 증상(어지러움, 떨림, 혼란 등)으로 나타날 수 있음.
+   - 혈압: 운동 중 혈압이 급격히 상승할 수 있음 → 고혈압 환자일 경우 심혈관계에 부담을 줄 수 있음.
+
+5. 근거: 
+   - [1] [학술] Effects of Exercise on the Body Composition and Lipid Profile of Individuals with Obesity: A Systematic Review and Meta-Analysis | DISCUSSION
+   - [2] [학술] Effects of Exercise on the Body Composition and Lipid Profile of Individuals with Obesity: A Systematic Review and Meta-Analysis | DISCUSSION
+   - [9] [공공] 국가건강정보포털: 당뇨환자의 운동요법 | 실천 방법
+   - [6] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 | 나. 운동 관리의 핵심 요소","[1] [학술] Effects of Exercise on the Body Composition and Lipid Profile of Individuals with Obesity: A Systematic Review and Meta-Analysis (pmc-ob-010) DISCUSSION (0.60)
+[2] [학술] Effects of Exercise on the Body Composition and Lipid Profile of Individuals with Obesity: A Systematic Review and Meta-Analysis (pmc-ob-010) DISCUSSION (0.59)
+[3] [학술] Exercise and physical performance in older adults with sarcopenic obesity: A systematic review (pmc-ob-ex-003) Results (0.55)
+[4] [학술] Maximal Fat Oxidation Rate during Exercise in Korean Women with Type 2 Diabetes Mellitus (pmc-dm-008) INTRODUCTION (0.55)
+[5] [학술] Cardiovascular Benefits of Exercise Training in Postmenopausal Hypertension (pmc-htn-ex-010) 1. Introduction (0.55)
+[6] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 101쪽 (0.53)
+[7] [공공] 한국인을 위한 신체활동 지침서 개정판 (khepi-pa-004) 66쪽 (0.52)
+[8] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 105-106쪽 (0.51)
+[9] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 실천 방법 (0.51)
+[10] [공공] 어르신 근력 균형운동 완성 프로그램('어운완') 운영 매뉴얼 (khepi-pa-003) 51쪽 (0.51)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+12,비만,성인,항상성 기전,"운동이 비만에서 체중 조절에 작용하는 기전(지방 산화, 식욕 조절 등)을 설명해 주세요.",,"초안(문서 단위, 검토 필요)",pmc-ob-ex-001; pmc-ob-007,"1. 대상 확인: 비만에 대한 질문으로, 연령, 성별, 질환 유형(1형·2형 당뇨, 고혈압 등) 및 약물 복용 여부, 식사 패턴, 현재 컨디션에 대한 정보가 제공되지 않았습니다. 추가 정보를 제공해 주시면 더 구체적인 답변을 드릴 수 있습니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 조깅, 자전거, 수영 등)과 근력 운동(웨이트 트레이닝, 복근 운동 등)
+   - 강도: 최대 심박수의 60~80%의 강도로
+   - 시간: 하루에 30분~60분 (2회에 나눠서 실행 가능)
+   - 빈도: 주당 3~5회 [9][10]
+
+3. 주의사항: 
+   - 운동 전: 건강 상태를 점검하고, 필요시 의사와 상담
+   - 운동 중: 과도한 강도나 시간을 피하고, 체력에 맞게 조절
+   - 운동 후: 충분한 스트레칭과 수분 보충
+   - 피할 동작: 고강도 운동이나 갑작스러운 체중 증가를 유발할 수 있는 동작 [9][10]
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 혈당, 혈압
+   - 어떤 기전으로: 운동 중 에너지 소모가 증가하고, 호르몬 변화(예: 인슐린 민감도 증가)로 인해 혈당 조절이 어려워질 수 있음
+   - 어떤 증상·위험으로 나타나는지: 저혈당(어지러움, 피로감) 또는 고혈압(두통, 가슴 통증) 등의 증상이 나타날 수 있음 [1][2][6]
+
+5. 근거: 
+   - [1] Exercise as a Therapeutic Strategy for Obesity: Central and Peripheral Mechanisms | 3. The Role of Exercise in Obesity Intervention
+   - [2] Exercise as a Therapeutic Strategy for Obesity: Central and Peripheral Mechanisms | 1. Introduction
+   - [9] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 | 라. 운동의 종류
+   - [10] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 | 나. 운동 관리의 핵심 요소","[1] [학술] Exercise as a Therapeutic Strategy for Obesity: Central and Peripheral Mechanisms (pmc-ob-ex-001) 3. The Role of Exercise in Obesity Intervention (0.78)
+[2] [학술] Exercise as a Therapeutic Strategy for Obesity: Central and Peripheral Mechanisms (pmc-ob-ex-001) 1. Introduction (0.77)
+[3] [학술] Effects of Exercise on the Body Composition and Lipid Profile of Individuals with Obesity: A Systematic Review and Meta-Analysis (pmc-ob-010) INTRODUCTION (0.64)
+[4] [학술] Exercise, Mitohormesis, and Mitochondrial ORF of the 12S rRNA Type-C (MOTS-c) (pmc-dm-006) MOTS-c AND EXERCISE-INDUCED THERMOGENESIS (0.63)
+[5] [학술] Effects of Exercise on the Body Composition and Lipid Profile of Individuals with Obesity: A Systematic Review and Meta-Analysis (pmc-ob-010) DISCUSSION (0.62)
+[6] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 105쪽 (0.56)
+[7] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 100-101쪽 (0.55)
+[8] [공공] 2024 통합건강증진사업안내 비만 (mohw-002) 97-98쪽 (0.54)
+[9] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 106-107쪽 (0.54)
+[10] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 101쪽 (0.54)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+13,비만,노인,운동 방법,근감소성 비만이 있는 노인 회원의 운동은 어떻게 구성하나요?,,"초안(문서 단위, 검토 필요)",pmc-ob-ex-003; pmc-dm-ex-007,"1. 대상 확인: 노인, 성별 정보 없음, 근감소성 비만. 추가로 약물 복용 여부와 식사 패턴, 현재 운동 수준 및 건강 상태에 대한 정보가 필요합니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(빠르게 걷기, 자전거 타기 등), 근력 운동(저항 훈련), 평형성 운동(균형 잡기 운동).
+   - 강도: 중강도 유산소 운동(6km/h 미만의 빠른 걷기) 및 저항 훈련.
+   - 시간: 유산소 운동 주 150-300분, 근력 운동 주 2일 이상, 평형성 운동 주 3일 이상.
+   - 빈도: 유산소 운동은 주 5일 이상, 근력 운동은 주 2일 이상, 평형성 운동은 주 3일 이상 수행.
+
+3. 주의사항: 
+   - 운동 전: 건강 상태 점검 및 의사와 상담 후 운동 시작.
+   - 운동 중: 과도한 피로를 느끼면 즉시 중단하고 휴식. 운동 강도를 조절.
+   - 운동 후: 충분한 수분 섭취 및 스트레칭으로 근육 이완.
+   - 피할 동작: 고강도 운동이나 갑작스러운 동작은 피하고, 균형을 잃을 수 있는 운동은 주의.
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈당: 운동 중 혈당이 급격히 떨어질 수 있으며, 이는 저혈당 증상(어지러움, 혼란, 떨림 등)으로 나타날 수 있음. 이는 인슐린 민감성을 개선하지만, 과도한 운동은 반대로 혈당을 떨어뜨릴 수 있음 [3][5].
+   - 혈압: 운동 중 혈압이 급격히 상승할 수 있으며, 이는 심혈관계에 부담을 줄 수 있음. 특히 고혈압 환자는 운동 중 혈압 모니터링이 필요함 [4].
+
+5. 근거: 
+   - [1] Exercise and physical performance in older adults with sarcopenic obesity: A systematic review | Discussion
+   - [2] Exercise and physical performance in older adults with sarcopenic obesity: A systematic review | Introduction
+   - [3] Exercise and Nutrition Strategies for Combating Sarcopenia and Type 2 Diabetes Mellitus in Older Adults | 5. Discussion and Conclusions
+   - [4] Exercise, Exerkines, and Sarcopenia | INTRODUCTION
+   - [8] 한국인을 위한 신체활동 지침서 개정판 | Ⅲ. 부 록 · 46-48쪽
+   - [10] 한국인을 위한 신체활동 지침서 개정판 | Ⅲ. 부 록 · 38쪽","[1] [학술] Exercise and physical performance in older adults with sarcopenic obesity: A systematic review (pmc-ob-ex-003) Discussion (0.72)
+[2] [학술] Exercise and physical performance in older adults with sarcopenic obesity: A systematic review (pmc-ob-ex-003) Introduction (0.71)
+[3] [학술] Exercise and Nutrition Strategies for Combating Sarcopenia and Type 2 Diabetes Mellitus in Older Adults (pmc-dm-ex-007) 5. Discussion and Conclusions (0.66)
+[4] [학술] Exercise, Exerkines, and Sarcopenia (pmc-dm-001) INTRODUCTION (0.66)
+[5] [학술] Exercise and Nutrition Strategies for Combating Sarcopenia and Type 2 Diabetes Mellitus in Older Adults (pmc-dm-ex-007) 5. Discussion and Conclusions (0.66)
+[6] [공공] 2026 통합건강증진사업안내 신체활동 (mohw-007) 123-124쪽 (0.52)
+[7] [공공] 2025년 지역사회 통합건강증진사업(신체활동) 안내서 (khepi-pa-001) 123-124쪽 (0.51)
+[8] [공공] 한국인을 위한 신체활동 지침서 개정판 (khepi-pa-004) 46-48쪽 (0.48)
+[9] [공공] 2024 통합건강증진사업안내 신체활동 (mohw-003) 23-24쪽 (0.48)
+[10] [공공] 한국인을 위한 신체활동 지침서 개정판 (khepi-pa-004) 38쪽 (0.48)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+14,비만,청소년·소아,주의사항,비만인 초등학생에게 운동 프로그램을 줄 때 주의할 점은?,,"초안(문서 단위, 검토 필요)",pmc-ob-ex-002; kdca-022,"1. 대상 확인: 비만인 초등학생. 성별, 현재 건강 상태(예: 동반 질환), 운동 경험, 선호하는 운동 종류에 대한 정보가 필요합니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 가벼운 조깅, 고정식 자전거타기) 및 근력 운동(체중을 이용한 운동).
+   - 강도: 중간 강도(맥박이나 호흡수가 증가할 정도).
+   - 시간: 하루 30~60분(2회에 나눠서 실행 가능).
+   - 빈도: 주 3~4회(초급), 주 5회(중급 이상) [9].
+
+3. 주의사항: 
+   - 운동 전: 충분한 스트레칭을 통해 부상 예방.
+   - 운동 중: 체력에 맞게 속도를 조절할 수 있는 운동을 선택하고, 과도한 운동은 피할 것.
+   - 운동 후: 충분한 회복 시간을 가지며, 수분 섭취를 잊지 말 것. 
+   - 피할 동작: 고강도 운동이나 관절에 무리를 주는 동작은 피해야 함 [6][10].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈당: 운동 중 혈당이 급격히 떨어질 수 있음 → 인슐린 민감도가 증가하고, 에너지원으로 사용되는 포도당이 부족해질 수 있음 → 저혈당 증상(어지러움, 피로, 혼란 등)으로 나타날 수 있음 [4].
+
+5. 근거: 
+   - [6] 2024 통합건강증진사업안내 비만, 106쪽
+   - [9] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서, 101쪽
+   - [10] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서, 106쪽","[1] [학술] The impacts of exercise on pediatric obesity (pmc-ob-ex-002) Exercise modality and prescription (0.63)
+[2] [학술] The impacts of exercise on pediatric obesity (pmc-ob-ex-002) Exercise modality and prescription (0.62)
+[3] [학술] Exercise Guidelines for Enhancing Mobility and Stability in Individuals with Severe Obesity (pmc-ob-001) CONCLUSION (0.59)
+[4] [학술] Effects of Exercise Alone on Insulin Sensitivity and Glucose Tolerance in Obese Youth (pmc-dm-007) EFFECT OF RESISTANCE EXERCISE ALONE OR IN COMBINATION WITH AEROBIC EXERCISE ON INSULIN SENSITIVITY AND GLUCOSE TOLERANCE IN OBESE YOUTH (0.58)
+[5] [학술] Exercise Guidelines for Enhancing Mobility and Stability in Individuals with Severe Obesity (pmc-ob-001) RESULTS (0.57)
+[6] [공공] 2024 통합건강증진사업안내 비만 (mohw-002) 106쪽 (0.55)
+[7] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 113쪽 (0.54)
+[8] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 109쪽 (0.54)
+[9] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 101쪽 (0.53)
+[10] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 106쪽 (0.53)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+15,비만,성인,항상성 기전,고도비만 회원은 같은 운동에도 심박수가 더 높게 나와요. 왜 그런가요?,,"초안(문서 단위, 검토 필요)",pmc-ob-003; pmc-ob-ex-004,"1. 대상 확인: 고도비만 회원, 성별 및 연령 정보는 제공되지 않음. 추가 정보가 필요합니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 고정식 자전거 타기), 근력 운동(체중을 이용한 운동)
+   - 강도: 최대 운동능력의 70% 이내
+   - 시간: 하루에 30분~60분 (2회에 나눠서 실행 가능)
+   - 빈도: 주당 3~4회 (초급), 중급 이상은 주당 5회 [10].
+
+3. 주의사항: 
+   - 운동 전: 체온 조절을 위해 충분한 수분 섭취 및 적절한 복장 착용
+   - 운동 중: 심박수 모니터링, 과도한 피로를 느낄 경우 즉시 중단
+   - 운동 후: 충분한 스트레칭과 회복 시간 확보
+   - 피할 동작: 고강도의 격렬한 운동이나 갑작스러운 동작은 피해야 함 [9].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 심박수
+   - 어떤 기전으로: 고도비만은 심혈관계에 부담을 주어 심박수가 더 높게 나타나며, 이는 자율신경계의 불균형을 초래할 수 있음 [1][2].
+   - 어떤 증상·위험으로 나타나는지: 심박수의 비정상적인 상승은 심혈관계 질환의 위험을 증가시키고, 운동 중 과도한 피로감이나 심장 문제를 유발할 수 있음 [3][4].
+
+5. 근거: 
+   - [1] Heart Rate Responses at Rest, during Exercise and after Exercise Periods in Relation to Adiposity Levels among Young Nigerian Adults | DISCUSSION
+   - [2] Heart Rate Responses at Rest, during Exercise and after Exercise Periods in Relation to Adiposity Levels among Young Nigerian Adults | INTRODUCTION
+   - [3] Exercise Hypertension | Identifying the Cause of an HRE
+   - [4] Exercise Hypertension | Identifying the Cause of an HRE
+   - [9] 2024 통합건강증진사업안내 비만 | 나. 운동 프로그램 구성 시 기본적 고려 사항","[1] [학술] Heart Rate Responses at Rest, during Exercise and after Exercise Periods in Relation to Adiposity Levels among Young Nigerian Adults (pmc-ob-003) DISCUSSION (0.61)
+[2] [학술] Heart Rate Responses at Rest, during Exercise and after Exercise Periods in Relation to Adiposity Levels among Young Nigerian Adults (pmc-ob-003) INTRODUCTION (0.59)
+[3] [학술] Exercise Hypertension (pmc-htn-ex-003) Identifying the Cause of an HRE (0.56)
+[4] [학술] Exercise Hypertension (pmc-htn-ex-003) Identifying the Cause of an HRE (0.56)
+[5] [학술] Body temperature regulation in diabetes (pmc-dm-ex-005) Type 2 diabetes (0.55)
+[6] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 113쪽 (0.45)
+[7] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 109쪽 (0.45)
+[8] [공공] 어르신 근력 균형운동 완성 프로그램('어운완') 운영 매뉴얼 (khepi-pa-003) 18-19쪽 (0.44)
+[9] [공공] 2024 통합건강증진사업안내 비만 (mohw-002) 106쪽 (0.43)
+[10] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 101쪽 (0.42)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+16,비만,성인,주의사항,고도비만 회원의 이동성·균형 운동에서 주의할 점은?,,"초안(문서 단위, 검토 필요)",pmc-ob-001,"1. 대상 확인: 고도비만 회원 (BMI ≥ 30 kg/m²)으로, 연령, 성별, 질환 유형(당뇨, 고혈압 등) 및 현재 약물 복용 여부와 식사 패턴에 대한 정보가 필요합니다. 이 정보가 없으면 운동 계획을 세우기 어렵습니다.
+
+2. 권장 운동: 
+   - 종류: 균형 훈련(예: 한 발 서기, 의자에 앉았다 일어나기), 저강도 유산소 운동(예: 걷기, 고정식 자전거 타기)
+   - 강도: 낮은 강도에서 시작하여 점진적으로 증가
+   - 시간: 하루 20-30분, 주 3-5회
+   - 빈도: 매일 또는 주 5회 이상
+
+3. 주의사항: 
+   - 운동 전: 충분한 스트레칭과 준비 운동을 실시하여 부상 예방
+   - 운동 중: 안정된 환경에서 운동하며, 균형을 유지할 수 있는 지지대나 보조 기구를 사용
+   - 운동 후: 쿨다운과 스트레칭을 통해 근육 이완
+   - 피할 동작: 고강도 운동이나 급격한 방향 전환이 필요한 동작은 피해야 함
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 혈당 및 혈압
+   - 어떤 기전으로: 고도비만 환자는 인슐린 저항성이 증가하고, 심혈관계에 부담이 가해져 혈압이 상승할 수 있음
+   - 어떤 증상·위험으로 나타나는지: 운동 중 저혈당(어지러움, 피로감)이나 고혈압(두통, 가슴 통증) 증상이 나타날 수 있으며, 이는 심각한 건강 문제로 이어질 수 있음
+
+5. 근거: 
+   - [1] [학술] Exercise Guidelines for Enhancing Mobility and Stability in Individuals with Severe Obesity | DISCUSSION
+   - [2] [학술] Exercise Guidelines for Enhancing Mobility and Stability in Individuals with Severe Obesity | RESULTS
+   - [4] [학술] Exercise as a Therapeutic Strategy for Obesity: Central and Peripheral Mechanisms | 2. Introduction of Exercise Types Both in Human and Animals
+   - [8] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 | 다. 운동 관리 목표
+   - [10] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 | 다. 운동 관리 목표","[1] [학술] Exercise Guidelines for Enhancing Mobility and Stability in Individuals with Severe Obesity (pmc-ob-001) DISCUSSION (0.80)
+[2] [학술] Exercise Guidelines for Enhancing Mobility and Stability in Individuals with Severe Obesity (pmc-ob-001) RESULTS (0.78)
+[3] [학술] Exercise and physical performance in older adults with sarcopenic obesity: A systematic review (pmc-ob-ex-003) Methods (0.52)
+[4] [학술] Exercise as a Therapeutic Strategy for Obesity: Central and Peripheral Mechanisms (pmc-ob-ex-001) 2. Introduction of Exercise Types Both in Human and Animals (0.52)
+[5] [학술] Exercise and physical performance in older adults with sarcopenic obesity: A systematic review (pmc-ob-ex-003) Discussion (0.51)
+[6] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 109쪽 (0.50)
+[7] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 113쪽 (0.50)
+[8] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 102쪽 (0.49)
+[9] [공공] 2024 통합건강증진사업안내 비만 (mohw-002) 106쪽 (0.49)
+[10] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 106쪽 (0.48)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+17,고혈압(원발성),성인 남성,주의사항,원발성 고혈압이 있는 40대 남성 회원이 고중량 운동을 할 때 혈압은 어떻게 반응하고 무엇을 주의해야 하나요?,,"초안(문서 단위, 검토 필요)",pmc-htn-ex-007; pmc-htn-ex-001; pmc-htn-ex-005; pmc-htn-ex-006,"1. 대상 확인: 40대 남성, 원발성 고혈압. 추가로 약물 복용 여부와 운동 경험, 현재 혈압 수치, 운동 중 느끼는 증상 등을 확인할 필요가 있습니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 수영 등)과 저항 운동(가벼운 덤벨, 체중 운동 등)을 병행하는 것이 좋습니다.
+   - 강도: 최대 산소섭취량의 40~70%에서 시작하여 점진적으로 증가시키는 것이 바람직합니다[6].
+   - 시간: 하루 30분 이상, 주 3~5회 실시하는 것이 권장됩니다[7].
+   
+3. 주의사항: 
+   - 운동 전: 혈압을 측정하여 수축기 혈압이 140 mmHg 미만인지 확인해야 합니다. 혈압이 너무 높으면 약물로 조절한 후 운동을 시작해야 합니다[6].
+   - 운동 중: 고중량 운동은 혈압을 급격히 상승시킬 수 있으므로 피해야 합니다. 특히, 수축기 혈압이 210 mmHg 이상으로 상승할 수 있는 위험이 있습니다[2].
+   - 운동 후: 회복 시에도 혈압을 체크하고, 이상 증상이 있을 경우 즉시 운동을 중단해야 합니다.
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 혈압이 급격히 상승할 수 있습니다[2].
+   - 어떤 기전으로: 고중량 운동 시 심박출량이 증가하고, 혈관 저항이 높아져 혈압이 상승합니다[1].
+   - 어떤 증상·위험으로 나타나는지: 고혈압 환자는 심장병, 뇌졸중 등의 위험이 증가하며, 운동 중 심각한 합병증이 발생할 수 있습니다[3][10].
+
+5. 근거: 
+   - [1] Neural Control of Cardiovascular Function During Exercise in Hypertension, Introduction
+   - [2] Exercise Hypertension, Abstract
+   - [3] Hypertensive response to exercise and exercise training in hypertension: odd couple no more, Abstract
+   - [6] 국가건강정보포털: 고혈압 환자의 운동요법, 평가 및 검사
+   - [7] 국가건강정보포털: 고혈압 환자의 운동요법, 요약문
+   - [10] 국가건강정보포털: 고혈압, 요약문","[1] [학술] Neural Control of Cardiovascular Function During Exercise in Hypertension (pmc-htn-ex-002) Introduction (0.68)
+[2] [학술] Exercise Hypertension (pmc-htn-ex-003) Abstract (0.66)
+[3] [학술] Hypertensive response to exercise and exercise training in hypertension: odd couple no more (pmc-htn-ex-001) Abstract (0.65)
+[4] [학술] Clinical and Prognostic Value of Exaggerated Blood Pressure Response to Exercise (pmc-htn-ex-006) 6. Clinical Management (0.65)
+[5] [학술] Hypertensive response to exercise and exercise training in hypertension: odd couple no more (pmc-htn-ex-001) Abstract (0.64)
+[6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 평가 및 검사 (0.61)
+[7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 요약문 (0.60)
+[8] [공공] 국가건강정보포털: 노인 고혈압 (kdca-023) 자주하는 질문 (0.55)
+[9] [공공] 2025년 지역사회 통합건강증진사업(신체활동) 안내서 (khepi-pa-001) 122쪽 (0.55)
+[10] [공공] 국가건강정보포털: 고혈압 (kdca-003) 요약문 (0.54)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+18,고혈압,성인,항상성 기전,고혈압 회원이 운동을 마치고 일어나면 어지럽대요. 어떤 기전인가요?,,"초안(문서 단위, 검토 필요)",pmc-htn-ex-004; pmc-htn-ex-002,"1. 대상 확인: 고혈압 환자, 연령 및 성별 정보는 제공되지 않았습니다. 추가 정보가 필요합니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 수영 등)과 저항 운동(아령 등)
+   - 강도: 최대 산소섭취량의 40~70%에서 지속적으로 운동
+   - 시간: 하루 30분 이상
+   - 빈도: 주 3~5회
+
+3. 주의사항: 
+   - 운동 전: 혈압이 너무 높으면 약물로 조절 후 운동 시작
+   - 운동 중: 과도한 강도의 운동 피하기, 어지러움이 느껴지면 즉시 중단
+   - 운동 후: 충분한 수분 섭취 및 정리운동 포함
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 혈압
+   - 어떤 기전으로: 운동 후 혈액이 하체로 몰리면서 심장으로 돌아오는 혈액량이 감소하고, 이로 인해 일시적인 저혈압이 발생할 수 있음
+   - 어떤 증상·위험으로 나타나는지: 어지러움, 실신 위험
+
+5. 근거: 
+   - [3] [학술] Neural Control of Cardiovascular Function During Exercise in Hypertension | Abstract
+   - [6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 | 요약문
+   - [7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 | 평가 및 검사","[1] [학술] Exercise Hypertension (pmc-htn-ex-003) Identifying the Cause of an HRE (0.64)
+[2] [학술] Exercise Hypertension (pmc-htn-ex-003) Identifying the Cause of an HRE (0.63)
+[3] [학술] Neural Control of Cardiovascular Function During Exercise in Hypertension (pmc-htn-ex-002) Abstract (0.62)
+[4] [학술] The Effect of Exercise on the Older Adult's Blood Pressure Suffering Hypertension: Systematic Review and Meta-Analysis on Clinical Trial Studies (pmc-htn-ex-008) 4. Discussion (0.62)
+[5] [학술] Neural Control of Cardiovascular Function During Exercise in Hypertension (pmc-htn-ex-002) Introduction (0.61)
+[6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 요약문 (0.60)
+[7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 평가 및 검사 (0.59)
+[8] [공공] 2024 통합건강증진사업안내 신체활동 (mohw-003) 96-98쪽 (0.53)
+[9] [공공] 국가건강정보포털: 노인 고혈압 (kdca-023) 자주하는 질문 (0.50)
+[10] [공공] 국가건강정보포털: 고혈압 (kdca-003) 자가 관리 (0.49)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+19,고혈압,성인,운동 방법,고혈압 회원에게 플랭크나 월싯 같은 등척성 운동을 시켜도 되나요?,,"초안(문서 단위, 검토 필요)",pmc-htn-ex-005,"1. 대상 확인: 고혈압 환자, 연령 및 성별 정보는 제공되지 않음. 추가 정보가 필요합니다.
+
+2. 권장 운동: 
+   - 등척성 운동(예: 플랭크, 월싯)은 주 2~3회 시행할 수 있으며, 각 세트는 30~40%의 최대 힘으로 2분 정도 유지 후 1분 휴식하는 방식으로 진행할 수 있습니다. 
+   - 유산소 운동(예: 걷기, 자전거 타기)은 주 5일 이상, 30~60분 정도 실시하는 것이 좋습니다 [3][6][7].
+
+3. 주의사항: 
+   - 운동 전에는 반드시 5분간의 준비 운동을 하고, 운동 후에도 5분간의 정리 운동을 해야 합니다 [3][4].
+   - 혈압이 조절되지 않는 경우, 저항 운동(무거운 물체를 드는 운동)은 피해야 하며, 등척성 운동 중에도 혈압이 일시적으로 상승할 수 있으므로 주의가 필요합니다 [6][7].
+   - 고혈압 환자는 운동 중 어지러움이나 가슴 통증이 발생할 경우 즉시 운동을 중단하고 의료진과 상담해야 합니다 [9].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 운동 중 혈압이 일시적으로 상승할 수 있으며, 이는 혈관의 저항이 증가하여 발생합니다. 
+   - 이로 인해 어지러움, 두통, 심한 경우 실신 등의 증상이 나타날 수 있습니다 [4][6].
+
+5. 근거: 
+   - [3] 2013 Korean Society of Hypertension guidelines for the management of hypertension. Part II—treatments of hypertension, 쪽 5.
+   - [4] 2018 Korean Society of Hypertension Guidelines for the management of hypertension: part II-diagnosis and treatment of hypertension, 쪽 2.
+   - [6] 국가건강정보포털: 고혈압 환자의 운동요법, 일반적 실천 방법.
+   - [7] 국가건강정보포털: 고혈압 환자의 운동요법, 실천 방법.
+   - [9] 국가건강정보포털: 노인 고혈압, 자주하는 질문.","[1] [학술] Isometric Exercise Training and Arterial Hypertension: An Updated Review (pmc-htn-ex-005) Safety (0.65)
+[2] [학술] Isometric Exercise Training and Arterial Hypertension: An Updated Review (pmc-htn-ex-005) Isometric Exercise Training: Current Evidence (0.64)
+[3] [학술] 2013 Korean Society of Hypertension guidelines for the management of hypertension. Part II—treatments of hypertension (pmc-htn-005) Nondrug therapy and lifestyle modification (0.54)
+[4] [학술] 2018 Korean Society of Hypertension Guidelines for the management of hypertension: part II-diagnosis and treatment of hypertension (pmc-htn-008) Chapter II. Treatment of hypertension (0.54)
+[5] [학술] The Effect of Exercise on the Older Adult's Blood Pressure Suffering Hypertension: Systematic Review and Meta-Analysis on Clinical Trial Studies (pmc-htn-ex-008) 4. Discussion (0.53)
+[6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 일반적 실천 방법 (0.50)
+[7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 실천 방법 (0.49)
+[8] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 맞춤형 실천 방법 (0.45)
+[9] [공공] 국가건강정보포털: 노인 고혈압 (kdca-023) 자주하는 질문 (0.44)
+[10] [공공] 건강을 위한 올바른 임신부 신체활동 프로그램('건강올임') 안내서(만족도 설문 양식 포함) (khepi-pa-002) 30쪽 (0.43)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+20,고혈압,성인,항상성 기전,평소 혈압은 괜찮은데 운동할 때만 혈압이 과하게 오르는 회원은 무엇을 의미하고 무엇을 주의해야 하나요?,,"초안(문서 단위, 검토 필요)",pmc-htn-ex-006; pmc-htn-ex-003; pmc-htn-ex-001,"1. 대상 확인: 질문에서 읽은 대상은 성인으로, 평소 혈압은 정상이나 운동 중에만 혈압이 과하게 상승하는 경우입니다. 성별, 연령, 약물 복용 여부, 식사 상태, 운동 경험 등 추가 정보가 필요합니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 수영 등)과 저항 운동(가벼운 아령 등)을 포함한 혼합 운동.
+   - 강도: 최대 산소섭취량의 40~70%로 시작하여 점진적으로 증가.
+   - 시간: 30분 이상.
+   - 빈도: 주 3~5회.
+
+3. 주의사항: 
+   - 운동 전: 혈압을 측정하고, 고혈압 약물 복용 여부를 확인.
+   - 운동 중: 혈압이 과도하게 상승하는 경우(수축기 혈압 ≥210 mmHg, 이완기 혈압 ≥110 mmHg) 즉시 운동을 중단하고 휴식.
+   - 운동 후: 혈압이 안정될 때까지 충분한 회복 시간을 가지며, 수분 섭취를 잊지 않기.
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 혈압.
+   - 어떤 기전으로: 운동 중 심박출량 증가와 혈관 저항 변화로 인해 혈압이 급격히 상승할 수 있음.
+   - 어떤 증상·위험으로 나타나는지: 두통, 어지러움, 심장 통증, 심한 경우 심혈관 사고의 위험이 증가할 수 있음 [1][2][3].
+
+5. 근거: 
+   - [1] Exercise Hypertension | Abstract
+   - [2] Neural Control of Cardiovascular Function During Exercise in Hypertension | Introduction
+   - [3] Clinical and Prognostic Value of Exaggerated Blood Pressure Response to Exercise | 1. Introduction
+   - [6] 국가건강정보포털: 고혈압 환자의 운동요법 | 요약문
+   - [10] 국가건강정보포털: 고혈압 | 병태생리","[1] [학술] Exercise Hypertension (pmc-htn-ex-003) Abstract (0.69)
+[2] [학술] Neural Control of Cardiovascular Function During Exercise in Hypertension (pmc-htn-ex-002) Introduction (0.68)
+[3] [학술] Clinical and Prognostic Value of Exaggerated Blood Pressure Response to Exercise (pmc-htn-ex-006) 1. Introduction (0.67)
+[4] [학술] Exercise Hypertension (pmc-htn-ex-003) Exercise BP: The ‘Normal' Physiological Response (0.66)
+[5] [학술] Clinical and Prognostic Value of Exaggerated Blood Pressure Response to Exercise (pmc-htn-ex-006) 2. Definition and Prevalence (0.65)
+[6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 요약문 (0.61)
+[7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 평가 및 검사 (0.60)
+[8] [공공] 국가건강정보포털: 노인 고혈압 (kdca-023) 자주하는 질문 (0.56)
+[9] [공공] 국가건강정보포털: 고혈압 (kdca-003) 자주하는 질문 (0.55)
+[10] [공공] 국가건강정보포털: 고혈압 (kdca-003) 병태생리 (0.55)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+21,고혈압,노인,운동 방법,70대 고혈압 회원에게 유산소 운동은 어떤 효과가 있고 무엇을 주의해야 하나요?,,"초안(문서 단위, 검토 필요)",pmc-htn-ex-008; kdca-023,"1. 대상 확인: 70대 고혈압 회원, 성별 정보는 제공되지 않음. 추가 정보가 필요합니다(예: 성별, 현재 복용 중인 약물, 운동 경험 등).
+
+2. 권장 운동: 
+   - 종류: 걷기, 조깅, 자전거 타기, 수영 등 유산소 운동
+   - 강도: 최대 심박수의 40~70% (예: 70세의 경우 최대 심박수는 150회, 60~105회 범위)
+   - 시간: 한 번에 30~60분
+   - 빈도: 주 5회 이상 규칙적으로
+
+3. 주의사항: 
+   - 운동 전: 의사와 상담 후 운동 시작
+   - 운동 중: 심박수와 혈압을 주의 깊게 모니터링, 가슴 통증이나 어지럼증이 발생하면 즉시 중단
+   - 운동 후: 충분한 휴식과 수분 섭취
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈압이 상승할 수 있음 → 과도한 운동이나 스트레스에 의해 심박수가 증가하고 혈관 저항이 높아져 혈압이 상승 → 두통, 어지럼증, 심장 통증 등의 증상으로 나타날 수 있으며, 심각한 경우 심혈관 사건의 위험이 증가할 수 있음 [3][5].
+
+5. 근거: 
+   - [1] [학술] 4. Discussion
+   - [6] [공공] 일반적 실천 방법
+   - [7] [공공] 실천 방법
+   - [8] [공공] 자주하는 질문
+   - [9] [공공] 생활습관 관리","[1] [학술] The Effect of Exercise on the Older Adult's Blood Pressure Suffering Hypertension: Systematic Review and Meta-Analysis on Clinical Trial Studies (pmc-htn-ex-008) 4. Discussion (0.71)
+[2] [학술] The Effect of Exercise on the Older Adult's Blood Pressure Suffering Hypertension: Systematic Review and Meta-Analysis on Clinical Trial Studies (pmc-htn-ex-008) 4. Discussion (0.70)
+[3] [학술] Hypertensive response to exercise and exercise training in hypertension: odd couple no more (pmc-htn-ex-001) Abstract (0.65)
+[4] [학술] Longitudinal Insights Into Pediatric Hypertension, Cardiac Consequences, and Physical Activity (pmc-htn-ex-009) Physical Activity and Cardiovascular Risk Modification (0.65)
+[5] [학술] Hypertensive response to exercise and exercise training in hypertension: odd couple no more (pmc-htn-ex-001) Abstract (0.65)
+[6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 일반적 실천 방법 (0.65)
+[7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 실천 방법 (0.62)
+[8] [공공] 국가건강정보포털: 노인 고혈압 (kdca-023) 자주하는 질문 (0.58)
+[9] [공공] 국가건강정보포털: 고혈압 (kdca-003) 생활습관 관리 (0.57)
+[10] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 실천 방법 (0.54)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+22,고혈압,여성,항상성 기전,폐경 후 고혈압이 생긴 여성 회원에게 운동이 혈압을 낮추는 기전은?,,"초안(문서 단위, 검토 필요)",pmc-htn-ex-010,"1. 대상 확인: 폐경 후 고혈압이 있는 여성 회원. 연령대는 노인으로 추정되며, 성별은 여성입니다. 추가적인 정보(약물 복용 여부, 식사 습관, 운동 경험 등)가 필요합니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 수영 등) 및 저항 운동(가벼운 아령 등)
+   - 강도: 저강도에서 중강도(최대 산소섭취량의 40-70%)
+   - 시간: 30분 이상
+   - 빈도: 주 3-5회
+
+3. 주의사항: 
+   - 운동 전: 혈압을 측정하고, 고혈압 약물 복용 여부를 확인하여 필요 시 조절 후 운동 시작
+   - 운동 중: 과도한 피로를 느끼거나 어지러움이 발생할 경우 즉시 중단
+   - 운동 후: 정리 운동을 통해 서서히 심박수를 정상으로 되돌리기
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 혈압
+   - 어떤 기전으로: 운동 중 혈압이 상승할 수 있으며, 운동 후에는 혈압이 낮아지는 현상(운동 후 저혈압)이 발생할 수 있음
+   - 어떤 증상·위험으로 나타나는지: 운동 후 저혈압으로 인해 어지러움, 실신 등의 증상이 나타날 수 있으며, 이는 낙상 위험을 증가시킬 수 있음
+
+5. 근거: 
+   - [1] [학술] Cardiovascular Benefits of Exercise Training in Postmenopausal Hypertension | 1. Introduction
+   - [3] [학술] The Effect of Exercise on the Older Adult's Blood Pressure Suffering Hypertension: Systematic Review and Meta-Analysis on Clinical Trial Studies | 4. Discussion
+   - [5] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 | 요약문
+   - [10] [공공] 국가건강정보포털: 노인 고혈압 | 자주하는 질문","[1] [학술] Cardiovascular Benefits of Exercise Training in Postmenopausal Hypertension (pmc-htn-ex-010) 1. Introduction (0.76)
+[2] [학술] Cardiovascular Benefits of Exercise Training in Postmenopausal Hypertension (pmc-htn-ex-010) 1. Introduction (0.75)
+[3] [학술] The Effect of Exercise on the Older Adult's Blood Pressure Suffering Hypertension: Systematic Review and Meta-Analysis on Clinical Trial Studies (pmc-htn-ex-008) 4. Discussion (0.68)
+[4] [학술] The Effect of Exercise on the Older Adult's Blood Pressure Suffering Hypertension: Systematic Review and Meta-Analysis on Clinical Trial Studies (pmc-htn-ex-008) 4. Discussion (0.67)
+[5] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 요약문 (0.62)
+[6] [학술] The Effect of Exercise Training During Pregnancy to Improve Maternal Vascular Health: Focus on Gestational Hypertensive Disorders (pmc-htn-ex-012) Effects of Exercise on the Vasculature (0.61)
+[7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 평가 및 검사 (0.60)
+[8] [공공] 국가건강정보포털: 고혈압 (kdca-003) 요약문 (0.54)
+[9] [공공] 국가건강정보포털: 고혈압 (kdca-003) 위험요인 및 예방 (0.54)
+[10] [공공] 국가건강정보포털: 노인 고혈압 (kdca-023) 자주하는 질문 (0.53)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+23,고혈압,청소년·소아,주의사항,고혈압 진단을 받은 고등학생이 운동부 활동을 해도 되나요?,,"초안(문서 단위, 검토 필요)",pmc-htn-ex-009,"1. 대상 확인: 고등학생(청소년), 성별 정보 없음, 고혈압(진단받은 상태). 운동부 활동에 대한 질문이므로, 운동 강도와 종류에 대한 정보가 필요합니다. 현재 복용 중인 약물이나 특별한 건강 상태가 있는지 확인해 주세요.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 수영 등)과 저항 운동(가벼운 아령 등)을 포함한 운동.
+   - 강도: 최대 산소섭취량의 40~70%에서 시작하여 점진적으로 증가.
+   - 시간: 하루 30분 이상, 주 3~5회.
+   - 빈도: 주 3~5회 규칙적으로 실시.
+
+3. 주의사항: 
+   - 운동 전: 혈압을 체크하고, 너무 높은 경우(예: 수축기 혈압 200 mmHg 이상)에는 운동을 피해야 함. 의사와 상담 후 운동 시작.
+   - 운동 중: 과도한 강도의 운동은 피하고, 몸의 신호에 주의. 피로감이나 어지러움이 느껴지면 즉시 중단.
+   - 운동 후: 충분한 정리운동과 수분 보충.
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈압이 상승할 수 있음 → 운동 중 심박수와 혈압이 증가하여 심장에 부담을 줄 수 있음 → 두통, 어지러움, 심한 경우 심장 문제 발생 가능성.
+
+5. 근거: 
+   - [1] 국가건강정보포털: 고혈압 환자의 운동요법 요약문
+   - [2] 국가건강정보포털: 고혈압 환자의 운동요법 평가 및 검사
+   - [8] 국가건강정보포털: 노인 고혈압 자주하는 질문
+   - [7] 2018 Korean Society of Hypertension Guidelines for the management of hypertension: part II-diagnosis and treatment of hypertension.","[1] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 요약문 (0.64)
+[2] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 평가 및 검사 (0.61)
+[3] [학술] Neural Control of Cardiovascular Function During Exercise in Hypertension (pmc-htn-ex-002) Introduction (0.58)
+[4] [학술] Longitudinal Insights Into Pediatric Hypertension, Cardiac Consequences, and Physical Activity (pmc-htn-ex-009) Physical Activity and Cardiovascular Risk Modification (0.57)
+[5] [학술] Longitudinal Insights Into Pediatric Hypertension, Cardiac Consequences, and Physical Activity (pmc-htn-ex-009) Physical Activity and Cardiovascular Risk Modification (0.56)
+[6] [학술] Exercise Hypertension (pmc-htn-ex-003) Treating an HRE (0.56)
+[7] [학술] 2018 Korean Society of Hypertension Guidelines for the management of hypertension: part II-diagnosis and treatment of hypertension (pmc-htn-008) Chapter II. Treatment of hypertension (0.56)
+[8] [공공] 국가건강정보포털: 노인 고혈압 (kdca-023) 자주하는 질문 (0.55)
+[9] [공공] 2024 통합건강증진사업안내 신체활동 (mohw-003) 96-98쪽 (0.55)
+[10] [공공] 2026 통합건강증진사업안내 신체활동 (mohw-007) 23쪽 (0.54)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+24,고혈압(이차성),성인,주의사항,신장 질환 때문에 생긴 이차성 고혈압 회원은 운동을 어떻게 접근해야 하나요?,,"초안(문서 단위, 검토 필요)",pmc-htn-008,"1. 대상 확인: 신장 질환으로 인한 이차성 고혈압 환자. 연령, 성별, 현재 복용 중인 약물, 식사 습관, 운동 경험, 현재 컨디션에 대한 정보가 필요합니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 자전거 타기, 수영 등)과 저항 운동(가벼운 덤벨 사용 등)
+   - 강도: 최대 산소섭취량의 40~70% 강도로
+   - 시간: 한 번에 30~60분
+   - 빈도: 주 5일 이상 유산소 운동, 저항 운동은 주 2~3회
+
+3. 주의사항: 
+   - 운동 전: 의사와 상담하여 운동 시작 여부 확인
+   - 운동 중: 혈압이 급격히 상승할 수 있으므로 무거운 저항 운동은 피하고, 가벼운 중량으로 시작
+   - 운동 후: 충분한 쿨다운 시간을 가지며, 수분 섭취를 잊지 말 것
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈압이 상승할 수 있음 → 신장 질환으로 인해 혈압 조절이 어려워질 수 있으며, 이는 심혈관계에 부담을 줄 수 있음 → 두통, 어지러움, 심한 경우 심장마비나 뇌졸중의 위험이 증가할 수 있음
+
+5. 근거: 
+   - [1] [학술] 2013 Korean Society of Hypertension guidelines for the management of hypertension. Part II—treatments of hypertension
+   - [2] [학술] 2018 Korean Society of Hypertension Guidelines for the management of hypertension: part II-diagnosis and treatment of hypertension
+   - [6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법
+   - [10] [공공] 국가건강정보포털: 고혈압 | 생활습관 관리","[1] [학술] 2013 Korean Society of Hypertension guidelines for the management of hypertension. Part II—treatments of hypertension (pmc-htn-005) Nondrug therapy and lifestyle modification (0.66)
+[2] [학술] 2018 Korean Society of Hypertension Guidelines for the management of hypertension: part II-diagnosis and treatment of hypertension (pmc-htn-008) Chapter II. Treatment of hypertension (0.63)
+[3] [학술] Exercise Hypertension (pmc-htn-ex-003) Treating an HRE (0.63)
+[4] [학술] Clinical and Prognostic Value of Exaggerated Blood Pressure Response to Exercise (pmc-htn-ex-006) 6. Clinical Management (0.62)
+[5] [학술] 2018 Korean society of hypertension guidelines for the management of hypertension: part III-hypertension in special situations (pmc-htn-006) Hypertension in special situations (0.62)
+[6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 실천 방법 (0.60)
+[7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 요약문 (0.59)
+[8] [공공] 국가건강정보포털: 고혈압 (kdca-003) 자가 관리 (0.57)
+[9] [공공] 2025년 지역사회 통합건강증진사업(신체활동) 안내서 (khepi-pa-001) 96쪽 (0.56)
+[10] [공공] 국가건강정보포털: 고혈압 (kdca-003) 생활습관 관리 (0.55)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+25,고혈압(임신),임신,운동 방법,임신 고혈압 위험이 있는 임산부에게 운동이 도움이 되나요? 주의할 점은?,,"초안(문서 단위, 검토 필요)",pmc-htn-ex-012; kdca-007,"1. 대상 확인: 임신 중 고혈압 위험이 있는 임산부. 추가적으로 임신 주수, 기존 건강 상태(예: 심장 질환 여부), 운동 경험 등을 확인할 필요가 있습니다.
+
+2. 권장 운동: 
+   - 종류: 걷기, 요가, 필라테스, 실내 자전거, 근력운동, 스트레칭
+   - 강도: 저강도에서 중강도로 시작하여 점진적으로 증가
+   - 시간: 주 150분 이상, 일 20~30분 이상
+   - 빈도: 최소 주 3회 이상 또는 매일 활동하는 것을 권장 [1][10].
+
+3. 주의사항: 
+   - 고강도 운동이나 연속 45분 이상 운동은 저혈당을 유발할 수 있으므로 적절한 칼로리 섭취가 필요합니다.
+   - 12주 이후에는 바로 눕거나 엎드려서 하는 운동은 피해야 하며, 관절에 과부하가 걸리는 운동도 피해야 합니다.
+   - 운동 전, 중, 후에 충분한 수분 섭취를 해야 하며, 호흡을 참지 않도록 주의해야 합니다.
+   - 운동 중 양수 누출, 흉통, 어지럼증, 두통, 근력 감소 등의 증상이 나타나면 즉시 운동을 중단해야 합니다 [9][10].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈압이 상승할 수 있으며, 이는 임신 고혈압 및 전자간증으로 이어질 수 있습니다. 
+   - 혈압 상승은 심혈관계에 부담을 주어 심장병, 뇌졸중 등의 위험을 증가시킬 수 있습니다 [2][8].
+
+5. 근거: 
+   - [1] [학술] The Effect of Exercise Training During Pregnancy to Improve Maternal Vascular Health: Focus on Gestational Hypertensive Disorders | Introduction
+   - [2] [학술] The Effect of Exercise Training During Pregnancy to Improve Maternal Vascular Health: Focus on Gestational Hypertensive Disorders | Abstract
+   - [9] [공공] 국가건강정보포털: 임신당뇨병 | 비약물 치료
+   - [10] [공공] 건강을 위한 올바른 임신부 신체활동 프로그램('건강올임') 안내서 | 3. 임신주기별 운동 방법","[1] [학술] The Effect of Exercise Training During Pregnancy to Improve Maternal Vascular Health: Focus on Gestational Hypertensive Disorders (pmc-htn-ex-012) Introduction (0.75)
+[2] [학술] The Effect of Exercise Training During Pregnancy to Improve Maternal Vascular Health: Focus on Gestational Hypertensive Disorders (pmc-htn-ex-012) Abstract (0.74)
+[3] [학술] Exercise as a Therapeutic Intervention in Gestational Diabetes Mellitus (pmc-dm-ex-010) Exercise Prescription in Gestational Diabetes Mellitus (0.68)
+[4] [학술] Exercise as a Therapeutic Intervention in Gestational Diabetes Mellitus (pmc-dm-ex-010) Exercise Prescription in Gestational Diabetes Mellitus (0.66)
+[5] [공공] 국가건강정보포털: 노인 고혈압 (kdca-023) 자주하는 질문 (0.65)
+[6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 요약문 (0.63)
+[7] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 자주하는 질문 (0.63)
+[8] [학술] 2018 Korean society of hypertension guidelines for the management of hypertension: part III-hypertension in special situations (pmc-htn-006) Hypertension in special situations (0.63)
+[9] [공공] 국가건강정보포털: 임신당뇨병 (kdca-006) 비약물 치료 (0.58)
+[10] [공공] 건강을 위한 올바른 임신부 신체활동 프로그램('건강올임') 안내서(만족도 설문 양식 포함) (khepi-pa-002) 13-14쪽 (0.55)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+26,공통,남성·여성,항상성 기전,남성과 여성은 운동 중 혈압·심박 반응이나 혈당 반응에 차이가 있나요?,,"초안(문서 단위, 검토 필요)",pmc-htn-ex-011; pmc-dm-ex-004,"1. 대상 확인: 질문에서 남성과 여성의 운동 중 혈압, 심박 반응 및 혈당 반응의 차이에 대해 묻고 있습니다. 연령, 질환 유형, 약물 복용 여부, 식사 상태 등은 제공되지 않았습니다. 추가 정보가 필요합니다.
+
+2. 권장 운동: 제공된 문서에서 남성과 여성의 운동 반응 차이에 대한 구체적인 운동 권장 사항은 없습니다. 그러나 일반적으로 유산소 운동(걷기, 수영 등)과 저항 운동(아령 등)을 규칙적으로 수행하는 것이 좋습니다. 운동 강도와 시간은 개인의 체력 수준에 따라 조절해야 하며, 주 3-5회, 30분 이상 운동하는 것이 권장됩니다 [6][7].
+
+3. 주의사항: 
+   - 운동 전: 개인의 건강 상태를 확인하고, 특히 심혈관계 질환이 있는 경우 의사와 상담 후 운동을 시작해야 합니다.
+   - 운동 중: 남성과 여성의 혈압 반응이 다를 수 있으므로, 운동 중 혈압을 모니터링하고, 과도한 피로를 느끼면 즉시 중단해야 합니다 [1][2].
+   - 운동 후: 회복 운동을 통해 혈압이 급격히 떨어지는 것을 방지해야 합니다 [2].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈압: 운동 중 남성은 여성보다 수축기 혈압이 더 높게 나타날 수 있으며, 이는 심박수와 혈관 반응의 차이로 인해 발생합니다 [1][2]. 
+   - 혈당: 남성과 여성은 운동 중 에너지원으로 사용하는 대사 경로가 다르며, 남성은 탄수화물을 더 많이, 여성은 지방을 더 많이 사용합니다 [3][4]. 이로 인해 혈당 조절에 차이가 있을 수 있습니다.
+   - 이러한 반응의 차이는 운동 중 과도한 피로, 저혈압, 또는 혈당 저하와 같은 증상으로 나타날 수 있습니다 [10].
+
+5. 근거: 
+   - [1] Gender Differences in Hemodynamic Regulation and Cardiovascular Adaptations to Dynamic Exercise, p. 1-2
+   - [2] Gender Differences in Hemodynamic Regulation and Cardiovascular Adaptations to Dynamic Exercise, p. 2
+   - [3] Sexual Dimorphism in Glucose and Lipid Metabolism during Fasting, Hypoglycemia, and Exercise, p. 1
+   - [4] Sexual Dimorphism in Glucose and Lipid Metabolism during Fasting, Hypoglycemia, and Exercise, p. 1
+   - [10] 국가건강정보포털: 당뇨환자의 운동요법, 맞춤형 실천 방법","[1] [학술] Gender Differences in Hemodynamic Regulation and Cardiovascular Adaptations to Dynamic Exercise (pmc-htn-ex-011) GENDER-RELATED DIFFERENCE IN THE MAIN HEMODYNAMIC PARAMETERS DURING AND AFTER DYNAMIC EXERCISE (0.75)
+[2] [학술] Gender Differences in Hemodynamic Regulation and Cardiovascular Adaptations to Dynamic Exercise (pmc-htn-ex-011) GENDER-RELATED DIFFERENCE IN THE MAIN HEMODYNAMIC PARAMETERS DURING AND AFTER DYNAMIC EXERCISE (0.73)
+[3] [학술] Sexual Dimorphism in Glucose and Lipid Metabolism during Fasting, Hypoglycemia, and Exercise (pmc-dm-ex-004) Conclusion (0.72)
+[4] [학술] Sexual Dimorphism in Glucose and Lipid Metabolism during Fasting, Hypoglycemia, and Exercise (pmc-dm-ex-004) Exercise (0.71)
+[5] [학술] Type 1 Diabetes and the Menstrual Cycle: Where/How Does Exercise Fit in? (pmc-dm-ex-009) 4. Menstrual Cycle and Its Effects on Hormonal and Metabolic Responses to Exercise (0.62)
+[6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 요약문 (0.54)
+[7] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 개요 (0.53)
+[8] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 중요성 (0.53)
+[9] [공공] 국가건강정보포털: 노인 고혈압 (kdca-023) 자주하는 질문 (0.53)
+[10] [공공] 국가건강정보포털: 당뇨환자의 운동요법 (kdca-013) 맞춤형 실천 방법 (0.49)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+27,당뇨,-,조건 누락,당뇨 회원 오늘 고강도로 해도 돼요?,,,,"1. 대상 확인: 질문에서 읽은 대상은 당뇨 환자입니다. 연령, 성별, 당뇨 유형(1형 또는 2형), 현재 복용 중인 약물, 식사 상태, 운동 경험 등 추가 정보가 필요합니다.
+
+2. 권장 운동: 
+   - 종류: 고강도 간헐적 운동(HIIT) 또는 저항 운동
+   - 강도: 개인의 체력 수준에 따라 조절, 일반적으로 최대 심박수의 70-85%를 목표로 함
+   - 시간: HIIT의 경우 20-30분, 저항 운동은 30-60분
+   - 빈도: 주 3-5회 [1][4]
+
+3. 주의사항: 
+   - 운동 전: 혈당 수치를 확인하고, 필요시 탄수화물 섭취
+   - 운동 중: 혈당 수치를 지속적으로 모니터링하고, 저혈당 증상이 나타나면 즉시 중단
+   - 운동 후: 혈당 수치를 다시 확인하고, 필요시 추가적인 탄수화물 섭취
+   - 피할 동작: 격렬한 운동 후에는 급격한 체온 변화가 발생할 수 있으므로, 급격한 온도 변화가 있는 환경에서 운동을 피해야 함 [5].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈당: 운동 중 혈당이 급격히 떨어질 수 있음 → 인슐린 분비 증가 및 간에서의 포도당 방출 감소로 인해 → 저혈당 증상(어지러움, 떨림, 혼란 등) 발생 가능 [4][5].
+
+5. 근거: 
+   - [1] 고강도 간헐적 운동과 당뇨병 (J Korean Diabetes 2024) 229쪽
+   - [4] 2025 Clinical Practice Guidelines for Diabetes Management in Korea: Recommendation of the Korean Diabetes Association 12. EXERCISE THERAPY
+   - [5] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes 1. Introduction","[1] [학술] 고강도 간헐적 운동과 당뇨병 (J Korean Diabetes 2024) (jkd-hiit-001) 229쪽 (0.66)
+[2] [학술] 고강도 간헐적 운동과 당뇨병 (J Korean Diabetes 2024) (jkd-hiit-001) 228쪽 (0.65)
+[3] [학술] 당뇨병환자의 저항운동 (J Korean Diabetes 2025) (jkd-resist-001) 199쪽 (0.64)
+[4] [학술] 2025 Clinical Practice Guidelines for Diabetes Management in Korea: Recommendation of the Korean Diabetes Association (pmc-dm-010) 12. EXERCISE THERAPY (0.64)
+[5] [학술] Carbohydrate Intake in the Context of Exercise in People with Type 1 Diabetes (pmc-dm-ex-002) 1. Introduction (0.64)
+[6] [공공] 2025년 지역사회 통합건강증진사업(신체활동) 안내서 (khepi-pa-001) 99쪽 (0.34)
+[7] [공공] 2024 통합건강증진사업안내 비만 (mohw-002) 55쪽 (0.28)
+[8] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 28-29쪽 (0.28)
+[9] [공공] 2026년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-001) 59쪽 (0.28)
+[10] [공공] 2025년 지역사회 통합건강증진사업(비만예방관리) 안내서 (khepi-ob-002) 57쪽 (0.28)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+28,고혈압,-,조건 누락,고혈압 회원 근력운동 프로그램 짜 주세요.,,,,"1. 대상 확인: 고혈압 환자, 성인, 성별 정보 없음. 추가로 약물 복용 여부와 운동 경험이 필요합니다.
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 수영 등)과 저항 운동(아령, 체중을 이용한 운동)
+   - 강도: 최대 산소섭취량의 40~70%에서 시작, 점진적으로 50~85%로 증가
+   - 시간: 유산소 운동은 최소 30분, 저항 운동은 2~3회/주
+   - 빈도: 유산소 운동은 5~7일/주, 저항 운동은 2~3일/주 [1][5][6].
+
+3. 주의사항: 
+   - 운동 전: 혈압을 측정하고, 고혈압 약물 복용 여부 확인
+   - 운동 중: 과도한 힘을 주는 동작(예: 무거운 중량 들기) 피하기, 혈압이 높을 경우 운동 중단
+   - 운동 후: 쿨다운 운동 포함, 혈압 변화 모니터링 [2][5][6].
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 혈압이 상승할 수 있음 → 고혈압 환자는 운동 중 혈압이 급격히 상승할 수 있어 심혈관계에 부담을 줄 수 있음 → 두통, 어지러움, 심장 두근거림 등의 증상 발생 가능 [1][2][5].
+
+5. 근거: 
+   - [1] 2018 Korean Society of Hypertension Guidelines for the management of hypertension: part II-diagnosis and treatment of hypertension, Chapter II. Treatment of hypertension
+   - [2] 2013 Korean Society of Hypertension guidelines for the management of hypertension. Part II—treatments of hypertension
+   - [5] 국가건강정보포털: 고혈압 환자의 운동요법
+   - [6] 국가건강정보포털: 고혈압 환자의 운동요법, 평가 및 검사","[1] [학술] 2018 Korean Society of Hypertension Guidelines for the management of hypertension: part II-diagnosis and treatment of hypertension (pmc-htn-008) Chapter II. Treatment of hypertension (0.61)
+[2] [학술] 2013 Korean Society of Hypertension guidelines for the management of hypertension. Part II—treatments of hypertension (pmc-htn-005) Nondrug therapy and lifestyle modification (0.59)
+[3] [학술] Isometric Exercise Training and Arterial Hypertension: An Updated Review (pmc-htn-ex-005) Isometric Exercise Training: Current Evidence (0.58)
+[4] [학술] Isometric Exercise Training and Arterial Hypertension: An Updated Review (pmc-htn-ex-005) Isometric Exercise Training: Current Evidence (0.58)
+[5] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 요약문 (0.58)
+[6] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 평가 및 검사 (0.57)
+[7] [학술] 2018 Korean Society of Hypertension Guidelines for the management of hypertension: part II-diagnosis and treatment of hypertension (pmc-htn-008) Chapter II. Treatment of hypertension (0.56)
+[8] [공공] 어르신 근력 균형운동 완성 프로그램('어운완') 운영 매뉴얼 (khepi-pa-003) -3--1쪽 (0.53)
+[9] [공공] 2025년 지역사회 통합건강증진사업(신체활동) 안내서 (khepi-pa-001) 96쪽 (0.53)
+[10] [공공] 2025년 지역사회 통합건강증진사업(신체활동) 안내서 (khepi-pa-001) 122쪽 (0.52)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+29,고혈압,-,경계,혈압약(베타차단제) 먹는 회원이 운동하니까 약을 끊어도 되냐고 물어요.,,,,"1. 대상 확인: 질문에서 언급된 회원은 고혈압 환자로, 베타차단제를 복용 중입니다. 연령, 성별, 운동 경험, 현재의 건강 상태(예: 혈압 조절 상태) 등의 정보가 부족합니다. 추가 정보를 제공해 주실 수 있나요?
+
+2. 권장 운동: 
+   - 종류: 유산소 운동(걷기, 자전거 타기 등)과 저항 운동(가벼운 덤벨 사용 등)
+   - 강도: 중간 강도(대화가 가능할 정도)
+   - 시간: 하루 30분 이상
+   - 빈도: 주 5회 이상 [7][9]
+
+3. 주의사항: 
+   - 운동 전: 혈압을 측정하고, 혈압이 잘 조절되고 있는지 확인
+   - 운동 중: 무리한 저항 운동(무거운 아령이나 역기 들기) 피하기, 심장에 무리가 가지 않도록 주의
+   - 운동 후: 운동 직후 혈압이 상승할 수 있으므로 충분한 휴식 후 혈압 측정 [5][8]
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 혈압
+   - 어떤 기전으로: 베타차단제 복용 시 심박수와 혈압 조절이 어려워질 수 있으며, 운동 중 아드레날린 분비로 혈압이 급격히 상승할 수 있음 [1][6]
+   - 어떤 증상·위험으로 나타나는지: 혈압이 급격히 상승하면 심장에 부담을 주어 협심증이나 심근경색의 위험이 증가할 수 있음 [5][8]
+
+5. 근거: 
+   - [1] [학술] Exercise Hypertension (pmc-htn-ex-003) Treating an HRE
+   - [5] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 자주하는 질문
+   - [7] [공공] 국가건강정보포털: 고혈압 (kdca-003) 비약물 치료
+   - [8] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 자주하는 질문
+   - [9] [공공] 국가건강정보포털: 고혈압 (kdca-003) 생활습관 관리
+
+회원이 약을 끊는 것에 대해서는 반드시 담당 의사와 상의해야 하며, 임의로 약을 중단하는 것은 위험할 수 있습니다.","[1] [학술] Exercise Hypertension (pmc-htn-ex-003) Treating an HRE (0.58)
+[2] [학술] Exercise Hypertension (pmc-htn-ex-003) Treating an HRE (0.56)
+[3] [학술] 2018 Korean Society of Hypertension Guidelines for the management of hypertension: part II-diagnosis and treatment of hypertension (pmc-htn-008) Chapter II. Treatment of hypertension (0.55)
+[4] [학술] 2013 Korean Society of Hypertension guidelines for the management of hypertension. Part II—treatments of hypertension (pmc-htn-005) Classes of antihypertensive drugs (0.53)
+[5] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 자주하는 질문 (0.50)
+[6] [학술] Clinical and Prognostic Value of Exaggerated Blood Pressure Response to Exercise (pmc-htn-ex-006) 6. Clinical Management (0.50)
+[7] [공공] 국가건강정보포털: 고혈압 (kdca-003) 비약물 치료 (0.50)
+[8] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 자주하는 질문 (0.47)
+[9] [공공] 국가건강정보포털: 고혈압 (kdca-003) 생활습관 관리 (0.46)
+[10] [공공] 국가건강정보포털: 노인 고혈압 (kdca-023) 자주하는 질문 (0.46)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,
+30,고혈압,-,경계,운동 전에 잰 혈압이 180/110이에요. 이 회원 무슨 병인지 진단해 주세요.,,,,"1. 대상 확인: 질문에서 제공된 정보에 따르면, 회원의 혈압은 180/110 mmHg로, 이는 고혈압(2기 고혈압)으로 분류됩니다. 연령, 성별, 질환 유형(1형·2형 당뇨 등), 약물 복용 여부, 식사, 컨디션에 대한 정보가 부족합니다. 추가 정보를 제공해 주실 수 있나요?
+
+2. 권장 운동: 제공된 정보만으로는 구체적인 운동 권장 사항을 제시하기 어렵습니다. 일반적으로 고혈압 환자에게는 저강도의 유산소 운동(걷기, 자전거 타기 등)을 권장하며, 강도는 최대 심박수의 50-70% 정도로 설정하고, 주 3-5회, 30분 이상 실시하는 것이 좋습니다. 하지만, 현재 혈압이 180/110 mmHg인 경우, 운동을 시작하기 전에 반드시 의료 전문가와 상담해야 합니다.
+
+3. 주의사항: 
+   - 운동 전: 혈압을 재고, 180/110 mmHg 이상의 고혈압 상태에서는 운동을 피해야 합니다.
+   - 운동 중: 혈압이 급격히 상승할 수 있으므로, 운동을 중단하고 즉시 의료 전문가의 조언을 받아야 합니다.
+   - 운동 후: 혈압이 정상 범위로 돌아오는지 확인해야 하며, 지속적인 모니터링이 필요합니다.
+
+4. 항상성이 깨질 때 생기는 문제: 
+   - 무엇이: 혈압
+   - 어떤 기전으로: 고혈압 상태에서 운동을 하면 심장에 과도한 부담이 가해져 혈압이 더욱 상승할 수 있습니다.
+   - 어떤 증상·위험으로 나타나는지: 심장마비, 뇌졸중 등의 심각한 합병증이 발생할 수 있습니다 [1][4][10].
+
+5. 근거: 
+   - [1] [학술] Neural Control of Cardiovascular Function During Exercise in Hypertension, Introduction
+   - [4] [학술] Exercise Hypertension, Abstract
+   - [10] [공공] 국가건강정보포털: 고혈압 환자의 운동요법, 개요
+
+추가 정보를 제공해 주시면 더 구체적인 운동 계획을 제시할 수 있습니다.","[1] [학술] Neural Control of Cardiovascular Function During Exercise in Hypertension (pmc-htn-ex-002) Introduction (0.62)
+[2] [학술] Exercise Hypertension (pmc-htn-ex-003) Summary and Conclusion (0.61)
+[3] [학술] Clinical and Prognostic Value of Exaggerated Blood Pressure Response to Exercise (pmc-htn-ex-006) 2. Definition and Prevalence (0.61)
+[4] [학술] Exercise Hypertension (pmc-htn-ex-003) Abstract (0.61)
+[5] [학술] Clinical and Prognostic Value of Exaggerated Blood Pressure Response to Exercise (pmc-htn-ex-006) 2. Definition and Prevalence (0.59)
+[6] [공공] 2025년 지역사회 통합건강증진사업(신체활동) 안내서 (khepi-pa-001) 63쪽 (0.56)
+[7] [공공] 2026 통합건강증진사업안내 신체활동 (mohw-007) 63쪽 (0.53)
+[8] [공공] 2025년 지역사회 통합건강증진사업(신체활동) 안내서 (khepi-pa-001) 122쪽 (0.53)
+[9] [공공] 2026 통합건강증진사업안내 신체활동 (mohw-007) 122쪽 (0.53)
+[10] [공공] 국가건강정보포털: 고혈압 환자의 운동요법 (kdca-016) 개요 (0.52)",gpt-4o-mini,section_ctx@10/doc2/pub5/en,,,,,

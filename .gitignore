@@ -2,5 +2,8 @@
 chroma_db/
 **/data/raw/
 **/data/text/
+**/data/chunks/
+index/
 manual_files/
 __pycache__/
+kdca_urls.txt
