@@ -6,3 +6,4 @@ openpyxl
 numpy
 openai
 python-dotenv
+streamlit

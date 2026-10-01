@@ -7,3 +7,4 @@ index/
 manual_files/
 __pycache__/
 kdca_urls.txt
+logs/

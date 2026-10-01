@@ -142,13 +142,23 @@ RAG로 개선을 보여줄 지점은 근거 정확도, 한국 기준 수치, 함
 - 새 초안 문항(`eval/questions_v2_draft.csv`)의 '기대 문서'는 논문을 고른 사람이 직접 단 문서 단위 정답이라 유리하게 나올 수 있습니다. 쪽·섹션 단위 정답과 채점 포인트는 사람 검토 후 확정합니다.
 - 오답노트 후보: 고중량 운동 질문(17번)에서 발살바 압력 논문을 못 찾음, 운동 후 어지럼 질문(18번)에서 운동 후 저혈압 기전 논문을 못 찾음, 기전 질문에도 답변 형식 때문에 권장 운동 칸이 채워짐.
 
+## 테스트 화면 (Streamlit)
+
+`streamlit run app.py`를 실행하면 브라우저에서 답변을 확인할 수 있습니다.
+
+- 질문을 직접 쓰거나 평가셋 문항을 고릅니다. 문항을 고르면 채점 포인트와 기대 근거 문서가 함께 보입니다.
+- 왼쪽에 답변, 오른쪽에 검색된 근거(학술/공공, 점수, 인용 여부, 기대 문서 여부)가 나옵니다.
+- 자동 점검: 형식 5칸(대상 확인·권장 운동·주의사항·항상성·근거)이 있는지, 인용 번호가 실제 검색 결과에 있는지, 학술 근거를 몇 개 인용했는지, 기대 문서가 검색됐는지.
+- 사람 평가: 항목별 좋음/부족/틀림과 메모를 저장하면 `logs/qa_log.sqlite`에 쌓이고, 화면 아래에서 CSV로 받을 수 있습니다.
+- 사이드바에서 청킹 방식, 근거 수, 공공 자료 최소 개수, 문서당 최대 개수, 영어 번역 검색을 바꿔 가며 비교할 수 있습니다.
+
 ## 폴더 구조
 
 ```
 .
 ├── README.md
-├── requirements.txt        # requests, beautifulsoup4, pymupdf, pandas, openpyxl, numpy, openai, python-dotenv
-├── .gitignore              # .env, chroma_db/, **/data/raw/, **/data/text/, **/data/chunks/, index/, manual_files/, __pycache__/, kdca_urls.txt
+├── requirements.txt        # requests, beautifulsoup4, pymupdf, pandas, openpyxl, numpy, openai, python-dotenv, streamlit
+├── .gitignore              # .env, chroma_db/, **/data/raw/, **/data/text/, **/data/chunks/, index/, manual_files/, __pycache__/, kdca_urls.txt, logs/
 ├── .env                    # OPENAI_API_KEY, NCBI_EMAIL (올리지 않음)
 ├── collect.py              # 문서 수집기
 ├── sources.csv             # 수집 출처 목록
@@ -157,6 +167,7 @@ RAG로 개선을 보여줄 지점은 근거 정확도, 한국 기준 수치, 함
 ├── index.py                # 전략별 검색 인덱스 만들기
 ├── eval_retrieval.py       # 검색 적중률 평가
 ├── rag_test.py             # RAG 답변 테스트 (빈손 테스트와 같은 설정)
+├── app.py                  # Streamlit 테스트 화면 (질문 → 근거·답변·자동 점검·사람 평가 기록)
 ├── blank_test.py           # 빈손 테스트
 ├── docs/
 │   └── collect_guide.md    # 수집 절차와 판정 기준
@@ -169,6 +180,7 @@ RAG로 개선을 보여줄 지점은 근거 정확도, 한국 기준 수치, 함
 │   ├── summary.csv         # 데이터코드 표 (출처별 요약)
 │   └── 데이터코드표.xlsx    # 위 두 표를 시트로 묶은 엑셀
 ├── index/                  # index.py 결과: 전략별 벡터·청크, 임베딩 캐시 (올리지 않음)
+├── logs/                   # app.py 평가 기록 qa_log.sqlite (올리지 않음)
 └── eval/
     ├── questions.csv       # 평가셋 1차 (13문항, 근거위치 포함)
     ├── questions_v2_draft.csv  # 평가셋 2차 초안 (30문항: 질환×대상×유형, 기대 문서는 검토 필요)
@@ -204,6 +216,7 @@ python index.py                                                             # �
 python eval_retrieval.py                                                    # 검색 적중률 (전략 비교)
 python eval_retrieval.py --questions eval/questions_v2_draft.csv --only section_ctx --k 10 --per-doc 2 --public 5 --translate
 python rag_test.py --questions eval/questions_v2_draft.csv                  # RAG 답변 생성 (기본: 번역 검색 + 공공 5개 + 한 문서당 2개)
+streamlit run app.py                                                        # 테스트 화면 (브라우저에서 질문하고 평가 저장)
 ```
 
 ## 진행 상황
@@ -223,7 +236,7 @@ python rag_test.py --questions eval/questions_v2_draft.csv                  # RA
 - [ ] 평가셋 30문항 완성, 자동 채점
 - [ ] 오답노트
 - [ ] 개선 실험 (첫 실험: 텍스트 없는 쪽 OCR 보완 전후 비교)
-- [ ] Streamlit 서비스화, DB 로그
+- [x] Streamlit 테스트 화면, 평가 기록(SQLite)
 - [ ] 최종 리포트
 
 ## 참고 자료
