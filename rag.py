@@ -12,7 +12,9 @@
 import hashlib
 import json
 import sqlite3
+import threading
 import time
+from contextlib import closing
 from datetime import datetime
 from pathlib import Path
 
@@ -36,8 +38,11 @@ class EmbedCache:
     def __init__(self, model=EMBED_MODEL):
         INDEX.mkdir(exist_ok=True)
         self.model = model
-        self.db = sqlite3.connect(INDEX / "embed_cache.sqlite")
-        self.db.execute("CREATE TABLE IF NOT EXISTS emb (key TEXT PRIMARY KEY, vec BLOB)")
+        # Streamlit처럼 같은 객체를 여러 스레드에서 쓰는 경우가 있어 스레드 제한을 풀고 잠금으로 보호한다
+        self.db = sqlite3.connect(INDEX / "embed_cache.sqlite", check_same_thread=False)
+        self.lock = threading.Lock()
+        with self.lock:
+            self.db.execute("CREATE TABLE IF NOT EXISTS emb (key TEXT PRIMARY KEY, vec BLOB)")
         self.client = None
         self.new_tokens = 0
 
@@ -50,7 +55,8 @@ class EmbedCache:
         for i in range(0, len(keys), 900):
             part = keys[i:i + 900]
             q = f"SELECT key, vec FROM emb WHERE key IN ({','.join('?' * len(part))})"
-            found.update({k: np.frombuffer(v, dtype=np.float32) for k, v in self.db.execute(q, part)})
+            with self.lock:
+                found.update({k: np.frombuffer(v, dtype=np.float32) for k, v in self.db.execute(q, part)})
         todo = [(k, t) for k, t in dict(zip(keys, texts)).items() if k not in found]
         if todo:
             self.client = self.client or _client()
@@ -63,8 +69,9 @@ class EmbedCache:
                     v = np.asarray(d.embedding, dtype=np.float32)
                     found[k] = v
                     rows.append((k, v.tobytes()))
-                self.db.executemany("INSERT OR REPLACE INTO emb VALUES (?, ?)", rows)
-                self.db.commit()
+                with self.lock:
+                    self.db.executemany("INSERT OR REPLACE INTO emb VALUES (?, ?)", rows)
+                    self.db.commit()
                 if log:
                     log(f"  임베딩 {min(i + BATCH, len(todo))}/{len(todo)}")
         m = np.vstack([found[k] for k in keys])
@@ -150,26 +157,27 @@ class Retriever:
                 for r, i in enumerate(picked, 1)]
 
 
-def translate_query(question, cache_db=None):
-    """한국어 질문 → 영어 검색어 (영어 논문을 찾기 위한 용도, 결과는 캐시)"""
+def translate_query(question):
+    """한국어 질문 → 영어 검색어 (영어 논문을 찾기 위한 용도, 결과는 캐시)
+    호출마다 연결을 열고 닫아서 어느 스레드에서 불러도 안전하다."""
     from blank_test import MODEL
     INDEX.mkdir(exist_ok=True)
-    db = cache_db or sqlite3.connect(INDEX / "embed_cache.sqlite")
-    db.execute("CREATE TABLE IF NOT EXISTS tr (q TEXT PRIMARY KEY, en TEXT)")
-    row = db.execute("SELECT en FROM tr WHERE q = ?", (question,)).fetchone()
-    if row:
-        return row[0]
-    resp = _client().chat.completions.create(
-        model=MODEL, temperature=0,
-        messages=[{"role": "system", "content":
-                   "Translate the user's Korean question into one English search query for "
-                   "exercise physiology and clinical literature. Keep medical terms precise "
-                   "(e.g. 원발성 고혈압 = essential hypertension, 1형 당뇨 = type 1 diabetes). "
-                   "Output only the English query."},
-                  {"role": "user", "content": question}])
-    en = resp.choices[0].message.content.strip()
-    db.execute("INSERT OR REPLACE INTO tr VALUES (?, ?)", (question, en))
-    db.commit()
+    with closing(sqlite3.connect(INDEX / "embed_cache.sqlite")) as db:
+        db.execute("CREATE TABLE IF NOT EXISTS tr (q TEXT PRIMARY KEY, en TEXT)")
+        row = db.execute("SELECT en FROM tr WHERE q = ?", (question,)).fetchone()
+        if row:
+            return row[0]
+        resp = _client().chat.completions.create(
+            model=MODEL, temperature=0,
+            messages=[{"role": "system", "content":
+                       "Translate the user's Korean question into one English search query for "
+                       "exercise physiology and clinical literature. Keep medical terms precise "
+                       "(e.g. 원발성 고혈압 = essential hypertension, 1형 당뇨 = type 1 diabetes). "
+                       "Output only the English query."},
+                      {"role": "user", "content": question}])
+        en = resp.choices[0].message.content.strip()
+        db.execute("INSERT OR REPLACE INTO tr VALUES (?, ?)", (question, en))
+        db.commit()
     return en
 
 

@@ -10,20 +10,21 @@
 import json
 import re
 import sqlite3
+from contextlib import closing
 from datetime import datetime
 
 import pandas as pd
 import streamlit as st
 
 from blank_test import MODEL
-from rag import INDEX, ROOT, Retriever, _client, cite, translate_query
-from rag_test import SYSTEM_PROMPT, ask
+from rag import INDEX, ROOT, Retriever, _client, cite
+from rag_test import SCOPE_PROMPT, SYSTEM_PROMPT, run
 
 LOG_DB = ROOT / "logs" / "qa_log.sqlite"
 QUESTION_FILES = {
-    "평가셋 (30문항)": ROOT / "eval" / "questions.csv",
+    "평가셋": ROOT / "eval" / "questions.csv",
 }
-SECTIONS = ["대상 확인", "권장 운동", "주의사항", "항상성", "근거"]
+SECTIONS = ["상황 정리", "판단", "주의사항", "근거"]
 
 
 # ── 준비 ─────────────────────────────────────────────
@@ -65,7 +66,7 @@ def auto_checks(answer, chunks):
     by_rank = {c["rank"]: c for c in chunks}
     academic = [n for n in valid if by_rank[n].get("doc_type") == "학술"]
     return {
-        "형식 5칸": sum(s in answer for s in SECTIONS),
+        "형식 칸": sum(s in answer for s in SECTIONS),
         "인용한 근거 번호": cited,
         "없는 번호 인용": [n for n in cited if n not in valid],
         "학술 근거 인용 수": len(academic),
@@ -76,7 +77,7 @@ def auto_checks(answer, chunks):
 
 def show_checks(checks, n_chunks):
     c1, c2, c3 = st.columns(3)
-    c1.metric("형식 5칸 중", f"{checks['형식 5칸']}칸")
+    c1.metric(f"형식 {len(SECTIONS)}칸 중", f"{checks['형식 칸']}칸")
     c2.metric("인용한 근거", f"{len(checks['인용한 근거 번호'])} / {n_chunks}개")
     c3.metric("학술 근거 인용", f"{checks['학술 근거 인용 수']}개")
     if checks["없는 번호 인용"]:
@@ -89,7 +90,7 @@ def show_checks(checks, n_chunks):
 # ── 화면 ─────────────────────────────────────────────
 st.set_page_config(page_title="운동지도 보조 RAG 테스트", layout="wide")
 st.title("운동지도 보조 RAG 테스트")
-st.caption("당뇨·비만·고혈압 · 대상별 운동 방법, 주의사항, 항상성이 깨질 때 생기는 문제를 근거와 함께 확인합니다. "
+st.caption("당뇨·비만·고혈압 회원의 질환 유형·연령·성별·운동 경력이 조합된 상황에서 무엇을 주의해야 하는지 근거와 함께 확인합니다. "
            "이 도구는 의료 조언을 제공하지 않습니다.")
 
 names = strategies()
@@ -108,12 +109,14 @@ with st.sidebar:
     st.caption(f"답변 모델: {MODEL} (온도 0)")
     with st.expander("시스템 프롬프트 보기"):
         st.text(SYSTEM_PROMPT)
+    with st.expander("범위 판정 프롬프트 보기"):
+        st.text(SCOPE_PROMPT)
 
 st.subheader("질문")
 source = st.radio("질문 고르기", ["직접 입력", *QUESTION_FILES], horizontal=True)
 preset = {}
 if source == "직접 입력":
-    question = st.text_area("질문", placeholder="예: 70대 고혈압 회원이 운동 후 일어나면 어지럽대요. 왜 그런가요?", height=80)
+    question = st.text_area("질문", placeholder="예: 50대 고혈압 판정을 받은 숙련자 남성 회원이 중량을 더 올리고 싶다는데 어떻게 생각해?", height=80)
 else:
     qs = load_questions(QUESTION_FILES[source])
     labels = [f"{r['번호']}. [{r.get('질환', r.get('유형', ''))} · {r.get('대상', '')} · {r.get('유형', '')}] {r['질문']}"
@@ -127,15 +130,13 @@ else:
         st.write(f"**근거위치:** `{preset.get('근거위치') or '-'}`")
 
 if st.button("질문하기", type="primary", disabled=not question.strip()):
-    with st.spinner("근거를 찾고 답변을 만드는 중..."):
-        retriever = load_retriever(strategy)
-        query_en = translate_query(question) if translate else None
-        chunks = retriever.search(question, k=k, per_doc=per_doc, public=public, query_en=query_en)
-        answer = ask(load_client(), question, chunks)
+    with st.spinner("범위를 판정하고 근거를 찾아 답변을 만드는 중..."):
+        out = run(question, load_retriever(strategy), load_client(),
+                  k=k, per_doc=per_doc, public=public, translate=translate)
     st.session_state["result"] = {
-        "question": question, "query_en": query_en, "chunks": chunks, "answer": answer,
+        "question": question, **out,
         "settings": {"strategy": strategy, "k": k, "public": public, "per_doc": per_doc,
-                     "translate": translate, "model": MODEL},
+                     "translate": translate, "model": MODEL, "scope": out["scope"]},
         "gold": preset.get("근거위치", ""), "saved": False,
     }
 
@@ -146,13 +147,23 @@ if res:
 
     with left:
         st.subheader("답변")
+        scope = res["scope"]
+        if scope["scope"] == "out":
+            st.error(f"범위 밖으로 판정 → 검색·답변 생략. {scope.get('reason', '')}")
+        elif scope["scope"] == "partial":
+            st.warning(f"일부만 범위 안 · 답하지 않을 부분: {', '.join(scope.get('out_of_scope', []))}. "
+                       f"{scope.get('reason', '')}")
+            st.caption(f"범위 밖을 뺀 질문으로 검색·답변: {res.get('asked')}")
+        else:
+            st.caption(f"범위 안 · {scope.get('reason', '')}")
         if res["query_en"]:
             st.caption(f"영어 검색어: {res['query_en']}")
         st.markdown(res["answer"])
         st.divider()
-        st.subheader("자동 점검")
         checks = auto_checks(res["answer"], res["chunks"])
-        show_checks(checks, len(res["chunks"]))
+        if scope["scope"] != "out":
+            st.subheader("자동 점검")
+            show_checks(checks, len(res["chunks"]))
         if gold_docs:
             found = sorted(gold_docs & {c["doc_id"] for c in res["chunks"]})
             (st.success if found else st.warning)(
@@ -175,27 +186,29 @@ if res:
     st.subheader("사람 평가")
     st.caption("답변이 원하는 대로 나왔는지 항목별로 표시하고 저장하면 logs/qa_log.sqlite 에 기록됩니다.")
     with st.form("rating"):
-        cols = st.columns(5)
-        items = ["대상 확인·되묻기", "권장 운동", "주의사항", "항상성 기전 설명", "근거가 실제 내용과 일치"]
+        items = ["범위 판정이 맞음", "상황 정리·되묻기", "조합에 맞춘 판단", "주의사항", "운동 시 생길 수 있는 문제",
+                 "근거가 실제 내용과 일치"]
+        cols = st.columns(len(items))
         rating = {it: col.radio(it, ["좋음", "부족", "틀림", "해당 없음"], index=3, key=f"r_{it}")
                   for it, col in zip(items, cols)}
         memo = st.text_area("메모 (틀린 내용, 빠진 근거 등)")
         if st.form_submit_button("평가 저장"):
-            db = log_db()
-            db.execute(
-                "INSERT INTO qa (ts, question, query_en, settings, answer, sources, auto_checks, rating, memo) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                (datetime.now().isoformat(timespec="seconds"), res["question"], res["query_en"],
-                 json.dumps(res["settings"], ensure_ascii=False), res["answer"],
-                 json.dumps([{"rank": c["rank"], "chunk_id": c["chunk_id"], "score": round(c["score"], 4)}
-                             for c in res["chunks"]], ensure_ascii=False),
-                 json.dumps(checks, ensure_ascii=False), json.dumps(rating, ensure_ascii=False), memo))
-            db.commit()
+            with closing(log_db()) as db:
+                db.execute(
+                    "INSERT INTO qa (ts, question, query_en, settings, answer, sources, auto_checks, rating, memo) "
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    (datetime.now().isoformat(timespec="seconds"), res["question"], res["query_en"],
+                     json.dumps(res["settings"], ensure_ascii=False), res["answer"],
+                     json.dumps([{"rank": c["rank"], "chunk_id": c["chunk_id"], "score": round(c["score"], 4)}
+                                 for c in res["chunks"]], ensure_ascii=False),
+                     json.dumps(checks, ensure_ascii=False), json.dumps(rating, ensure_ascii=False), memo))
+                db.commit()
             st.success("저장했습니다.")
 
 with st.expander("저장된 평가 기록"):
     if LOG_DB.exists():
-        df = pd.read_sql("SELECT id, ts, question, rating, memo FROM qa ORDER BY id DESC", log_db())
+        with closing(log_db()) as db:
+            df = pd.read_sql("SELECT id, ts, question, rating, memo FROM qa ORDER BY id DESC", db)
         st.dataframe(df, width="stretch", hide_index=True)
         st.download_button("CSV로 받기", df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8-sig"),
                            "qa_log.csv", "text/csv")
