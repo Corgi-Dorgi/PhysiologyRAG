@@ -21,8 +21,7 @@ from rag_test import SYSTEM_PROMPT, ask
 
 LOG_DB = ROOT / "logs" / "qa_log.sqlite"
 QUESTION_FILES = {
-    "평가셋 2차 초안 (30문항)": ROOT / "eval" / "questions_v2_draft.csv",
-    "평가셋 1차 (13문항)": ROOT / "eval" / "questions.csv",
+    "평가셋 (30문항)": ROOT / "eval" / "questions.csv",
 }
 SECTIONS = ["대상 확인", "권장 운동", "주의사항", "항상성", "근거"]
 

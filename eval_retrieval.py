@@ -2,8 +2,8 @@
 """
 검색 평가: 청킹 전략별로 정답 근거가 검색 상위 K개 안에 드는지 잰다.
 
-정답 근거는 eval/questions.csv 의 '근거위치' 칸에 '문서ID:인쇄쪽' 형식으로 적는다.
-  예) khepi-ob-001:105-106; khepi-pa-004:49
+정답 근거는 eval/questions.csv 의 '근거위치' 칸에 '문서ID:인쇄쪽' 또는 '문서ID'로 적는다.
+  예) khepi-ob-001:105-106; pmc-htn-ex-007
   근거위치가 빈 문항(문서에 없는 질문)은 검색 평가에서 뺀다.
 
 문항마다 세 가지를 따로 기록해서 실패 원인을 나눈다.
@@ -14,7 +14,7 @@
 실행: python eval_retrieval.py            # 모든 인덱스, K=5
       python eval_retrieval.py --k 10 --only section_ctx
       python eval_retrieval.py --per-doc 2       # 한 문서당 최대 2개 (상위 독점 방지)
-      python eval_retrieval.py --questions eval/questions_v2_draft.csv --k 8 --per-doc 2 --academic 4 --translate
+      python eval_retrieval.py --k 10 --per-doc 2 --public 5 --translate   # 현재 RAG 기본 설정
 결과: eval/results/retrieval_<날짜>.csv (문항×전략 상세), 화면에 전략별 요약
 """
 import argparse
