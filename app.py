@@ -24,7 +24,7 @@ LOG_DB = ROOT / "logs" / "qa_log.sqlite"
 QUESTION_FILES = {
     "평가셋": ROOT / "eval" / "questions.csv",
 }
-SECTIONS = ["상황 정리", "판단", "주의사항", "근거"]
+SECTIONS = ["지도할 때 유의할 점", "회원에게서 지켜볼 점", "근거"]
 
 
 # ── 준비 ─────────────────────────────────────────────
@@ -100,7 +100,7 @@ if not names:
 
 with st.sidebar:
     st.header("검색 설정")
-    strategy = st.selectbox("청킹 방식", names, index=names.index("section_ctx") if "section_ctx" in names else 0)
+    strategy = st.selectbox("청킹 방식", names, index=names.index("fixed") if "fixed" in names else 0)
     k = st.slider("가져올 근거 수", 3, 15, 10)
     public = st.slider("공공 자료 최소 개수", 0, k, min(5, k), help="한국 기준 수치(주 150분 등)를 위해 확보")
     per_doc = st.slider("한 문서에서 최대", 1, 5, 2, help="같은 문서 조각이 상위를 독점하지 않게")
@@ -186,7 +186,7 @@ if res:
     st.subheader("사람 평가")
     st.caption("답변이 원하는 대로 나왔는지 항목별로 표시하고 저장하면 logs/qa_log.sqlite 에 기록됩니다.")
     with st.form("rating"):
-        items = ["범위 판정이 맞음", "상황 정리·되묻기", "조합에 맞춘 판단", "주의사항", "운동 시 생길 수 있는 문제",
+        items = ["범위 판정이 맞음", "결론·되묻기", "조합에 맞춘 판단", "지도할 때 유의할 점", "회원에게서 지켜볼 점",
                  "근거가 실제 내용과 일치"]
         cols = st.columns(len(items))
         rating = {it: col.radio(it, ["좋음", "부족", "틀림", "해당 없음"], index=3, key=f"r_{it}")
