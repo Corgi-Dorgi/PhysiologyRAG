@@ -201,7 +201,7 @@
 ├── index/                  # index.py 결과: 전략별 벡터·청크, 임베딩 캐시 (올리지 않음)
 ├── logs/                   # app.py 평가 기록 qa_log.sqlite (올리지 않음)
 └── eval/
-    ├── questions.csv       # 평가셋 30문항 (질환×대상×유형, 근거위치는 문서 단위 초안)
+    ├── questions.csv       # 평가셋 35문항 (질문, 채점 포인트: 핵심 판단 + 세부, 근거위치)
     └── results/
         ├── blank_gpt-4o-mini_<날짜>.csv                     # 빈손 테스트 결과
         ├── retrieval_<날짜>.csv                             # 검색 평가 (문항×전략)
