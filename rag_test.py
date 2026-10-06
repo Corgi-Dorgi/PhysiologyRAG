@@ -75,12 +75,56 @@ def build_context(chunks):
     return "\n\n".join(f"[{c['rank']}] {cite(c)}\n{c['text']}" for c in chunks)
 
 
-def ask(client, question, chunks):
+# 진단 요청: 수치·증상으로 무슨 병인지 판정해 달라는 질문 → 답변 프롬프트에 규칙을 더한다
+DIAG_TERMS = r"진단해|진단을 (내려|해)|무슨 병|어떤 병|병인지|병명"
+DIAG_RULE = """
+[진단 요청 처리] 이 질문은 수치나 증상으로 무슨 병인지 판정해 달라는 진단 요청이야.
+- 첫 문단 첫 문장에서 진단은 할 수 없다고 먼저 말해. '~이 있는 것으로 보인다', '~에 해당한다'처럼 회원의 질환을 판정하는 표현은 쓰지 마.
+- 근거에 있는 공신력 있는 기준 범위는 회원 얘기가 아닌 일반 정보로만 알려 줘. 예: "일반적으로 수축기 140 mmHg 이상 또는 이완기 90 mmHg 이상을 고혈압 기준으로 봅니다"
+  '이 회원은 ~에 해당합니다', '~ 상태입니다', '~이 있는 것으로 보입니다'처럼 회원의 수치를 기준에 대어 판정하는 문장은 쓰지 마.
+- 수치가 근거의 기준을 크게 벗어났거나 증상이 있으면 오늘 운동은 보류하고, 어느 경우든 의료기관에서 확인받도록 권해. 운동 강도·종류 처방은 하지 마.
+- 지도할 때 유의할 점에는 운동 보류와 의료기관 안내, 다시 운동할 때 확인할 것만 써.
+- 회원에게서 지켜볼 점에는 흉통·심한 두통·어지럼 같은 응급 신호와 대처만 써."""
+
+
+# 진단 요청 답변에 이런 판정 문장이 남으면 한 번 다시 쓰게 한다
+DIAG_BANNED = (r"(고혈압|당뇨병?|비만|저혈당|고혈당|혈당 ?장애)[^.,]{0,12}(에 해당|해당합니다|해당됩니다|입니다|으로 보(이|일)|로 보(이|일)|분류|간주|판단됩니다|가능성|의심됩니다)"
+               r"|있는 것으로 보|상태로 보(이|일)")
+
+
+# 약·인슐린을 조절하라는 문장이 의료진 언급 없이 나오면 한 번 다시 쓰게 한다 (경계 위반)
+MED_ADJUST = r"(인슐린|혈압약|약물?)[을를은는이가]?\s?(\S+\s){0,2}(조절|추가|감량|증량|줄이|늘리|끊|중단|더 맞)"
+
+
+MED_CHECK_PROMPT = """트레이너용 답변의 문장들을 보고, 트레이너나 회원에게 약·인슐린을 줄이거나 늘리거나 추가하거나 끊도록
+권하는 문장이 있는지 판정한다. 다음은 위반이 아니다: 약 조절은 의료진과 상의하라는 문장, 임의로 끊으면 안 된다는 문장,
+'인슐린이 조절된 상태라면'처럼 상태를 말하는 문장, 약 사용 여부·용량을 확인하라는 문장.
+JSON으로만 답한다: {"violation": true | false, "sentence": "위반 문장 (없으면 빈 문자열)"}"""
+
+
+def med_violation(client, answer):
+    """의료진에게 넘기지 않고 약·인슐린 조절을 권하는 문장 (없으면 None).
+    정규식으로 후보 문장을 고르고, 후보가 있을 때만 판정기로 확인한다."""
+    sents = [x.strip() for x in re.split(r"(?<=[.다요])\s+|\n", answer.split("**근거**")[0])]
+    cands = [x for x in sents if re.search(MED_ADJUST, x)]
+    if not cands:
+        return None
+    resp = client.chat.completions.create(
+        model=MODEL, temperature=0, response_format={"type": "json_object"},
+        messages=[{"role": "system", "content": MED_CHECK_PROMPT}, {"role": "user", "content": "\n".join(cands)}])
+    try:
+        out = json.loads(resp.choices[0].message.content)
+    except json.JSONDecodeError:
+        return None
+    return (out.get("sentence") or "위반 문장") if out.get("violation") else None
+
+
+def ask(client, question, chunks, extra=""):
     user = f"[근거]\n{build_context(chunks)}\n\n[질문]\n{question}"
     resp = client.chat.completions.create(
         model=MODEL,
         temperature=TEMPERATURE,
-        messages=[{"role": "system", "content": SYSTEM_PROMPT},
+        messages=[{"role": "system", "content": SYSTEM_PROMPT + extra},
                   {"role": "user", "content": user}],
     )
     return re.sub(r"(?m)^(\s*)- - ", r"\1- ", resp.choices[0].message.content)
@@ -105,10 +149,15 @@ SCOPE_PROMPT = """너는 질문이 운동지도 보조 도구의 범위 안인�
 JSON으로만 답한다: {"scope": "in" | "partial" | "out", "in_scope": [범위 안 주제], "out_of_scope": [범위 밖 질환],
  "in_scope_question": "partial일 때 범위 밖 질환을 빼고 다시 쓴 질문 (나머지 조건은 그대로)", "reason": "한 문장"}
 예시: "비만이면서 무릎 관절염이 있는 회원의 운동은?" → partial, in_scope_question: "비만이 있는 회원의 운동은 어떻게 하나요?"
+예시: "신장 질환 때문에 이차성 고혈압이 생긴 회원이 일반 고혈압처럼 운동하겠대요" → partial, out_of_scope: ["신장 질환"],
+ in_scope_question: "이차성 고혈압이 있는 회원이 일반 고혈압 회원처럼 운동하겠대요. 어떻게 생각해?" (원인 질환이 범위 밖이어도 범위 질환은 답한다)
 """
 
 # 질문에 이 단어가 있으면 범위 질환이 언급된 것으로 보고 '범위 밖'으로 막지 않는다 (판정기 오판 대비)
 SCOPE_TERMS = r"당뇨|혈당|인슐린|비만|체중|과체중|고혈압|혈압|diabet|obes|hypertens"
+# 질문에 이 질환이 진단명으로 나오면 판정기가 '범위 안'이라 해도 '일부만 범위 안'으로 바꾼다 (판정기 오판 대비)
+# 심장은 넣지 않는다: "심장에 문제 있는 거 아니냐"처럼 걱정만 하는 질문이 많아서
+OUT_DISEASES = r"신장 ?질환|신부전|콩팥|투석|관절염|디스크|골다공증|오십견|회전근개|골절"
 
 
 def check_scope(client, question):
@@ -131,6 +180,11 @@ def check_scope(client, question):
         scope["reason"] = "질문에 범위 질환이 없음. " + scope.get("reason", "")
     if scope["scope"] == "partial" and not scope["out_of_scope"]:
         scope["scope"] = "in"
+    found = re.findall(OUT_DISEASES, question)
+    if scope["scope"] == "in" and found:
+        scope["scope"] = "partial"
+        scope["out_of_scope"] = sorted(set(found))
+        scope["reason"] = f"범위 밖 질환({', '.join(scope['out_of_scope'])})이 함께 나옴. " + scope.get("reason", "")
     return scope
 
 
@@ -156,12 +210,23 @@ def run(question, retriever, client, k=10, per_doc=2, public=5, translate=True):
         asked = scope["in_scope_question"].strip()
     query_en = translate_query(asked) if translate else None
     chunks = retriever.search(asked, k=k, per_doc=per_doc, public=public, query_en=query_en)
-    answer = ask(client, asked, chunks)
+    diagnosis = bool(re.search(DIAG_TERMS, question))
+    extra = DIAG_RULE if diagnosis else ""
+    if scope["scope"] == "partial":   # 다시 쓴 질문에 범위 밖 질환이 남아 있어도 조언하지 않도록
+        extra += f"\n[범위 밖 질환] {', '.join(scope['out_of_scope'])}에 대한 운동 조언이나 판정은 하지 마. 그 질환 때문에 생긴 범위 질환(예: 이차성 고혈압)은 답하되, 원인 질환 자체의 관리는 의료진에게 넘겨."
+    answer = ask(client, asked, chunks, extra)
+    bad = med_violation(client, answer)
+    if bad:
+        answer = ask(client, asked, chunks, extra + f"\n- 직전 답변에 약·인슐린 조절을 권하는 문장('{bad[:60]}')이 있었어. 약·인슐린 조절은 담당 의료진과 상의하라고만 쓰고 다시 써.")
+    if diagnosis and re.search(DIAG_BANNED, answer.split("**근거**")[0]):
+        hit = re.search(DIAG_BANNED, answer).group(0)
+        answer = ask(client, asked, chunks, extra + f"\n- 직전 답변에 회원을 판정하는 표현('{hit}')이 있었어. 이번에는 회원의 수치를 기준에 대어 판정하지 말고 다시 써.")
     if scope["scope"] == "partial":
         topics = ", ".join(scope["out_of_scope"])
         answer += (f"\n\n※ 범위 밖 주제({topics})는 답하지 않았습니다. 이 도구는 당뇨·비만·고혈압만 다룹니다. "
                    f"해당 질환에 맞는 운동은 의료기관이나 해당 분야 전문가와 상의해 주세요.")
-    return {"scope": scope, "asked": asked, "query_en": query_en, "chunks": chunks, "answer": answer}
+    return {"scope": scope, "asked": asked, "query_en": query_en, "chunks": chunks, "answer": answer,
+            "diagnosis_request": diagnosis}
 
 
 def main():
@@ -179,7 +244,7 @@ def main():
     df = pd.read_csv(args.questions, encoding="utf-8-sig", dtype=str).fillna("")
     print(f"질문 {len(df)}개, 모델 {MODEL}, 인덱스 {args.strategy}, 상위 {args.k}개\n")
 
-    answers, sources, scopes = [], [], []
+    answers, sources, scopes, asked = [], [], [], []
     for _, row in df.iterrows():
         print(f"[{row['번호']}/{len(df)}] {row['질문'][:30]}...")
         try:
@@ -188,14 +253,17 @@ def main():
             answers.append(res["answer"])
             sources.append("\n".join(f"[{c['rank']}] {cite(c)} ({c['score']:.2f})" for c in res["chunks"]))
             scopes.append(f"{res['scope']['scope']}: {res['scope'].get('reason', '')}")
+            asked.append(res["asked"] or "")
         except Exception as e:  # 한 문항이 실패해도 나머지는 계속
             answers.append(f"ERROR: {e}")
             sources.append("")
             scopes.append("")
+            asked.append("")
             print(f"  실패: {e}")
         time.sleep(0.5)
 
     df["범위판정"] = scopes
+    df["검색질문"] = asked      # 일부만 범위 안이면 범위 밖 질환을 뺀 질문
     df["답변"] = answers
     df["검색결과"] = sources
     df["모델"] = MODEL
