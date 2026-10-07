@@ -20,7 +20,7 @@ from pathlib import Path
 import pandas as pd
 
 from blank_test import MODEL, QUESTIONS_PATH, RESULTS_DIR, TEMPERATURE
-from rag import Retriever, _client, cite, translate_query
+from rag import Retriever, _client, cite, search_text, translate_query
 
 SYSTEM_PROMPT = """너는 당뇨·비만·고혈압이 있는 회원을 지도하는 트레이너를 돕는 운동생리 보조 AI야.
 트레이너는 회원의 질환과 유형, 연령, 성별, 운동 경력이 조합된 구체적인 상황을 물어. 운동 방법을 처음부터 가르치는 게 아니라,
@@ -58,8 +58,11 @@ SYSTEM_PROMPT = """너는 당뇨·비만·고혈압이 있는 회원을 지도�
 - 맨 앞 문단과 목록 항목마다 뒷받침하는 근거 번호를 [1]처럼 붙여. 근거 번호를 못 붙이는 내용은 쓰지 마.
 - [학술](논문·학회지)을 먼저 근거로 쓰고, [공공](정부 안내서) 자료는 한국 기준 수치를 보충할 때 써.
 - 문서마다 기준이 다르면 섞지 말고 출처별로 나눠서 보여줘. 같은 문서의 연도판이 여러 개면 최신판을 우선해.
+  같은 기준의 수치가 근거마다 다르면(예: 운동을 피할 공복혈당이 한 근거는 250 mg/dL, 다른 근거는 300 mg/dL) 하나만 고르지 말고
+  "[1]은 ~, [2]는 ~"처럼 둘 다 밝히고, 더 보수적인 쪽으로 지도하라고 써.
 - 근거가 다른 대상(예: 질문은 비만인데 근거는 당뇨 환자 기준)에 관한 것이면 그 점을 밝혀.
 - 영어 근거는 한국어로 옮겨서 설명해.
+- [OCR] 표시 근거는 그림 속 글자를 읽은 것이라 인식 오류가 있을 수 있어. 숫자가 단위·문맥과 맞지 않으면(예: '3002 이상') 그 숫자는 쓰지 마.
 
 범위 규칙
 - 이 도구가 다루는 것은 당뇨(1형·2형·임신당뇨와 그 합병증), 비만, 고혈압(원발성·이차성·임신 고혈압)이 있는 사람의 운동뿐이야.
@@ -119,6 +122,18 @@ def med_violation(client, answer):
     return (out.get("sentence") or "위반 문장") if out.get("violation") else None
 
 
+def drop_sentences(answer, pattern):
+    """다시 써도 남은 위반 문장을 답변 본문(근거 칸 앞)에서 뺀다"""
+    body, sep, refs = answer.partition("**근거**")
+    lines = []
+    for line in body.split("\n"):
+        parts = re.split(r"(?<=[.다요])\s+", line)
+        kept = [x for x in parts if not re.search(pattern, x)]
+        if kept or not line.strip():
+            lines.append(" ".join(kept))
+    return "\n".join(lines) + sep + refs
+
+
 def ask(client, question, chunks, extra=""):
     user = f"[근거]\n{build_context(chunks)}\n\n[질문]\n{question}"
     resp = client.chat.completions.create(
@@ -138,6 +153,7 @@ SCOPE_PROMPT = """너는 질문이 운동지도 보조 도구의 범위 안인�
 - 고혈압: 원발성·이차성·임신 고혈압, 운동 중 혈압 반응, 혈압 수치·혈압약에 관한 질문
   (진단·약 조절 요청도 주제가 고혈압·당뇨면 범위 안이다. 거절은 답변 단계에서 한다)
 - 위 질환이 있는 사람의 연령·성별·임신 조건, 운동 중 증상(어지럼, 통증, 저혈당 증상 등)도 범위 안이다.
+- 폐경·임신·노화·월경 주기 같은 생애 단계는 질환이 아니라 대상 조건이므로 범위 밖 질환으로 보지 않는다.
 범위 밖: 위 질환이 아닌 다른 질환이 질문의 주제인 경우. 근골격계 질환(관절염, 디스크, 오십견, 회전근개 파열, 골절, 부상 재활), 암, 심장·폐·신장 질환 등. 그리고 위 질환이 전혀 언급되지 않은 일반 운동 질문.
 판정:
 - in: 전부 범위 안
@@ -158,6 +174,12 @@ SCOPE_TERMS = r"당뇨|혈당|인슐린|비만|체중|과체중|고혈압|혈압
 # 질문에 이 질환이 진단명으로 나오면 판정기가 '범위 안'이라 해도 '일부만 범위 안'으로 바꾼다 (판정기 오판 대비)
 # 심장은 넣지 않는다: "심장에 문제 있는 거 아니냐"처럼 걱정만 하는 질문이 많아서
 OUT_DISEASES = r"신장 ?질환|신부전|콩팥|투석|관절염|디스크|골다공증|오십견|회전근개|골절"
+# 생애 단계는 질환이 아니라 대상 조건: 판정기가 범위 밖으로 넣어도 뺀다
+LIFE_STAGES = r"폐경|임신|노화|노인|월경|생리|사춘기|성장기"
+# 질문에 이런 회원 조건이 하나도 없으면 답변 첫머리에서 되묻게 한다
+COND_TERMS = r"\d+\s?대|\d+\s?세|노인|어르신|청소년|학생|아이|어린이|임신|남성|여성|남자|여자|부부|1형|2형|원발성|이차성|초보|숙련|경력"
+ASKBACK_RULE = """
+[조건 누락] 이 질문에는 회원의 나이·성별·질환 유형·약·운동 경력이 없어. 첫 문장은 반드시 "판단하려면 먼저 ~을(를) 확인해 주세요"로 시작해 판단에 필요한 조건을 묻고, 조건에 따라 판단이 어떻게 달라지는지 짧게 말해."""
 
 
 def check_scope(client, question):
@@ -171,7 +193,8 @@ def check_scope(client, question):
     if scope.get("scope") not in ("in", "partial", "out"):
         return {"scope": "in", "in_scope": [], "out_of_scope": [], "reason": "판정 실패 → 범위 안으로 처리"}
     # 범위 단어(혈압·비만 등)가 범위 밖 목록에 섞여 들어오면 빼고, 남은 게 없으면 범위 안
-    scope["out_of_scope"] = [t for t in scope.get("out_of_scope") or [] if not re.search(SCOPE_TERMS, t, re.I)]
+    scope["out_of_scope"] = [t for t in scope.get("out_of_scope") or []
+                             if not re.search(SCOPE_TERMS, t, re.I) and not re.search(LIFE_STAGES, t)]
     if scope["scope"] == "out" and re.search(SCOPE_TERMS, question, re.I):
         scope["scope"] = "partial" if scope["out_of_scope"] else "in"
         scope["reason"] = "범위 단어가 있어 막지 않고 답변 단계로 넘김. " + scope.get("reason", "")
@@ -196,7 +219,7 @@ def out_of_scope_message(scope):
             f"회원에게 당뇨·비만·고혈압 중 해당하는 질환이 있다면 함께 알려 주시면 그 범위 안에서 답하겠습니다.")
 
 
-def run(question, retriever, client, k=10, per_doc=2, public=5, translate=True):
+def run(question, retriever, client, k=10, per_doc=2, public=5, translate=True, public_per_doc=1):
     """범위 판정 → 검색 → 답변.
     범위 밖: 검색·답변 없이 안내 문구만.
     일부만 범위 안: 범위 밖 질환을 뺀 질문으로 검색·답변하고, 범위 밖 안내는 코드가 정해진 문구로 붙인다
@@ -208,24 +231,33 @@ def run(question, retriever, client, k=10, per_doc=2, public=5, translate=True):
     asked = question
     if scope["scope"] == "partial" and (scope.get("in_scope_question") or "").strip():
         asked = scope["in_scope_question"].strip()
-    query_en = translate_query(asked) if translate else None
-    chunks = retriever.search(asked, k=k, per_doc=per_doc, public=public, query_en=query_en)
+    text = search_text(asked)          # 질문 끝 공통 요청("지도할 때 주의해야 할 점은?")은 빼고 검색
+    query_en = translate_query(text) if translate else None
+    chunks = retriever.search(text, k=k, per_doc=per_doc, public=public, query_en=query_en,
+                              public_per_doc=public_per_doc)
     diagnosis = bool(re.search(DIAG_TERMS, question))
     extra = DIAG_RULE if diagnosis else ""
+    if not diagnosis and not re.search(r"약|진단", question) and not re.search(COND_TERMS, question):
+        extra += ASKBACK_RULE
     if scope["scope"] == "partial":   # 다시 쓴 질문에 범위 밖 질환이 남아 있어도 조언하지 않도록
         extra += f"\n[범위 밖 질환] {', '.join(scope['out_of_scope'])}에 대한 운동 조언이나 판정은 하지 마. 그 질환 때문에 생긴 범위 질환(예: 이차성 고혈압)은 답하되, 원인 질환 자체의 관리는 의료진에게 넘겨."
     answer = ask(client, asked, chunks, extra)
     bad = med_violation(client, answer)
     if bad:
         answer = ask(client, asked, chunks, extra + f"\n- 직전 답변에 약·인슐린 조절을 권하는 문장('{bad[:60]}')이 있었어. 약·인슐린 조절은 담당 의료진과 상의하라고만 쓰고 다시 써.")
+        bad = med_violation(client, answer)
+        if bad:                       # 다시 써도 남으면 그 문장을 뺀다
+            answer = drop_sentences(answer, re.escape(bad.strip()[:40]))
     if diagnosis and re.search(DIAG_BANNED, answer.split("**근거**")[0]):
         hit = re.search(DIAG_BANNED, answer).group(0)
         answer = ask(client, asked, chunks, extra + f"\n- 직전 답변에 회원을 판정하는 표현('{hit}')이 있었어. 이번에는 회원의 수치를 기준에 대어 판정하지 말고 다시 써.")
+        if re.search(DIAG_BANNED, answer.split("**근거**")[0]):
+            answer = drop_sentences(answer, DIAG_BANNED)
     if scope["scope"] == "partial":
         topics = ", ".join(scope["out_of_scope"])
         answer += (f"\n\n※ 범위 밖 주제({topics})는 답하지 않았습니다. 이 도구는 당뇨·비만·고혈압만 다룹니다. "
                    f"해당 질환에 맞는 운동은 의료기관이나 해당 분야 전문가와 상의해 주세요.")
-    return {"scope": scope, "asked": asked, "query_en": query_en, "chunks": chunks, "answer": answer,
+    return {"scope": scope, "asked": asked, "search": text, "query_en": query_en, "chunks": chunks, "answer": answer,
             "diagnosis_request": diagnosis}
 
 
@@ -236,6 +268,7 @@ def main():
     ap.add_argument("--k", type=int, default=10)
     ap.add_argument("--per-doc", type=int, default=2, help="한 문서에서 가져올 최대 청크 수")
     ap.add_argument("--public", type=int, default=5, help="최소 [공공] 청크 수 (한국 기준 수치용)")
+    ap.add_argument("--public-per-doc", type=int, default=1, help="공공 몫을 채울 때 한 문서 최대 수")
     ap.add_argument("--no-translate", action="store_true", help="영어 번역 검색 끄기")
     args = ap.parse_args()
 
@@ -249,11 +282,11 @@ def main():
         print(f"[{row['번호']}/{len(df)}] {row['질문'][:30]}...")
         try:
             res = run(row["질문"], retriever, client, k=args.k, per_doc=args.per_doc,
-                      public=args.public, translate=not args.no_translate)
+                      public=args.public, translate=not args.no_translate, public_per_doc=args.public_per_doc)
             answers.append(res["answer"])
             sources.append("\n".join(f"[{c['rank']}] {cite(c)} ({c['score']:.2f})" for c in res["chunks"]))
             scopes.append(f"{res['scope']['scope']}: {res['scope'].get('reason', '')}")
-            asked.append(res["asked"] or "")
+            asked.append(res.get("search") or "")
         except Exception as e:  # 한 문항이 실패해도 나머지는 계속
             answers.append(f"ERROR: {e}")
             sources.append("")
@@ -263,11 +296,11 @@ def main():
         time.sleep(0.5)
 
     df["범위판정"] = scopes
-    df["검색질문"] = asked      # 일부만 범위 안이면 범위 밖 질환을 뺀 질문
+    df["검색질문"] = asked      # 실제로 검색한 문장 (질문 끝 공통 요청 제외, 일부만 범위 안이면 범위 밖 질환도 뺌)
     df["답변"] = answers
     df["검색결과"] = sources
     df["모델"] = MODEL
-    df["인덱스"] = (f"{args.strategy}@{args.k}/doc{args.per_doc}/pub{args.public}"
+    df["인덱스"] = (f"{args.strategy}@{args.k}/doc{args.per_doc}/pub{args.public}/ppd{args.public_per_doc}"
                    + ("" if args.no_translate else "/en"))
     for col in ["충족수", "근거표시", "되묻기", "경계위반", "메모"]:
         df[col] = ""

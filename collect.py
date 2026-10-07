@@ -6,6 +6,8 @@ PhysiologyRAG 문서 수집기 (2단계: 데이터 구축)
   - 코드로 수집 ................. sources.csv에 적힌 출처를 자동으로 수집
   - 재실행 가능 ................. 다시 돌리면 바뀐 문서만 갱신, 이전본은 날짜 붙여 보관
   - 스캔본·깨진 문서 걸러내기 .... 쪽별 글자 수로 텍스트 없는 쪽·이미지 PDF·깨진 파일 판정
+  - OCR ........................ 본문 중 텍스트 층이 없는 쪽(글자가 그림·도형으로 들어간 쪽)은 Tesseract로 읽음
+                                   (전부 그림인 스캔본은 제외 판정 유지, 결과는 data/ocr/ 에 캐시)
   - 데이터코드 표 ............... data/manifest.csv (문서별) + data/summary.csv (출처별)
                                    + data/데이터코드표.xlsx (두 표를 엑셀 시트로)
 
@@ -29,6 +31,7 @@ import os
 import re
 import shutil
 import ssl
+import subprocess
 import sys
 import time
 import xml.etree.ElementTree as ET
@@ -52,6 +55,8 @@ ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data"
 RAW = DATA / "raw"
 TEXT = DATA / "text"
+OCR_DIR = DATA / "ocr"
+TESSDATA_BEST = ROOT / "tools" / "tessdata"   # 정밀 모델 kor·eng (tessdata_best, 저장소에는 올리지 않음)
 MANIFEST = DATA / "manifest.csv"
 SUMMARY = DATA / "summary.csv"
 XLSX = DATA / "데이터코드표.xlsx"
@@ -61,6 +66,8 @@ USER_AGENT = "PhysiologyRAG-collector/0.2 (educational project)"
 DEFAULT_DELAY = 3.0
 EMPTY_PAGE_CHARS = 20
 SCAN_RATIO = 0.9
+OCR_DPI = 500                 # 회색조 500dpi: 300dpi 컬러에서는 '250mg/dL'을 '250070/0!-'로 잘못 읽었음
+OCR_MIN_CHARS = 100           # OCR 결과가 이보다 짧으면 표지·간지로 보고 쓰지 않음
 NEAR_DUP = 0.6
 SAME_TEXT = 0.98              # 10글자 조각이 이만큼 겹치면 같은 문서로 본다
 MIN_ARTICLE_CHARS = 1500      # pmc 본문이 이보다 짧으면 '초록만'으로 판정
@@ -71,7 +78,7 @@ KDCA_API = "https://api.kdca.go.kr/api/provide/healthInfo"
 MANIFEST_FIELDS = [
     "문서ID", "출처ID", "출처명", "수집방식", "게시글제목", "URL", "원본파일명",
     "저장경로", "형식", "언어", "수집일", "SHA256", "쪽수", "글자수",
-    "텍스트없는쪽수", "텍스트없는쪽", "판정_자동", "판정사유",
+    "텍스트없는쪽수", "텍스트없는쪽", "OCR쪽", "판정_자동", "판정사유",
     "이용조건", "판정_수동", "비고",
 ]
 
@@ -642,18 +649,66 @@ def import_local(folder, rows, license_note, log, source_id="manual", source_nam
 
 
 # ── 검사와 판정 ──────────────────────────────────────
-def inspect_pdf(path, doc_id):
+def tesseract_cmd():
+    """Tesseract 실행 파일 (PATH 또는 conda 환경의 Library/bin). 없으면 None → OCR 건너뜀"""
+    exe = shutil.which("tesseract")
+    if exe:
+        return exe
+    cand = Path(sys.prefix) / "Library" / "bin" / "tesseract.exe"
+    return str(cand) if cand.exists() else None
+
+
+def ocr_page(page, doc_id, pno):
+    """텍스트 층이 없는 쪽을 회색조 그림으로 그려 Tesseract로 읽는다 (data/ocr/<문서ID>/<쪽>.txt 에 캐시).
+    200dpi·빠른 모델로 먼저 읽고, 글자가 충분할 때만(표지·간지가 아니면) 500dpi·정밀 모델로 다시 읽는다.
+    --psm 4 + preserve_interword_spaces: 한국어 띄어쓰기를 살리고 한 단 문서로 읽음"""
+    cache = OCR_DIR / doc_id / f"{pno}.txt"
+    if cache.exists():
+        return cache.read_text(encoding="utf-8")
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    png = cache.with_suffix(".png")
+
+    def run(dpi, tessdata):
+        page.get_pixmap(dpi=dpi, colorspace=pymupdf.csGRAY).save(png)
+        args = [tesseract_cmd(), str(png), "stdout", "-l", "kor+eng", "--psm", "4",
+                "-c", "preserve_interword_spaces=1"]
+        if tessdata and Path(tessdata).exists():
+            args += ["--tessdata-dir", str(tessdata)]
+        return subprocess.run(args, capture_output=True).stdout.decode("utf-8", "replace")
+
+    fast = Path(sys.prefix) / "share" / "tessdata"
+    text = run(200, fast)                    # 거친 1차: 표지·간지 거르기
+    if count_chars(text) >= OCR_MIN_CHARS:
+        text = run(OCR_DPI, TESSDATA_BEST if TESSDATA_BEST.exists() else fast)
+    png.unlink(missing_ok=True)
+    cache.write_text(text, encoding="utf-8")
+    return text
+
+
+def inspect_pdf(path, doc_id, ocr=True):
+    """쪽별 텍스트를 data/text/<문서ID>.jsonl 로 저장한다.
+    텍스트 없는 쪽은 OCR로 채우되, 거의 모든 쪽이 비어 있는 스캔본은 OCR하지 않는다(제외 판정 유지).
+    ocr=False: 완전 중복 문서처럼 쓰지 않을 문서는 OCR 시간을 쓰지 않는다."""
     try:
         doc = pymupdf.open(path)
     except Exception as e:
         return {"error": f"PDF 열기 실패: {e}"}
     pages = [p.get_text() for p in doc]
     counts = [count_chars(t) for t in pages]
+    empty = [i + 1 for i, c in enumerate(counts) if c < EMPTY_PAGE_CHARS]
+    done = []
+    if ocr and empty and len(empty) / len(pages) < SCAN_RATIO and tesseract_cmd():
+        for pno in empty:
+            t = ocr_page(doc[pno - 1], doc_id, pno)
+            if count_chars(t) >= OCR_MIN_CHARS:
+                pages[pno - 1] = t
+                done.append(pno)
     with open(TEXT / f"{doc_id}.jsonl", "w", encoding="utf-8") as f:
         for i, t in enumerate(pages, 1):
-            f.write(json.dumps({"page": i, "text": t}, ensure_ascii=False) + "\n")
-    return {"pages": len(pages), "chars": sum(counts), "text": "\n".join(pages),
-            "empty": [i + 1 for i, c in enumerate(counts) if c < EMPTY_PAGE_CHARS]}
+            f.write(json.dumps({"page": i, "text": t, **({"ocr": True} if i in done else {})},
+                               ensure_ascii=False) + "\n")
+    return {"pages": len(pages), "chars": sum(count_chars(t) for t in pages), "text": "\n".join(pages),
+            "empty": empty, "ocr": done}
 
 
 def doc_text(row):
@@ -680,7 +735,7 @@ def judge_all(rows):
         doc_id, ftype = row["문서ID"], row["형식"]
         info = {}
         if ftype == "pdf":
-            info = inspect_pdf(ROOT / row["저장경로"], doc_id)
+            info = inspect_pdf(ROOT / row["저장경로"], doc_id, ocr=row["SHA256"] not in by_sha)
         elif ftype in ("web", "pmc", "kdca"):
             t = doc_text(row)
             info = {"pages": 1, "chars": count_chars(t), "text": t, "empty": []}
@@ -689,6 +744,7 @@ def judge_all(rows):
         row["글자수"] = info.get("chars", "")
         row["텍스트없는쪽수"] = len(empty) if info and "error" not in info else ""
         row["텍스트없는쪽"] = ",".join(map(str, empty))
+        row["OCR쪽"] = ",".join(map(str, info.get("ocr", [])))
         row["언어"] = language_of(info.get("text", "")[:20000])
 
         verdict, reason = "사용", ""
@@ -714,8 +770,11 @@ def judge_all(rows):
             ratio = len(empty) / info["pages"]
             if ratio >= SCAN_RATIO:
                 verdict, reason = "제외", f"텍스트 층 없는 PDF({len(empty)}/{info['pages']}쪽) → OCR 필요"
+            elif empty and info.get("ocr"):
+                reason = f"텍스트 없는 쪽 {len(empty)}개 중 {len(info['ocr'])}개 OCR (나머지는 표지·간지·빈 쪽)"
             elif empty:
-                reason = f"텍스트 없는 쪽 {len(empty)}개 → OCR 검토"
+                reason = (f"텍스트 없는 쪽 {len(empty)}개 → 표지·간지·빈 쪽" if tesseract_cmd()
+                          else f"텍스트 없는 쪽 {len(empty)}개 → OCR 검토 (Tesseract 없음)")
         by_sha.setdefault(row["SHA256"], doc_id)
         row["판정_자동"], row["판정사유"] = verdict, reason
 

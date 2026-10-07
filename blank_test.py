@@ -1,8 +1,10 @@
 """
 빈손 테스트: 문서 없이 LLM에게만 평가셋 질문을 던져서 기준점을 잡는다.
 실행: python blank_test.py
+      python blank_test.py --questions eval/holdout.csv     # 홀드아웃 등 다른 질문 파일
 필요: .env 에 OPENAI_API_KEY, eval/questions.csv
 """
+import argparse
 import os
 import time
 from datetime import datetime
@@ -40,13 +42,16 @@ def ask(client, question):
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--questions", default=QUESTIONS_PATH, help="질문 CSV (번호, 질문 칸 필요)")
+    args = ap.parse_args()
     load_dotenv(os.path.join(BASE, ".env"))
     if not os.getenv("OPENAI_API_KEY"):
         print("키 로드 실패 - .env 확인")
         return
 
     client = OpenAI()
-    df = pd.read_csv(QUESTIONS_PATH, encoding="utf-8-sig")
+    df = pd.read_csv(args.questions, encoding="utf-8-sig")
     print(f"질문 {len(df)}개, 모델 {MODEL}\n")
 
     answers = []
@@ -67,7 +72,9 @@ def main():
 
     os.makedirs(RESULTS_DIR, exist_ok=True)
     stamp = datetime.now().strftime("%Y%m%d_%H%M")
-    out = os.path.join(RESULTS_DIR, f"blank_{MODEL}_{stamp}.csv")
+    qname = os.path.splitext(os.path.basename(args.questions))[0]
+    tag = "" if qname == "questions" else f"{qname}_"      # 기본 평가셋은 예전 파일 이름 그대로
+    out = os.path.join(RESULTS_DIR, f"blank_{MODEL}_{tag}{stamp}.csv")
     df.to_csv(out, index=False, encoding="utf-8-sig")
 
     failed = sum(a.startswith("ERROR") for a in answers)

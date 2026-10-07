@@ -104,6 +104,7 @@ with st.sidebar:
     k = st.slider("가져올 근거 수", 3, 15, 10)
     public = st.slider("공공 자료 최소 개수", 0, k, min(5, k), help="한국 기준 수치(주 150분 등)를 위해 확보")
     per_doc = st.slider("한 문서에서 최대", 1, 5, 2, help="같은 문서 조각이 상위를 독점하지 않게")
+    public_per_doc = st.slider("공공 몫: 한 문서에서 최대", 1, 5, 1, help="한 안내서가 공공 자료 몫을 독차지하지 않게")
     translate = st.toggle("영어 번역 검색", value=True, help="영어 논문을 찾기 위해 질문을 영어로도 검색")
     st.divider()
     st.caption(f"답변 모델: {MODEL} (온도 0)")
@@ -116,7 +117,7 @@ st.subheader("질문")
 source = st.radio("질문 고르기", ["직접 입력", *QUESTION_FILES], horizontal=True)
 preset = {}
 if source == "직접 입력":
-    question = st.text_area("질문", placeholder="예: 50대 고혈압 판정을 받은 숙련자 남성 회원이 중량을 더 올리고 싶다는데 어떻게 생각해?", height=80)
+    question = st.text_area("질문", placeholder="예: 50대 고혈압 판정을 받은 숙련자 남성 회원이 중량을 더 올리고 싶대요. 지도할 때 주의해야 할 점은?", height=80)
 else:
     qs = load_questions(QUESTION_FILES[source])
     labels = [f"{r['번호']}. [{r.get('질환', r.get('유형', ''))} · {r.get('대상', '')} · {r.get('유형', '')}] {r['질문']}"
@@ -132,10 +133,10 @@ else:
 if st.button("질문하기", type="primary", disabled=not question.strip()):
     with st.spinner("범위를 판정하고 근거를 찾아 답변을 만드는 중..."):
         out = run(question, load_retriever(strategy), load_client(),
-                  k=k, per_doc=per_doc, public=public, translate=translate)
+                  k=k, per_doc=per_doc, public=public, translate=translate, public_per_doc=public_per_doc)
     st.session_state["result"] = {
         "question": question, **out,
-        "settings": {"strategy": strategy, "k": k, "public": public, "per_doc": per_doc,
+        "settings": {"strategy": strategy, "k": k, "public": public, "per_doc": per_doc, "public_per_doc": public_per_doc,
                      "translate": translate, "model": MODEL, "scope": out["scope"]},
         "gold": preset.get("근거위치", ""), "saved": False,
     }

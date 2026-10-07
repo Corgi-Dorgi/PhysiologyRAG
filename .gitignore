@@ -8,3 +8,6 @@ manual_files/
 __pycache__/
 kdca_urls.txt
 logs/
+**/data/ocr/
+tools/tessdata/
+.claude/

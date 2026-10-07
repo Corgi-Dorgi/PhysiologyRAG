@@ -25,7 +25,7 @@ import pandas as pd
 
 from pathlib import Path
 
-from rag import INDEX, ROOT, EmbedCache, Retriever, translate_query
+from rag import INDEX, ROOT, EmbedCache, Retriever, search_text, translate_query
 
 QUESTIONS = ROOT / "eval" / "questions.csv"
 RESULTS = ROOT / "eval" / "results"
@@ -80,6 +80,9 @@ def main():
     ap.add_argument("--academic", type=int, default=0, help="결과 중 최소 [학술] 청크 수")
     ap.add_argument("--public", type=int, default=0, help="결과 중 최소 [공공] 청크 수 (한국어 질문 기준)")
     ap.add_argument("--translate", action="store_true", help="영어 번역 질문도 함께 검색")
+    ap.add_argument("--expand", action="store_true", help="번역 검색어에 상황이 암시하는 위험·기전 이름을 덧붙임")
+    ap.add_argument("--public-per-doc", type=int, default=None, help="공공 몫을 채울 때 한 문서 최대 수")
+    ap.add_argument("--raw", action="store_true", help="질문 끝의 공통 요청을 빼지 않고 그대로 검색")
     ap.add_argument("--questions", default=str(QUESTIONS), help="평가 질문 CSV")
     args = ap.parse_args()
 
@@ -91,7 +94,8 @@ def main():
     cache = EmbedCache()
     setting = (f"+doc{args.per_doc}" if args.per_doc else "") + (f"+ac{args.academic}" if args.academic else "") \
         + (f"+pub{args.public}" if args.public else "") \
-        + ("+en" if args.translate else "")
+        + ("+en" if args.translate else "") + ("x" if args.expand else "") \
+        + (f"+ppd{args.public_per_doc}" if args.public_per_doc else "") + ("+raw" if args.raw else "")
 
     rows = []
     for name in names:
@@ -99,9 +103,10 @@ def main():
         for _, q in qs.iterrows():
             gold = parse_gold(q["근거위치"])
             reachable = any(hits(c, gold) for c in ret.chunks)
-            en = translate_query(q["질문"]) if args.translate else None
-            top = ret.search(q["질문"], k=args.k, per_doc=args.per_doc,
-                             academic=args.academic, public=args.public, query_en=en)
+            text = q["질문"] if args.raw else search_text(q["질문"])
+            en = translate_query(text, expand=args.expand) if args.translate else None
+            top = ret.search(text, k=args.k, per_doc=args.per_doc, academic=args.academic,
+                             public=args.public, query_en=en, public_per_doc=args.public_per_doc)
             first = next((c["rank"] for c in top if hits(c, gold)), None)
             rows.append({
                 "전략": name + setting, "번호": q["번호"], "유형": q["유형"], "질문": q["질문"],

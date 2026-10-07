@@ -89,6 +89,26 @@ def load_pages(row):
     return [(0, txt.read_text(encoding="utf-8"))]
 
 
+def ocr_pages(doc_id):
+    """collect.py가 OCR로 채운 쪽 번호 (data/text/<문서ID>.jsonl 의 "ocr": true)"""
+    jl = TEXT / f"{doc_id}.jsonl"
+    if not jl.exists():
+        return set()
+    return {d["page"] for d in map(json.loads, jl.open(encoding="utf-8")) if d.get("ocr")}
+
+
+def clean_ocr(text, edges):
+    """OCR 쪽의 잡음 줄 정리: 머리말이 조금 깨져 섞인 줄, 글자·숫자가 2개 이하인 줄(선·기호 오인식)"""
+    keep = []
+    for line in text.split("\n"):
+        if any(e in line for e in edges if len(e) >= 10):
+            continue
+        if len(re.findall(r"[가-힣A-Za-z0-9]", line)) <= 2:
+            continue
+        keep.append(line)
+    return "\n".join(keep)
+
+
 # ── 정제 ─────────────────────────────────────────────
 def normalize(text):
     text = text.replace(" ", " ").replace("　", " ")
@@ -197,11 +217,13 @@ def parse_doc(row):
         return units
     edges = repeated_edges(pages)
     offset = page_number_offset(pages)
+    ocr = ocr_pages(row["문서ID"])
     for idx, t in pages:
-        paras = clean_page(t, edges)
+        paras = clean_page(clean_ocr(t, edges) if idx in ocr else t, edges)
         if not paras:
             continue
-        units.append({"page": idx, "label": str(idx + offset), "section": "", "paras": paras})
+        units.append({"page": idx, "label": str(idx + offset), "section": "", "paras": paras,
+                      **({"ocr": True} if idx in ocr else {})})
     return units
 
 
@@ -286,7 +308,10 @@ def build(strategy, docs):
         else:
             gen = chunks_fixed(row, units, strategy == "fixed_ctx")
         doc_tags = {"doc_type": doc_type(row), "diseases": tags(DISEASE_TAGS, row_title_text(row))}
+        ocr = {u["page"] for u in units if u.get("ocr")}
         for n, c in enumerate(gen, 1):
+            if any(p in ocr for p in range(c["page"], c.get("page_end", c["page"]) + 1)):
+                c["ocr"] = True            # 글자 인식 오류가 있을 수 있는 근거 (인용에 'OCR' 표시)
             c.update({"chunk_id": f"{row['문서ID']}#{n:04d}", "doc_id": row["문서ID"],
                       "title": display_title(row), "lang": row.get("언어", ""), **doc_tags,
                       "groups": tags(GROUP_TAGS, c["text"])})
